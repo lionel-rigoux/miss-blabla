@@ -27,6 +27,9 @@ gem 'jquery-rails', '2.2.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+gem 'haml'
+gem 'haml-rails', :group => :development
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 
 ruby '2.0.0'

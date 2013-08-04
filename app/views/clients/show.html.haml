@@ -1,0 +1,40 @@
+%h1 Détail du contact (#{@client.niveau})
+= link_to 'Retour', clients_path
+
+= flash[:notice] || " "
+
+
+%h2 Coordonnées
+= link_to "Modifier les coordonnées", edit_client_path(@client) 
+
+%table
+  %tr
+    %td Nom
+  %tr
+    %td= @client.nom
+  - if @client.niveau == "client"
+    %tr
+      %td Siren:
+    %tr
+      %td= @client.siren
+  %tr
+    %td Adresse de contact
+  %tr
+    %td
+      :plain
+        #{to_html(@client.adresse_1)}
+
+  - if @client.niveau == "client"
+    %tr
+      %td Adresse de livraison
+    %tr
+      %td
+        :plain
+          #{to_html(@client.adresse_2)}
+
+
+
+
+
+
+	 

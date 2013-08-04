@@ -1,0 +1,20 @@
+= form_for @client, :method=>(@client.id ? :put : :post) do |f|
+  = hidden_field_tag "client[id]", @client.id
+  = hidden_field_tag "client[parent_id]", @client.parent_id || 0
+  = hidden_field_tag "client[niveau]",  @client.niveau
+
+  = label :client, :title, 'Nom / Société'
+  = text_field :client, 'nom', :size => '30'
+
+  - if @client.niveau == "client"
+    = label :client, :siren, 'Numéro Siren'
+    = number_field :client, 'siren'
+  
+  = label :client, :adresse_1, 'Adresse 1 (facturation)'
+  = text_area :client, :adresse_1, size: "30x6"
+
+  - if @client.niveau == "client"
+    = label :client, :adresse_2, 'Adresse 2 (livraison)'
+    = text_area :client, :adresse_2, size: "30x6"
+
+  = submit_tag 'Enregistrer'

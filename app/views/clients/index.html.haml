@@ -1,0 +1,37 @@
+%h1 Carnet d'adresse
+
+%h2 Clients
+= link_to 'Ajouter un client', new_client_path("client[niveau]"=>"client")
+
+%table
+  %tr
+    %th Nom
+    %th N° Siren
+    %th Adresse (facturation)
+    %th Adresse (livraison)
+
+  - @clients.each do |client|
+    %tr
+      %td= link_to client.nom, client_path(client)
+      %td= client.siren
+      %td
+        :plain
+          #{to_html(client.adresse_1)}
+      %td
+        :plain
+          #{to_html(client.adresse_2)}
+
+
+%h2 Agents
+= link_to 'Ajouter un agent', new_client_path("client[niveau]"=>"agent")
+
+%table
+  %tr
+    %th Nom
+    %th Adresse
+
+  - @agents.each do |client|
+    %tr
+      %td= link_to client.nom, client_path(client)
+      %td~ client.adresse_1
+
