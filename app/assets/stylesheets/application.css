@@ -11,5 +11,157 @@
  *= require_self
  *= require_tree .
  */
- = require_self
- = require_tree
+* {padding: 0;}
+html, body {
+  margin: 0;
+  height: 96%; 
+  padding: 0;
+  background: #444454;
+  color: #DDDDDD;
+  font-family: Verdana, sans-serif;
+  font-size: 10pt;
+}
+
+
+div#main {
+  margin: 10px auto 10px auto;
+  width: 650px;
+  height: auto !important; 
+  height: 100%; 
+  min-height: 100%;
+  padding: 10px 20px 20px  20px;
+  background: #333343;
+
+}
+div#title {
+  color: #B404AE;
+  font-size: 160%;
+  display: block;
+  font-weight: bold;
+  width: 100%;
+}
+div#navigation div#super {
+ color: #222232;
+}
+div#navigation {
+color: #74DF00;
+}
+div#navigation a {
+color: #088A29;
+
+}
+a {
+  background: transparent;
+  color: #7777AA;
+  text-decoration: none;
+}
+h1 {
+  color: #222232;
+  font-size: 120%;
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid #222232;
+}
+
+h2 {
+  color: #777787;
+  font-size: 110%;
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid #666677;
+}
+div.actions {
+	display:block;
+	color: #222232;
+	text-align:right;
+	margin: -30px 5px 0 0;
+}
+
+table {
+  margin: 10px 0px 0 0;
+  border-collapse: collapse;
+  width: 100%;
+  border: 0px solid #666677;
+}
+table th {
+  border: 0px ;
+  font-weight: bold;
+  color: #666676;
+  text-align: left;
+  padding: 2px;
+
+
+}
+
+table td {
+  padding: 2px;
+  text-align: left;
+  border: 1px solid #44454;
+}
+
+
+
+
+dl {
+   margin-bottom:50px;
+}
+
+
+
+
+dt, label { 
+ margin: 0; 
+ padding: 0 0 0.5em 0;
+ float: left; 
+ clear: left; 
+ width: 180px; 
+ text-align: left; 
+ font-weight: Italic; 
+  color: #666676;
+ } 
+
+dt:after, label:after { content: " :"; } 
+
+dd { 
+width:304px;
+height: 12px;
+margin: 0 0 10px 180px; 
+padding: 0 0 0.5em 0; 
+}
+
+input {
+    width:455px;
+    height: 12px;
+    margin: 2px 0 0 0;
+
+}
+
+input, textarea, select {
+    width:453px;
+    margin: 2px 0 0 0;
+	background: #666676;
+	   color: #DDDDDD;
+	   border: 0;
+	   line-height: 1;
+
+	   border-radius: 0;
+	   font-size:9pt;
+	   -webkit-appearance: none;
+   padding: 8px;
+    vertical-align: top;
+}
+
+select {
+   background: #666676;
+   color: #DDDDDD;
+   width: 470px;
+   padding: 2px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 22px;
+   font-size:9pt;
+   -webkit-appearance: none;
+   }
+
+
