@@ -1,0 +1,15 @@
+
+= form_for @agent, :method=>(@agent.id ? :put : :post) do |f|
+  = hidden_field_tag "agent[id]", @agent.id
+
+  = label :agent, :nom, 'Nom'
+  = text_field :agent, :nom
+
+
+  = label :agent, :email, 'E-mail'
+  = email_field :agent, :email
+
+  = label :agent, :adresse, 'Adresse'
+  = text_area :agent, :adresse, size: "30x6"
+
+  = submit_tag 'Enregistrer'

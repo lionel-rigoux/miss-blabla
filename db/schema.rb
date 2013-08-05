@@ -13,13 +13,22 @@
 
 ActiveRecord::Schema.define(version: 20130803174606) do
 
+  create_table "agents", force: true do |t|
+    t.string   "nom"
+    t.text     "email"
+    t.text     "adresse"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "clients", force: true do |t|
-    t.string   "niveau"
+    t.string   "societe"
     t.string   "nom"
     t.string   "siren"
+    t.string   "email"
     t.text     "adresse_1"
     t.text     "adresse_2"
-    t.integer  "parent_id"
+    t.integer  "agent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

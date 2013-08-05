@@ -1,20 +1,27 @@
 = form_for @client, :method=>(@client.id ? :put : :post) do |f|
   = hidden_field_tag "client[id]", @client.id
-  = hidden_field_tag "client[parent_id]", @client.parent_id || 0
-  = hidden_field_tag "client[niveau]",  @client.niveau
 
-  = label :client, :title, 'Nom / Société'
-  = text_field :client, 'nom', :size => '30'
+  %h2 Agent
 
-  - if @client.niveau == "client"
-    = label :client, :siren, 'Numéro Siren'
-    = number_field :client, 'siren'
+  = label :client, :agent_id, 'Client suivi par'
+  = collection_select :client, :agent_id, Agent.all, :id, :nom, promt: "Select"
+
+  %h2 Coordonnées
   
-  = label :client, :adresse_1, 'Adresse 1 (facturation)'
-  = text_area :client, :adresse_1, size: "30x6"
-
-  - if @client.niveau == "client"
-    = label :client, :adresse_2, 'Adresse 2 (livraison)'
-    = text_area :client, :adresse_2, size: "30x6"
-
-  = submit_tag 'Enregistrer'
+  = label :client, :societe, 'Société'
+  = text_field :client, :societe
+  %br
+  = label :client, :nom, 'Nom'
+  = text_field :client, :nom
+  %br
+  = label :client, :siren, 'Numéro Siren'
+  = number_field :client, 'siren'
+  %br
+  = label :client, :email, 'E-mail'
+  = email_field :client, :email
+  %br
+  = label :client, :adresse_1, 'Adresse de facturation'
+  = text_area :client, :adresse_1, size: "30x8"
+  %br
+  = label :client, :adresse_2, 'Adresse de livraison'
+  = text_area :client, :adresse_2, size: "30x8"

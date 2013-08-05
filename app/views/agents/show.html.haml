@@ -1,0 +1,27 @@
+%h1 Détail de l'agent
+= link_to 'Retour', agents_path
+
+= flash[:notice] || " "
+
+
+%h2 Coordonnées
+= link_to "Modifier les coordonnées", edit_agent_path(@agent) 
+
+%dl
+
+  %dt
+    Nom
+  %dd
+    = @agent.nom
+
+  %dt
+    Email
+  %dd
+    = @agent.email
+
+  %dt
+    Adresse
+  %dd
+    :plain
+      #{to_html(@agent.adresse)}
+

@@ -1,6 +1,5 @@
 Blabla::Application.routes.draw do
-  resources :testers
-
+  resources :agents
   resources :clients
 
   

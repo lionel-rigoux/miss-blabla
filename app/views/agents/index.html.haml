@@ -1,0 +1,18 @@
+%h1 Carnet d'adresse
+
+%h2 Agents
+= link_to 'Ajouter un agent', new_agent_path()
+
+%table
+  %tr
+    %th Nom
+    %th E-mail
+    %th Adresse
+
+  - @agents.each do |agent|
+    %tr
+      %td= link_to agent.nom, agent_path(agent)
+      %td= agent.email
+      %td
+        :plain
+          #{to_html(agent.adresse)}

@@ -1,0 +1,8 @@
+%h1 Agent
+
+= link_to 'Retour', agents_path
+%br 
+
+= render 'form'
+
+= link_to 'Supprimer', @agent, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cet agent ?' }

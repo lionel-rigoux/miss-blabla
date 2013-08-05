@@ -1,40 +1,47 @@
-%h1 Détail du contact (#{@client.niveau})
-= link_to 'Retour', clients_path
+%h1 Détail du Client
+.actions
+  = link_to 'Retour', clients_path
+  \|
+  = link_to "Modifier", edit_client_path(@client) 
+  \|
+  = link_to 'Supprimer', @client, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce client ?' }
 
-= flash[:notice] || " "
-
+%h2 Agent
+= @client.agent.nom
 
 %h2 Coordonnées
-= link_to "Modifier les coordonnées", edit_client_path(@client) 
 
-%table
-  %tr
-    %td Nom
-  %tr
-    %td= @client.nom
-  - if @client.niveau == "client"
-    %tr
-      %td Siren:
-    %tr
-      %td= @client.siren
-  %tr
-    %td Adresse de contact
-  %tr
-    %td
-      :plain
-        #{to_html(@client.adresse_1)}
+%dl
 
-  - if @client.niveau == "client"
-    %tr
-      %td Adresse de livraison
-    %tr
-      %td
-        :plain
-          #{to_html(@client.adresse_2)}
+  %dt
+    Société
+  %dd
+    = @client.societe
 
+  %dt
+    Nom
+  %dd
+    = @client.nom
 
+  %dt
+    Numéro Siren
+  %dd
+    = @client.siren
 
+  %dt
+    E-mail
+  %dd
+    = @client.email
 
+  %dt
+    Adresse de facturation
+  %dd
+    :plain
+      #{to_html(@client.adresse_1)}
 
-
+  %dt
+    Adresse de livraison
+  %dd
+    :plain
+      #{to_html(@client.adresse_2)}
 	 

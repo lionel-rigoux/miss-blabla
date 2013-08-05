@@ -3,13 +3,12 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    @clients = Client.all_clients
-    @agents  = Client.all_agents
+    @clients = Client.all
   end
 
   # GET /clients/new
   def new
-    @client = Client.new(client_params)
+    @client = Client.new()
   end
   
   def show
@@ -21,7 +20,7 @@ class ClientsController < ApplicationController
 
   # POST /clients
   def create    
-    @client = Client.create(client_params)
+    @client = Client.create(client_params.permit!)
     if @client.id
       flash[:notice] = 'Le contact a bien été ajouté à la base de données !'
         redirect_to clients_path
@@ -32,8 +31,8 @@ class ClientsController < ApplicationController
 
   # PUT /clients/1
   def update
-      if @client.update(client_params)
-        flash[:notice] = 'Client was successfully updated.'
+      if @client.update(client_params.permit!)
+        flash[:notice] = 'Le client a bien été modifié.'
         redirect_to @client
       else
         render action: 'edit'
@@ -43,18 +42,17 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   def destroy
     @client.destroy
-    flash[:notice] = 'Le contact a été supprimé.'
     redirect_to clients_url
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
-      @client = Client.find(params[:id])
+      @client = Client.find(params[:id], include: [:agent])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params[:client].permit!
+      params[:client]
     end
 end
