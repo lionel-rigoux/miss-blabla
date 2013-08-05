@@ -1,11 +1,12 @@
-%h1 Détail de l'agent
-= link_to 'Retour', agents_path
-
-= flash[:notice] || " "
-
+%h1 Agents :: détails
+.actions
+  = link_to 'Retour', agents_path
+  \|
+  = link_to "Modifier", edit_agent_path(@agent) 
+  \|
+  = link_to 'Supprimer', @agent, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cet agent ?' }
 
 %h2 Coordonnées
-= link_to "Modifier les coordonnées", edit_agent_path(@agent) 
 
 %dl
 
@@ -15,7 +16,7 @@
     = @agent.nom
 
   %dt
-    Email
+    E-mail
   %dd
     = @agent.email
 
@@ -24,4 +25,4 @@
   %dd
     :plain
       #{to_html(@agent.adresse)}
-
+	 

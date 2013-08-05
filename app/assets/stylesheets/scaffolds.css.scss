@@ -27,17 +27,27 @@ div#title {
   font-weight: bold;
   width: 100%;
 }
+div#navigation div#super {
+ color: #222232;
+}
+div#navigation {
+color: #74DF00;
+}
+div#navigation a {
+color: #088A29;
+
+}
 a {
   background: transparent;
   color: #7777AA;
   text-decoration: none;
 }
 h1 {
-  color: #9999A9;
-  font-size: 140%;
+  color: #222232;
+  font-size: 120%;
   display: block;
   width: 100%;
-  border-bottom: 1px solid #666677;
+  border-bottom: 2px solid #222232;
 }
 
 h2 {
@@ -45,14 +55,13 @@ h2 {
   font-size: 110%;
   display: block;
   width: 100%;
-  border-bottom: 1px solid #666677;
+  border-bottom: 2px solid #666677;
 }
 div.actions {
 	display:block;
-	align: right;
+	color: #222232;
 	text-align:right;
-	width: 100%;
-	margin-top: -8px;
+	margin: -30px 5px 0 0;
 }
 
 table {

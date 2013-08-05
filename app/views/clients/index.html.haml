@@ -1,19 +1,18 @@
-%h1 Carnet d'adresse
+%h1 Clients
 
-%h2 Clients
 = link_to ' + Ajouter un client', new_client_path()
 
 %table
   %tr
-    %th 
+    %th{width: "20px;"}
+    %th{width: "150px;"} Nom
+    %th{width: "200px;"} E-mail
     %th Societe
-    %th Nom
-    %th E-mail
 
   - @clients.each do |client|
     %tr
       %td= link_to ">", client_path(client)
-      %td= client.societe
       %td= client.nom
       %td= client.email
+      %td= client.societe
 

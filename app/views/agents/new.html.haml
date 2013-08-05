@@ -1,5 +1,7 @@
-%h1 Nouvel agent
+%h1 Agent :: nouveau
+.actions
+  = link_to 'Annuler', agents_path
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
 
 = render 'form'
-
-= link_to 'Back', agents_path

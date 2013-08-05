@@ -1,8 +1,8 @@
-%h1 Agent
+%h1 Agents :: modification
+.actions
+  = link_to 'Annuler', agent_path(@agent)
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
 
-= link_to 'Retour', agents_path
-%br 
 
 = render 'form'
-
-= link_to 'Supprimer', @agent, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cet agent ?' }
