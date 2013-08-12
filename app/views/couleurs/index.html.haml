@@ -1,0 +1,15 @@
+%h1 Catalogue
+
+%h2 Couleurs
+.actions
+  = link_to ' + Ajouter une couleur', new_couleur_path()
+
+%table
+  %tr
+    %th{width: "20px;"}
+    %th Intitulé
+
+  - @couleurs.each do |couleur|
+    = render 'couleur', :@couleur=>couleur
+
+

@@ -1,0 +1,9 @@
+%h1 Couleur :: modification
+.actions
+  = link_to 'Annuler', couleurs_path
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
+  \|
+  = link_to 'Supprimer', @couleur, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cette couleur ?' }
+
+= render 'form'

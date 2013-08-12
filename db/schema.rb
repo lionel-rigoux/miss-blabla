@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130803174606) do
+ActiveRecord::Schema.define(version: 20130812102042) do
 
   create_table "agents", force: true do |t|
     t.string   "nom"
     t.text     "email"
-    t.text     "adresse"
+    t.string   "telephone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,9 +26,44 @@ ActiveRecord::Schema.define(version: 20130803174606) do
     t.string   "nom"
     t.string   "siren"
     t.string   "email"
+    t.string   "telephone"
     t.text     "adresse_1"
     t.text     "adresse_2"
     t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "couleurs", force: true do |t|
+    t.string   "nom"
+    t.integer  "saison_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "modeles", force: true do |t|
+    t.string   "numero"
+    t.string   "nom"
+    t.string   "taille_min"
+    t.string   "taille_max"
+    t.float    "prix"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patrons", force: true do |t|
+    t.string   "societe"
+    t.string   "siren"
+    t.text     "adresse"
+    t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "versions", force: true do |t|
+    t.integer  "modele_id"
+    t.integer  "couleurs_1_id"
+    t.integer  "couleurs_2_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

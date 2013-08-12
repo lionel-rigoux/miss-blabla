@@ -1,0 +1,7 @@
+%h1 Informations :: modification
+.actions
+  = link_to 'Annuler', patrons_path
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
+
+= render 'form'

@@ -1,0 +1,25 @@
+%h1 Catalogue
+
+%h2 Modèls
+.actions
+  = link_to ' + Ajouter un modèle', new_modele_path()
+
+%table
+  %tr
+    %th{width: "20px;"}
+    %th{width: "30px;"} Id
+    %th{width: "160px;"} Nom
+    %th{width: "80px;"} Tailles
+    %th{width: "60px;"} P.U. H.T.
+    %th Versions
+
+  - @modeles.each do |modele|
+    %tr
+      %td= link_to '>', modele_path(modele)
+      %td= modele.numero
+      %td= modele.nom
+      %td= "#{modele.taille_min} -> #{modele.taille_max}"
+      %td= "#{modele.prix}"
+      %td= modele.liste_versions
+
+

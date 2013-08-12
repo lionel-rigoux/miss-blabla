@@ -7,9 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="main">
+	<div id="header">
 <div id="title">Le repère de Miss BlaBla</div>
+</div>
 <%= render :partial => 'menu' %>
+<div id="main">
 <%= yield %>
 </div>
 </body>

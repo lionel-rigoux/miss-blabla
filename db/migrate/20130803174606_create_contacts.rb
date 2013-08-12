@@ -3,7 +3,7 @@ class CreateContacts < ActiveRecord::Migration
     create_table :agents do |t|
         t.string  :nom
         t.text    :email
-        t.text    :adresse
+        t.string  :telephone
         t.timestamps
       end
       
@@ -12,6 +12,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string  :nom
       t.string  :siren
       t.string  :email
+      t.string  :telephone
       t.text    :adresse_1
       t.text    :adresse_2
       t.belongs_to :agent

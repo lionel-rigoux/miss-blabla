@@ -1,0 +1,23 @@
+= form_for @patron, :method=>:put do |f|
+  = f.hidden_field :id
+
+
+  %h2 Coordonnées
+  = f.fields_for :agent do |ff|  
+    = ff.label :nom, 'Nom'
+    = ff.text_field :nom
+    %br
+    = ff.label :email, 'E-mail'
+    = ff.email_field :email
+    %br
+    = ff.label :telephone, 'Téléphone'
+    = ff.text_field  :telephone
+    %br
+  = f.label  :societe, 'Société'
+  = f.text_field :societe
+  %br
+  = f.label :siren, 'Numéro Siren'
+  = f.number_field :siren
+  %br
+  = f.label :adresse, 'Adresse'
+  = f.text_area :adresse, size: "30x8"

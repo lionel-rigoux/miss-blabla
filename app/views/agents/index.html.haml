@@ -1,6 +1,6 @@
 %h1 Agents
-
-= link_to ' + Ajouter un agent', new_agent_path()
+.actions
+  = link_to ' + Ajouter un agent', new_agent_path()
 
 %table
   %tr
@@ -10,7 +10,10 @@
 
   - @agents.each do |agent|
     %tr
-      %td= link_to ">", agent_path(agent)
+      - if agent.patron.nil?
+        %td= link_to  ">", agent_path(agent)
+      - else
+        %td
       %td= agent.nom
       %td= agent.email
 

@@ -1,3 +1,6 @@
 #navigation
+  = link_to_unless(current_page?(controller: "couleurs"),"couleurs",couleurs_path)     
+  = link_to_unless_current("modèles", {:controller => "modeles"})     
   = link_to_unless_current("clients", {:controller => "clients"})     
   = link_to_unless_current("agents", {:controller => "agents"})     
+  = link_to_unless_current("infos", {:controller => "patrons"})     

@@ -1,0 +1,6 @@
+= form_for @couleur, :method=>(@couleur.id ? :put : :post) do |f|
+  = hidden_field_tag "couleur[id]", @couleur.id
+  
+  %br
+  = label :couleur, :nom, 'Intitulé'
+  = text_field :couleur, :nom

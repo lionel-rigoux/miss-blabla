@@ -1,0 +1,39 @@
+%h1 Informations personnelles
+
+%h2 Coordonnées
+.actions
+  = link_to "Modifier", edit_patron_path(@patron) 
+
+%dl
+
+  %dt
+    Nom
+  %dd
+    = @patron.agent.nom
+
+  %dt
+    E-mail
+  %dd
+    = @patron.agent.email
+  
+  %dt
+    Téléphone
+  %dd
+    = @patron.agent.telephone
+    
+  %dt
+    Société
+  %dd
+    = @patron.societe
+    
+  %dt
+    Numéro Siren
+  %dd
+    = @patron.siren
+ 
+  %dt
+    Adresse
+  %dd
+    :plain
+      #{to_html(@patron.adresse)}
+

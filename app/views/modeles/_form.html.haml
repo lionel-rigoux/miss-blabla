@@ -1,0 +1,24 @@
+= form_for @modele, :method=>(@modele.id ? :put : :post) do |f|
+  = hidden_field_tag "modele[id]", @modele.id
+
+  %h2 Descriptif
+
+  = label :modele, :numero, 'Numéro'
+  = text_field :modele, :numero
+  
+  = label :modele, :nom, 'Nom'
+  = text_field :modele, :nom
+
+  = label :modele, :tailles, 'Tailles'
+  %table
+    %tr
+      %td entre
+      %td= select :modele, :taille_min, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
+      %td{width: "30px;"} et
+      %td= select :modele, :taille_max, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
+  
+  = label :modele, :prix, 'Prix Unitaire HT'
+  = text_field :modele, :prix
+  
+      
+          

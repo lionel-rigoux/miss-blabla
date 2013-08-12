@@ -1,0 +1,14 @@
+= form_for @version, :method=>(@version.id ? :put : :post) do |f|
+  = hidden_field_tag "version[modele_id]", @modele.id
+  -#= hidden_field_tag "version[numero_version]", (@version.numero_version || @modele.nombre_versions+1)
+  
+  %h2 Modèle
+  = "#{@modele.numero} :: #{@modele.nom}"
+  
+  %h2 Couleurs
+
+  = label :version, :couleurs_1_id, 'Couleur principale'
+  = collection_select :version, :couleurs_1_id, Couleur.liste, :id, :nom
+
+  = label :version, :couleurs_2_id, 'Couleur secondaire'
+  = collection_select :version, :couleurs_2_id, Couleur.liste, :id, :nom, :include_blank=>true

@@ -1,4 +1,14 @@
 Blabla::Application.routes.draw do
+  resources :patrons
+
+  resources :infos
+
+  resources :versions
+
+  resources :modeles
+
+  resources :couleurs
+
   resources :agents
   resources :clients
 
