@@ -1,0 +1,21 @@
+%h1 Commandes
+.actions
+  = link_to ' + Ajouter une comande', new_commande_path()
+
+%table
+  %tr
+    %th{width: "20px;"}
+    %th{width: "160px;"} Client
+    %th{width: "90px;"} Date
+    %th{width: "70px;"} Total HT.
+    %th{width: "80px;"} Référence
+    %th{width: "120px;"} Statut
+
+  - @commandes.each do |commande|
+    %tr
+      %td= link_to ">", commande_path(commande)
+      %td= commande.client.societe
+      %td= commande.date
+      %td!= "#{commande.montant} &#x20AC;"
+      %td= commande.reference
+      %td= commande.info

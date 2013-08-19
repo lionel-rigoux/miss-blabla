@@ -1,0 +1,9 @@
+%h1 Rentrée de stock
+.actions
+  = link_to 'Annuler', stocks_path
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
+  
+-if @production
+  = render 'form_production'
+

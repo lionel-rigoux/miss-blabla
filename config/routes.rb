@@ -1,4 +1,15 @@
 Blabla::Application.routes.draw do
+
+  resources :stocks
+
+  resources :quantites
+
+  root 'commandes#index'
+
+  resources :productions
+
+  resources :commandes
+
   resources :patrons
 
   resources :infos

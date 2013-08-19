@@ -26,35 +26,29 @@ class ModelesController < ApplicationController
   def create
     @modele = Modele.new(modele_params)
 
-    respond_to do |format|
       if @modele.save
         redirect_to modele_path(@modele)
       else
         render action: 'new' 
       end
-    end
   end
 
   # PATCH/PUT /modeles/1
   # PATCH/PUT /modeles/1.json
   def update
-    respond_to do |format|
       if @modele.update(modele_params)
-        redirect_to modele_path(@version.modele)
+        redirect_to modele_path(@modele)
       else
         render action: 'edit'
       end
-    end
+    
   end
 
   # DELETE /modeles/1
   # DELETE /modeles/1.json
   def destroy
     @modele.destroy
-    respond_to do |format|
-      format.html { redirect_to modeles_url }
-      format.json { head :no_content }
-    end
+    redirect_to modeles_url
   end
 
   private

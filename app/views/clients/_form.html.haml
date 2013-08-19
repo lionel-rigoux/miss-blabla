@@ -11,17 +11,20 @@
   = label :client, :societe, 'Société'
   = text_field :client, :societe
   %br
-  = label :client, :nom, 'Nom'
+  = label :client, :nom, 'Nom et Prénom'
   = text_field :client, :nom
   %br
-  = label :client, :siren, 'Numéro Siren'
-  = number_field :client, 'siren'
+  = label :client, :siren, 'Numéro Siret'
+  = number_field :client, 'siret'
+  %br
+  = label :client, :siren, 'Numéro TVA'
+  = number_field :client, 'tva'
   %br
   = label :client, :email, 'E-mail'
   = email_field :client, :email
   %br
   = label :client, :telephone, 'Téléphone'
-  = email_field :client, :telephone
+  = text_field :client, :telephone
   %br
   = label :client, :adresse_1, 'Adresse de facturation'
   = text_area :client, :adresse_1, size: "30x8"

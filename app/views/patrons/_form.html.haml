@@ -4,7 +4,7 @@
 
   %h2 Coordonnées
   = f.fields_for :agent do |ff|  
-    = ff.label :nom, 'Nom'
+    = ff.label :nom, 'Nom et Prénom'
     = ff.text_field :nom
     %br
     = ff.label :email, 'E-mail'
@@ -16,8 +16,14 @@
   = f.label  :societe, 'Société'
   = f.text_field :societe
   %br
-  = f.label :siren, 'Numéro Siren'
-  = f.number_field :siren
+  = f.label :siren, 'Numéro Siret'
+  = f.number_field :siret
+  %br
+  = f.label :siren, 'Numéro TVA'
+  = f.number_field :tva
+  %br
+  = f.label :siren, 'Capital'
+  = f.number_field :capital
   %br
   = f.label :adresse, 'Adresse'
   = f.text_area :adresse, size: "30x8"

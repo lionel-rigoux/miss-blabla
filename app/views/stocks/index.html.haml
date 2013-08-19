@@ -1,0 +1,16 @@
+%h1 Stocks
+
+%h2 Rentrée de stock
+- if @productions.count > 0
+  = "Receptionner une production :"
+  - @productions.each do |production|
+    %p= link_to "#{production.date}", edit_stock_path(@stock,production: production)
+- else
+  = "Pas de production en cours"
+  
+%h2 Détail
+= form_tag stocks_path, :method => :get, :id => 'stock_form' do
+  = select_tag :stock_mode, options_for_select([['Stock Réel (en réserve)','reel'],['Stock Net (commandes déduites)','net']],selected: params[:stock_mode]), :onchange => 'document.forms[0].submit();'
+
+= render "/quantites/show", :@quantite => @stock.quantite
+

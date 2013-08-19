@@ -1,0 +1,36 @@
+.title
+  Madame BlaBla
+
+.bon_production
+  %h1 Production order
+  
+  .client
+    %p= @patron.agent.nom
+    %p
+      :plain
+        #{to_html(@patron.adresse)}
+    %p= @patron.agent.telephone
+    %p= @patron.agent.email
+  
+  
+  %p.reference= Date.today.strftime('%B %d, %Y')
+  %table.commande
+    %tr.header
+      %th= 'Name'
+      %th{colspan: 7}= 'Tailles'
+      %th= 'Total'
+    - @production.modeles.each do |modele|
+      %tr.designation
+        %td= "N° #{modele.numero} - #{modele.nom}"
+        - modele.liste_taille.each do |t|
+          %td= t
+        %td= @production.quantites_totale[modele.id]
+        - modele.versions.each do |version|
+          %tr
+            %td= version.couleurs
+            - modele.liste_taille.each do |t|
+              %td= @production.quantite(modele,version,t) if t
+            %td= @production.quantite_version(version)
+
+  .footer
+  = "Total number of items: #{@production.total}"

@@ -1,0 +1,19 @@
+%table.commande
+  %tr
+    %th Désignation
+    %th{colspan: 7} Tailles
+    %th Total
+    
+  - @quantite.modeles.each do |modele|
+    %tr.designation
+      %td= "N° #{modele.numero} - #{modele.nom}"
+      - modele.liste_taille.each do |t|
+        %td= t
+      - td_for(@quantite,modele)
+      
+    - @quantite.versions(modele).each do |version|
+      %tr
+        %td= version.couleurs
+        - modele.liste_taille.each do |t|    
+          - td_for(@quantite,version,t)
+        - td_for(@quantite,version)

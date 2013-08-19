@@ -1,0 +1,41 @@
+.title
+  Madame BlaBla
+
+.bon
+  %h1 Bon de livraison
+
+  .client
+    %p= @commande.client.societe
+    %p= @commande.client.nom
+    %p
+      :plain
+        #{to_html(@commande.client.adresse_2)}
+    
+  %p.reference
+    = "Le #{Date.today.strftime('%d/%m/%Y')},"
+    = "commande n°#{@commande.reference}, pour #{@commande.client.societe}"
+    = "(SIRET: #{@commande.client.siret})." 
+  
+  %table.commande
+    %tr
+      %th= 'Désignation'
+      %th{colspan: 7}= 'Tailles'
+      %th= 'Total'
+    - @modeles.each do |modele|
+      - if @commande.quantites_totale[modele.id] > 0
+        %tr.designation
+          %td= "N° #{modele.numero} - #{modele.nom}"
+          - modele.liste_taille.each do |t|
+            %td= t
+          %td= @commande.quantites_totale[modele.id]
+        
+        - @commande.lignes_for(modele).each do |l|
+          - if l.total > 0
+            %tr
+              %td= l.version.couleurs
+              - modele.liste_taille.each do |t|
+                %td= l.quantity(t) if t
+              %td= l.total
+  
+  .footer
+    = "Nombre total de pièces : #{@commande.total}"

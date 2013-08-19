@@ -7,7 +7,10 @@
   = link_to 'Supprimer', @client, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce client ?' }
 
 %h2 Agent
-= @client.agent.nom
+- if @client.agent
+  = @client.agent.nom
+- else
+  = "Pas d'agent !"
 
 %h2 Coordonnées
 
@@ -23,10 +26,11 @@
   %dd
     = @client.nom
 
-  %dt
-    Numéro Siren
-  %dd
-    = @client.siren
+  %dt= "Numéro Siret"
+  %dd= @client.siret
+  
+  %dt= "Numéro TVA"
+  %dd= @client.tva
 
   %dt
     E-mail

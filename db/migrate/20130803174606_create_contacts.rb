@@ -10,7 +10,8 @@ class CreateContacts < ActiveRecord::Migration
       create_table :clients do |t|
       t.string  :societe
       t.string  :nom
-      t.string  :siren
+      t.string  :siret
+      t.string  :tva
       t.string  :email
       t.string  :telephone
       t.text    :adresse_1

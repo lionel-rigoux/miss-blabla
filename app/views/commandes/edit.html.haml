@@ -1,0 +1,8 @@
+%h1 Commande :: modification
+.actions
+  = link_to 'Annuler', commande_path(@commande)
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
+
+
+= render 'form'

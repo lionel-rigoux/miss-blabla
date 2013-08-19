@@ -1,0 +1,33 @@
+= form_for @commande do |f|
+  = f.hidden_field :status
+  %h2 Client
+  
+  = f.label :client_id, 'Commande pour'
+  = f.collection_select :client_id, Client.all, :id, :societe, promt: "Select", :include_blank=>true
+    
+  = f.label :commentaire, 'Commentaires'
+  = f.text_area :commentaire, size: "30x5"
+  
+  %h2 Items
+  - last_modele = nil
+  %table.commande
+    %tr
+      %th Désignation
+      %th{colspan: 7} Tailles
+  
+    = f.fields_for :ligne_commandes do |line|
+      = line.hidden_field :version_id
+      - if line.object.version
+        - modele = line.object.version.modele
+        - if modele != last_modele
+          %tr.designation
+            %td= "\##{modele.numero} - #{modele.nom}"
+            - modele.liste_taille.each do |t|
+              %td= t
+        - last_modele = modele
+        %tr
+          %td= line.object.version.couleurs
+          - modele.liste_taille.each do |t|
+            %td= line.number_field "quantity_#{t}".to_sym if t
+                
+                  

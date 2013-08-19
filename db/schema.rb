@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130812102042) do
+ActiveRecord::Schema.define(version: 20130817114220) do
 
   create_table "agents", force: true do |t|
     t.string   "nom"
@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(version: 20130812102042) do
   create_table "clients", force: true do |t|
     t.string   "societe"
     t.string   "nom"
-    t.string   "siren"
+    t.string   "siret"
+    t.string   "tva"
     t.string   "email"
     t.string   "telephone"
     t.text     "adresse_1"
@@ -34,9 +35,27 @@ ActiveRecord::Schema.define(version: 20130812102042) do
     t.datetime "updated_at"
   end
 
+  create_table "commandes", force: true do |t|
+    t.integer  "client_id"
+    t.date     "livraison"
+    t.text     "commentaire"
+    t.integer  "status"
+    t.integer  "production_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "couleurs", force: true do |t|
     t.string   "nom"
     t.integer  "saison_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ligne_commandes", force: true do |t|
+    t.integer  "commande_id"
+    t.integer  "version_id"
+    t.text     "quantities"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,9 +72,29 @@ ActiveRecord::Schema.define(version: 20130812102042) do
 
   create_table "patrons", force: true do |t|
     t.string   "societe"
-    t.string   "siren"
+    t.string   "siret"
+    t.string   "tva"
+    t.float    "capital"
     t.text     "adresse"
     t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "productions", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quantites", force: true do |t|
+    t.integer  "quantifiable_id"
+    t.string   "quantifiable_type"
+    t.text     "detail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stocks", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

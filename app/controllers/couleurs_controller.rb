@@ -28,6 +28,8 @@ class CouleursController < ApplicationController
 
       if @couleur.save
           redirect_to couleurs_path
+        else
+          render action: 'new'
       end
   end
 
@@ -35,7 +37,9 @@ class CouleursController < ApplicationController
   # PATCH/PUT /couleurs/1.json
   def update
       if @couleur.update(couleur_params)
-        redirect_to couleurs_path
+          redirect_to couleurs_path
+        else
+          render action: 'edit'
        end
   end
 

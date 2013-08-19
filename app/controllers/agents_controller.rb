@@ -3,7 +3,7 @@ class AgentsController < ApplicationController
 
   # GET /agents
   def index
-    @agents = Agent.all
+    @agents = Agent.all(order: :nom)
   end
 
   # GET /agents/new

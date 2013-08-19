@@ -4,12 +4,17 @@ class PatronsController < ApplicationController
   # GET /patrons
   # GET /patrons.json
   def index
-    @patron = Patron.first
+    @patron=Patron.first
+    unless @patron
+      @patron = Patron.new(agent: Agent.new)
+      @patron.save
+    end
   end
 
   # GET /patrons/1
   # GET /patrons/1.json
   def show
+
   end
 
   # GET /patrons/new

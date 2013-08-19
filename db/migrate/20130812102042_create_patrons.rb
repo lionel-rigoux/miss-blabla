@@ -2,14 +2,13 @@ class CreatePatrons < ActiveRecord::Migration
   def change
     create_table :patrons do |t|
       t.string  :societe
-      t.string  :siren
+      t.string  :siret
+      t.string  :tva
+      t.float :capital
       t.text    :adresse
-      t.references :agent       
+      t.belongs_to :agent       
       t.timestamps
     end
-    
-    main_agent=Agent.create()
-    Patron.create(agent_id: main_agent.id)
     
     
   end

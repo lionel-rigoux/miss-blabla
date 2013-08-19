@@ -1,0 +1,31 @@
+%h2= "Réception d'arrivage"
+= "Entrez ci-dessous les quantités reçues (voir le "
+= link_to 'bon de production', production_path(@production), :target => '_blank'
+= ") avant d'enrigistrer l'arrivage dans les stocks."
+
+%h2 Inventaire
+= form_for @stock do |f|
+  = hidden_field_tag "stock[mode]", "production"
+  = hidden_field_tag "stock[production]", @production.id
+  
+  = f.fields_for :quantite do |ff|
+    %table.commande
+      %tr
+        %th Désignation
+        %th{colspan: 7} Tailles
+    
+      - @production.modeles.each do |modele|
+        %tr.designation
+          %td= "\##{modele.numero} - #{modele.nom}"
+          - modele.liste_taille.each do |t|
+            %td= t
+        - modele.versions.each do |version|
+          %tr
+            %td= version.couleurs
+            - modele.liste_taille.each do |t|
+              %td
+                - if t
+                  = ff.number_field "de_#{modele.id}_#{version.id}_#{t}".to_sym, {value: @production.quantite(modele,version,t)}
+          
+    
+

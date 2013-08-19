@@ -1,6 +1,6 @@
 %h1 Catalogue
 
-%h2 Modèls
+%h2 Modèles
 .actions
   = link_to ' + Ajouter un modèle', new_modele_path()
 
@@ -19,7 +19,7 @@
       %td= modele.numero
       %td= modele.nom
       %td= "#{modele.taille_min} -> #{modele.taille_max}"
-      %td= "#{modele.prix}"
+      %td!= "#{modele.prix} &#x20AC;"
       %td= modele.liste_versions
 
 
