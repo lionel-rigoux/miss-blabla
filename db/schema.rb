@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130817114220) do
+ActiveRecord::Schema.define(version: 20130821081526) do
 
   create_table "agents", force: true do |t|
     t.string   "nom"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20130817114220) do
     t.integer  "agent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "has_tva"
   end
 
   create_table "commandes", force: true do |t|
@@ -43,19 +44,15 @@ ActiveRecord::Schema.define(version: 20130817114220) do
     t.integer  "production_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "frais_de_port"
+    t.integer  "nombre_paiments"
+    t.integer  "numero_facture"
+    t.date     "date_facturation"
   end
 
   create_table "couleurs", force: true do |t|
     t.string   "nom"
     t.integer  "saison_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "ligne_commandes", force: true do |t|
-    t.integer  "commande_id"
-    t.integer  "version_id"
-    t.text     "quantities"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

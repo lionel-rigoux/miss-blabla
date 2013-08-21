@@ -1,8 +1,28 @@
 %h1 Commande
 .actions
   = link_to 'Annuler', commande_path(@commande) 
+  \|
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
+
+%br
+= "Vous-êtes sur le point de facturer la commande n°#{@commande.reference} de #{@commande.client.societe}."
+= "Après validation, vous ne pourrez plus modifier cette commande !"
 
 = form_for @commande do |f|
-%h2 Frais de livraison
+  = f.hidden_field :id
+  = f.hidden_field :status
+  = f.hidden_field :date_facturation
+  = f.hidden_field :numero_facture
+  
+  %h2 Frais de livraison
+  != f.label :frais_de_port, "Montant de la livraison (&#x20AC;)".html_safe
+  =  f.number_field :frais_de_port
 
-%h2 Paiment
+  %h2 Paiment
+  = "Ce client #{@commande.client.has_tva ? 'est' : 'n\'est pas'} soumis à la TVA."
+  = link_to "> modifier", edit_client_path(@commande.client)
+  %br
+  %br
+  = f.label "Facilité de paiment"
+  = f.select :nombre_paiments, options_for_select((1..3).collect {|i| ["en #{i} fois", i]} )
+  

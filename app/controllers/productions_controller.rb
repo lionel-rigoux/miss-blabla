@@ -12,7 +12,7 @@ class ProductionsController < ApplicationController
   # GET /productions/1.json
   def show
      @patron = Patron.first
-     @production.update_quantite
+     @production.update_quantite(@production.commandes)
       render 'show', layout: "printable"
    
   end
@@ -20,30 +20,26 @@ class ProductionsController < ApplicationController
   # GET /productions/new
   def new
     
-    production = Production.create(quantite: Quantite.new)
-    if production.id
-      Commande.find_all_by_status(0).each do |c|        
-        c.update_status
-        c.production = production
-        c.save
-      end
-      production.update_quantite!
-      
-      redirect_to productions_path  
-    else
-      redirect_to productions_path
+    production = Production.new
+    if production.save
+      production.quantite.init
+      production.update_quantite(Commande.find_all_by_status(0))
+      Commande.find_all_by_status(0).each {|c| c.update_status }
+      production.quantite.save
     end
+    redirect_to productions_path
+    
   end
 
   # GET /productions/1/edit
-  def edit    
-    Commande.find_all_by_status(0).each do |c|
-      c.update_status
-      c.production = @production
-      c.save
-    end
-      redirect_to productions_path  
-  end
+  #def edit    
+  #  Commande.find_all_by_status(0).each do |c|
+  #    c.update_status
+  #    c.production = @production
+  #    c.save
+  #  end
+  #    redirect_to productions_path  
+  #end
   
   def destroy
     Commande.where(production: @production).all.each do |commande|

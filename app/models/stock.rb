@@ -1,13 +1,12 @@
 class Stock < ActiveRecord::Base
-  has_one :quantite, as: :quantifiable
+  has_one :quantite, as: :quantifiable, :dependent => :delete
   accepts_nested_attributes_for :quantite
   
   
-  after_initialize do |stock|
-    if stock.quantite.nil?
-      stock.quantite = Quantite.new
-    end
-
+  after_initialize :init
+  
+  def init
+    self.quantite ||= Quantite.new
   end
   
    

@@ -15,9 +15,12 @@
         #{to_html(@commande.client.adresse_1)}
 
   %p.reference
-    = "Le #{Date.today.strftime('%d/%m/%Y')},"
-    = "commande n°#{@commande.reference}, pour #{@commande.client.societe}"
-    = "(SIRET: #{@commande.client.siret})." 
+    - if @commande.status < 3
+      = "Le #{Time.now.strftime('%d/%m/%Y')}, facture n°#{@commande.reference}"
+    - else
+      = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, commande n° #{@commande.numero_facture}"
+    = " pour #{@commande.client.societe}"
+    = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
    
   %table.commande
     %tr.designation
@@ -37,44 +40,60 @@
       %td
       %td
       %td
-    %tr.totaux
+    %tr
       %td
-      %td{colspan: 2} Total HT
+      %td.total{colspan: 2} Total HT
       %td.total!= "#{prix(@commande.montant)}"
     - unless true#@commande.remise.nil?
-      %tr.totaux
+      %tr.blank
         %td
-        %td{colspan: 2} Remise
+        %td.total{colspan: 2} Remise
         %td.total!= "#{prix(@commande.remise)}"
-      %tr.totaux
+      %tr.blank
         %td
-        %td{colspan: 2} Net HT
+        %td.total{colspan: 2} Net HT
         %td.total!= "#{prix(@commande.remise)}"
-    %tr.totaux
-      %td
-      %td{colspan: 2} TVA
+    %tr.blank
+      -if @commande.client.has_tva
+        %td.info="Base TVA: 19.6\%"
+      - else
+        %td.info= "TVA non applicable, art. 293 B du CGI"
+      %td.total{colspan: 2} TVA
       %td.total!= "#{prix(@commande.tva)}"
-    %tr.totaux
-      %td
-      %td{colspan: 2} Total TTC
-      %td.total!= "#{prix(@commande.montant+ @commande.tva)}"
- 
+    %tr.blank
+      %td.info{rowspan: 3}
+        - if @commande.status < 3
+          != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
+          != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours."
+          != "Au delà, possibilité de paiement en troix fois à 15, 60 et 90 jours."
+        - else
+          != "Payable par chèque ou virement pour la somme de #{prix(@commande.total)},"
+          != "soit #{@commande.nombre_paiments} paiment#{mensualise(@commande,"s")} de #{prix(@commande.mensualite)} à valoir sous"
+          != "#{@commande.echeancier} jours #{mensualise(@commande,"respectivement")} à partir de la date de facturation,"
+          != "plus un paiement de #{prix(@commande.frais_de_port)} sous 90 jours."
+      %td.total{colspan: 2} Total TTC
+      %td.total!= "#{prix(@commande.montant_ttc)}"
+    - if @commande.status >= 3
+      %tr.blank
+        %td.total{colspan: 2} Frais de port
+        %td.total!= "#{prix(@commande.frais_de_port)}"
+    %tr.blank
+      %td.grandtotal{colspan: 2} Net à payer
+      %td.grandtotal!= "#{prix(@commande.total)}"
+  
   - if @commande.status < 3
     %p.alert
       = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
-      = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant définitf "
-      = "sera indiqué sur la facture qui vous sera envoyée."
-    %p.alert
-      != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
-      != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours."
-      != "Au delà, possibilité de paiement en troix fois à 15, 60 et 90 jours."
-  - else 
-    %p.payable
-      != "Facture payable le xxx pour la somme de #{prix(@commande.montant+ @commande.tva)}."
+      = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant réel "
+      = "sera indiqué sur la facture définitive qui vous sera envoyée ultérieurement."
+      
+    
+    
     %p.legislation
-      = "Pénalité de retard (taux annuel) de 3%. Pas d'escompte pour paiement anticipé."
-      = "Nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur."
-      = "Droit de réserve: notre droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
+      != "Pénalité de retard: 3% (taux annuel) plus une indemnité forfaitaire de 40&#x20AC; pour frais de recouvrement."
+      = "Escompte pour paiement anticipé: néant."
+      != "Droit de réserve&nbsp;: nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur&nbsp;;"
+      = "ce droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
       
       
   %p.informations

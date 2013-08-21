@@ -5,11 +5,21 @@ class Commande < ActiveRecord::Base
   
   belongs_to :client
   belongs_to :production
-  has_one :quantite, as: :quantifiable
+  has_one :quantite, as: :quantifiable, :dependent => :delete
   accepts_nested_attributes_for :quantite
   
   validates :client, presence: true
+  before_validation :remove_comma
   
+  after_initialize :init
+  
+  def init
+    self.status ||= 0
+  end
+  
+  def remove_comma
+    @attributes["frais_de_port"].to_s.gsub!(',', '.') if @attributes["frais_de_port"]
+  end
   
   after_initialize do |commande|
     if commande.quantite.nil?
@@ -43,6 +53,11 @@ class Commande < ActiveRecord::Base
     self.created_at.strftime('%y') + '-' + ("%03d" % self.client.id) + '-' + ("%04d" % self.id)
   end
   
+  def numero_facture
+    date_facturation.strftime('%y')+'-'+ ("%03d" % self.client.id) + '-' + ("%04d" % self[:numero_facture])
+  end
+    
+    
   def info
     case status
     when 0
@@ -53,8 +68,6 @@ class Commande < ActiveRecord::Base
       "En préparation"
     when 3
       "Envoyée"
-    when 4
-      "Facturée"
     when 4
       "Réglée"
     end
@@ -92,11 +105,42 @@ class Commande < ActiveRecord::Base
     end
   end
   
-  def tva
-    (montant*0.196)
+  def tva(*args)
+    if client.has_tva
+      montant(*args)*0.196
+    else
+      0
+    end
+  end
+  
+  def montant_ttc(*args)
+    montant(*args)+tva(*args)
+  end
+  
+  def mensualite
+    montant_ttc / nombre_paiments
+  end
+  
+  def total
+    montant_ttc + (frais_de_port || 0)
   end
   
   
+  def echeancier
+    case nombre_paiments
+    when 1
+      "30"
+    when 2
+      "15 et 60"
+    when 3
+      "15, 60 et 90"
+    end
+  end
+  
+  def self.nouveau_numero
+    self.where(date_facturation: Time.new.beginning_of_year..Time.now).count + 1
+  end
+      
   
   
 end

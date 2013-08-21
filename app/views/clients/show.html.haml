@@ -32,6 +32,9 @@
   %dt= "Numéro TVA"
   %dd= @client.tva
 
+  %dt= "Soumis à la TVA"
+  %dd= @client.has_tva ? "Oui" : "Non"
+  
   %dt
     E-mail
   %dd

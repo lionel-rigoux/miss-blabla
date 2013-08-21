@@ -5,7 +5,7 @@ class StocksController < ApplicationController
   # GET /stocks.json
   def index
     @productions=Production.all
-    @stock = Stock.first
+    @stock = Stock.find_or_initialize_by_id(1)
     if params[:stock_mode] == 'net'
       Commande.find_all_by_status(2).each { |c| @stock.prendre(c) }
     end
@@ -33,11 +33,10 @@ class StocksController < ApplicationController
   def create
     case stock_params[:mode]
     when "production"
-      @old_stock = Stock.first
+      @old_stock = Stock.find_or_initialize_by_id(1)
       quantite = Quantite.new(stock_params[:quantite_attributes].permit!)
       @old_stock.add_production(stock_params[:production],quantite) 
-
-      debugger     
+      @old_stock.quantite.save
     end
     redirect_to stocks_path
     

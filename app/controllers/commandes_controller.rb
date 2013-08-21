@@ -4,6 +4,7 @@ class CommandesController < ApplicationController
   # GET /commandes
   # GET /commandes.json
   def index
+    
     @commandes = Commande.all
   end
 
@@ -17,6 +18,7 @@ class CommandesController < ApplicationController
     elsif params[:mode] == "facture"
       render 'show_facture', layout: "printable"
     elsif params[:mode] == "validation"
+      @commande.status=3
       render 'show_validation'
      else
       render 'show'
@@ -28,7 +30,6 @@ class CommandesController < ApplicationController
   # GET /commandes/new
   def new
     @commande = Commande.new
-    #@modeles = Modele.all(order: 'numero ASC')
   end
 
   # GET /commandes/1/edit
@@ -53,15 +54,19 @@ class CommandesController < ApplicationController
   # PATCH/PUT /commandes/1
   # PATCH/PUT /commandes/1.json
   def update
-    respond_to do |format|
+    case commande_params[:status].to_i
+    when 0
+      @commande.update(commande_params)
+    when 3
+      commande_params[:date_facturation] = Time.now
+      commande_params[:numero_facture] = Commande.nouveau_numero
       if @commande.update(commande_params)
-        format.html { redirect_to @commande, notice: 'Commande was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @commande.errors, status: :unprocessable_entity }
+        stock = Stock.find_or_initialize_by_id(1)
+        stock.prendre(@commande)
+        stock.quantite.save      
       end
     end
+    redirect_to @commande
   end
 
   # DELETE /commandes/1
