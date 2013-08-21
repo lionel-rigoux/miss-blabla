@@ -22,22 +22,12 @@
   = " et le"
   = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
   = '.'
+  %br
+  = "Une fois l'envoi préparé, vous pouvez"
+  = link_to 'procéder à la facturation', commande_path(@commande, mode: 'validation')
+  = ". Attention ! Il ne sera plus possible de modifier la commande une la facture crée."
+  
     
 %h2 Détail
-
-%table.commande
-  %tr
-    %th Désignation
-    %th{colspan: 7} Tailles
-    
-  - @modeles.each do |modele|
-    %tr.designation
-      %td= "N° #{modele.numero} - #{modele.nom}"
-      - modele.liste_taille.each do |t|
-        %td= t
-    - @commande.lignes_for(modele).each do |l|
-      %tr
-        %td= l.version.couleurs
-        - modele.liste_taille.each do |t|
-          %td= l.quantity(t) if t
+= render "/quantites/show", :@quantite => @commande.quantite
     

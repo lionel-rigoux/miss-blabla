@@ -16,7 +16,9 @@ class CommandesController < ApplicationController
       render 'show_livraison', layout: "printable"
     elsif params[:mode] == "facture"
       render 'show_facture', layout: "printable"
-    else
+    elsif params[:mode] == "validation"
+      render 'show_validation'
+     else
       render 'show'
     end
   end
@@ -25,19 +27,17 @@ class CommandesController < ApplicationController
 
   # GET /commandes/new
   def new
-    @commande = Commande.prepare
-    @modeles = Modele.all(order: 'numero ASC')
+    @commande = Commande.new
+    #@modeles = Modele.all(order: 'numero ASC')
   end
 
   # GET /commandes/1/edit
   def edit
-    @modeles = Modele.all(order: 'numero ASC')
   end
 
   # POST /commandes
   # POST /commandes.json
   def create
-    
     @commande = Commande.new(commande_params)
     respond_to do |format|
       if @commande.save
@@ -82,6 +82,6 @@ class CommandesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commande_params
-      Commande.parse_params(params[:commande].permit!)
+      params[:commande].permit!
     end
 end

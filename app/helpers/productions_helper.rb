@@ -5,9 +5,7 @@ module ProductionsHelper
   end
   
   def nombre_pieces(commandes)
-    total = 0
-    commandes.each {|c| total += c.total}
-    total
+    commandes.collect {|c| c.quantites_totale}.sum
   end
   
 end

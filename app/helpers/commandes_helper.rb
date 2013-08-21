@@ -5,6 +5,10 @@ module CommandesHelper
     end
   end
   
+  def prix(combien)
+    format('%.2f', combien.round(2)) + "&#x20AC;"
+  end
+  
   def taille_modele(modele)
     
     modele.tailles_possibles.each do |t|

@@ -22,4 +22,5 @@
   - @productions.each do |production|
     = "Production démarée le #{production.date} :"
     = link_to 'Voir le bon de production', production_path(production), :target => '_blank'
+    = link_to 'Annuler', production, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir annuler cette production ?' }
     %br

@@ -21,21 +21,21 @@
       %th= 'Désignation'
       %th{colspan: 7}= 'Tailles'
       %th= 'Total'
-    - @modeles.each do |modele|
-      - if @commande.quantites_totale[modele.id] > 0
+    - @commande.modeles.each do |modele|
+      - if @commande.quantite.de(modele) > 0
         %tr.designation
           %td= "N° #{modele.numero} - #{modele.nom}"
           - modele.liste_taille.each do |t|
             %td= t
-          %td= @commande.quantites_totale[modele.id]
+          %td= @commande.quantite.de(modele.id)
         
-        - @commande.lignes_for(modele).each do |l|
-          - if l.total > 0
+        - @commande.versions(modele).each do |version|
+          - if @commande.quantite.de(version) > 0
             %tr
-              %td= l.version.couleurs
+              %td= version.couleurs
               - modele.liste_taille.each do |t|
-                %td= l.quantity(t) if t
-              %td= l.total
+                %td= @commande.quantite.de(version,t) if t
+              %td= @commande.quantite.de(version)
   
   .footer
-    = "Nombre total de pièces : #{@commande.total}"
+    = "Nombre total de pièces : #{@commande.quantite.de}"

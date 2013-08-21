@@ -1,0 +1,8 @@
+%h1 Commande
+.actions
+  = link_to 'Annuler', commande_path(@commande) 
+
+= form_for @commande do |f|
+%h2 Frais de livraison
+
+%h2 Paiment

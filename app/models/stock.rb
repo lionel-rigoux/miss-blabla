@@ -1,23 +1,21 @@
 class Stock < ActiveRecord::Base
   has_one :quantite, as: :quantifiable
+  accepts_nested_attributes_for :quantite
   
-  def self.prepare()
-    s=self.find_or_initialize_by_id(1) 
-    s.quantite = Quantite.new if s.quantite.nil?
-    s
+  
+  after_initialize do |stock|
+    if stock.quantite.nil?
+      stock.quantite = Quantite.new
+    end
+
   end
+  
    
     
   def add_production(production_id,quantite_a_ajouter)
-    production = Production.find_by_id(production_id)
-    new_detail = self.quantite.detail
-    quantite_a_ajouter.each do |de,combien|
-      de.match(/de_(?<modele_id>.+)_(?<version_id>.+)_(?<taille>.+)/)
-      modele_id,version_id,taille=[eval($1),eval($2),$3]    
-      new_detail[modele_id][version_id][taille] += eval(combien)      
-    end
-    self.quantite.update(detail: new_detail)
+    self.update(quantite: self.quantite + quantite_a_ajouter)
     
+    production = Production.find_by_id(production_id)
     production.commandes.each do |commande|
       commande.update_status
       commande.update(production: nil)
@@ -39,14 +37,7 @@ class Stock < ActiveRecord::Base
   end
   
   def prendre(commande)
-    new_detail = self.quantite.detail
-    commande.modeles.each do |modele|
-      modele.versions.each do |version|
-        modele.liste_taille.compact.each do |t|
-          new_detail[modele.id][version.id][t] -= commande.quantite(version,t)
-        end
-      end
-    end
+    self.quantite = self.quantite - commande.quantite
   end
   
   

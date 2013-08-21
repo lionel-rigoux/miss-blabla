@@ -5,7 +5,7 @@ class StocksController < ApplicationController
   # GET /stocks.json
   def index
     @productions=Production.all
-    @stock = Stock.prepare
+    @stock = Stock.first
     if params[:stock_mode] == 'net'
       Commande.find_all_by_status(2).each { |c| @stock.prendre(c) }
     end
@@ -25,29 +25,37 @@ class StocksController < ApplicationController
   
   def edit
     @production = Production.find(params[:production])    
+    @stock=Stock.new(quantite: Quantite.new + @production.quantite)
   end
 
   # POST /stocks
   # POST /stocks.json
   def create
+    case stock_params[:mode]
+    when "production"
+      @old_stock = Stock.first
+      quantite = Quantite.new(stock_params[:quantite_attributes].permit!)
+      @old_stock.add_production(stock_params[:production],quantite) 
 
+      debugger     
+    end
+    redirect_to stocks_path
+    
   end
 
   # PATCH/PUT /stocks/1
   # PATCH/PUT /stocks/1.json
   def update
-    case stock_params[:mode]
-    when "production"
-      @stock.add_production(stock_params[:production],stock_params[:quantite])      
-    end
-    redirect_to stocks_path    
+    puts "UPDATE"
+    
+     redirect_to stocks_path    
   end
 
  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock
-      @stock = Stock.find(params[:id])
+      @stock = Stock.first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

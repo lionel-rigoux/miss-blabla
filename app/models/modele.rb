@@ -23,6 +23,9 @@ class Modele < ActiveRecord::Base
       tailles_possibles.collect {|t| self.has_taille?(t) ? t : nil}
     end
       
+    def self.catalogue
+      self.all(order: 'numero ASC')
+    end
     
     def nombre_versions
       self.versions.count

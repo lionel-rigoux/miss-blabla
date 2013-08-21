@@ -24,13 +24,13 @@
         %td= "N° #{modele.numero} - #{modele.nom}"
         - modele.liste_taille.each do |t|
           %td= t
-        %td= @production.quantites_totale[modele.id]
-        - modele.versions.each do |version|
+        %td= @production.quantite.de(modele)
+        - @production.versions(modele).each do |version|
           %tr
             %td= version.couleurs
             - modele.liste_taille.each do |t|
-              %td= @production.quantite(modele,version,t) if t
-            %td= @production.quantite_version(version)
+              %td= @production.quantite.de(version,t) if t
+            %td= @production.quantite.de(version)
 
   .footer
-  = "Total number of items: #{@production.total}"
+  = "Total number of items: #{@production.quantite.de}"

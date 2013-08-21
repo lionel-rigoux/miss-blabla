@@ -7,15 +7,6 @@ class CreateCommandes < ActiveRecord::Migration
       t.integer    :status
       t.belongs_to :production
       t.timestamps
-    end
-    
-    create_table :ligne_commandes do |t|
-      t.belongs_to :commande
-      t.belongs_to :version
-      t.text       :quantities
-      t.timestamps
-    end
-    
-    
+    end   
   end
 end

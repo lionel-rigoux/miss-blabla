@@ -4,28 +4,9 @@
 = ") avant d'enrigistrer l'arrivage dans les stocks."
 
 %h2 Inventaire
-= form_for @stock do |f|
+= form_for @stock, :method=>:post do |f|
   = hidden_field_tag "stock[mode]", "production"
   = hidden_field_tag "stock[production]", @production.id
-  
   = f.fields_for :quantite do |ff|
-    %table.commande
-      %tr
-        %th Désignation
-        %th{colspan: 7} Tailles
-    
-      - @production.modeles.each do |modele|
-        %tr.designation
-          %td= "\##{modele.numero} - #{modele.nom}"
-          - modele.liste_taille.each do |t|
-            %td= t
-        - modele.versions.each do |version|
-          %tr
-            %td= version.couleurs
-            - modele.liste_taille.each do |t|
-              %td
-                - if t
-                  = ff.number_field "de_#{modele.id}_#{version.id}_#{t}".to_sym, {value: @production.quantite(modele,version,t)}
-          
-    
-
+    = render "/quantites/form", {:@quantite => @stock.quantite, :f => ff}  
+      

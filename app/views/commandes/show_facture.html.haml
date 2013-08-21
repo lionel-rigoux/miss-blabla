@@ -25,13 +25,13 @@
       %th{width: "60px;"} Qnt.
       %th{width: "60px;"} P.U. H.T.
       %th{width: "70px;"} Montant
-    - @modeles.each do |modele|
-      - if @commande.quantites_totale[modele.id] > 0
+    - @commande.modeles.each do |modele|
+      - if @commande.quantite.de(modele) > 0
         %tr.facture
           %td= "N° #{modele.numero} - #{modele.nom}"
-          %td= @commande.quantites_totale[modele.id]
-          %td!= "#{modele.prix} &#x20AC;"
-          %td!= "#{@commande.montant(modele)} &#x20AC;"
+          %td= @commande.quantite.de(modele)
+          %td!= "#{prix(modele.prix)}"
+          %td!= "#{prix(@commande.montant(modele))}"
     %tr
       %td
       %td
@@ -40,42 +40,46 @@
     %tr.totaux
       %td
       %td{colspan: 2} Total HT
-      %td.total!= "#{@commande.montant} &#x20AC;"
+      %td.total!= "#{prix(@commande.montant)}"
     - unless true#@commande.remise.nil?
       %tr.totaux
         %td
         %td{colspan: 2} Remise
-        %td.total!= "#{@commande.remise} &#x20AC;"
+        %td.total!= "#{prix(@commande.remise)}"
       %tr.totaux
         %td
         %td{colspan: 2} Net HT
-        %td.total!= "#{@commande.remise} &#x20AC;"
+        %td.total!= "#{prix(@commande.remise)}"
     %tr.totaux
       %td
       %td{colspan: 2} TVA
-      %td.total!= "#{@commande.tva} &#x20AC;"
+      %td.total!= "#{prix(@commande.tva)}"
     %tr.totaux
       %td
       %td{colspan: 2} Total TTC
-      %td.total!= "#{@commande.montant+ @commande.tva} &#x20AC;"
+      %td.total!= "#{prix(@commande.montant+ @commande.tva)}"
  
-  - if @commande.status < 1
+  - if @commande.status < 3
     %p.alert
       = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
       = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant définitf "
       = "sera indiqué sur la facture qui vous sera envoyée."
+    %p.alert
+      != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
+      != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours."
+      != "Au delà, possibilité de paiement en troix fois à 15, 60 et 90 jours."
   - else 
     %p.payable
-      != "Facture payable le xxx pour la somme de #{@commande.montant+ @commande.tva}  &#x20AC;."
+      != "Facture payable le xxx pour la somme de #{prix(@commande.montant+ @commande.tva)}."
     %p.legislation
       = "Pénalité de retard (taux annuel) de 3%. Pas d'escompte pour paiement anticipé."
       = "Nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur."
-      = "Notre droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
+      = "Droit de réserve: notre droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
       
       
   %p.informations
     != "#{@patron.societe}"
     != "-&nbsp;Siège social&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
-    != "-&nbsp;EURL au capital de #{@patron.capital.round}"
+    != "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
     != "-&nbsp;SIRET&nbsp;:&nbsp;#{@patron.siret} -&nbsp;TVA&nbsp;:&nbsp;#{@patron.tva}"
     != "-&nbsp;Téléphone&nbsp;:&nbsp;#{@patron.telephone} -&nbsp;E-mail&nbsp;:&nbsp;#{@patron.email}"

@@ -1,10 +1,18 @@
-= form_for @quantite do |f|
-  - if @quantite.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@quantite.errors.count, "error")} prohibited this quantite from being saved:"
-      %ul
-        - @quantite.errors.full_messages.each do |msg|
-          %li= msg
-
-  .actions
-    = f.submit 'Save'
+%table.commande
+  %tr
+    %th Désignation
+    %th{colspan: 7} Tailles
+  - @quantite.modeles.each do |modele|
+    %tr.designation
+      %td= "N° #{modele.numero} - #{modele.nom}"
+      - modele.liste_taille.each do |t|
+        %td= t
+    - @quantite.versions(modele).each do |version|
+      %tr
+        %td= version.couleurs
+        - modele.liste_taille.each do |t|
+          - if t
+            %td=  f.text_field "detail[#{modele.id}][#{version.id}][#{t}]" 
+          - else
+            %td
+          
