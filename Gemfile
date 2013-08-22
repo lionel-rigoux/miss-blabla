@@ -7,7 +7,10 @@ gem 'rails', '4.0.0'
 group :development, :test do
 	gem 'sqlite3', '1.3.7'
 	gem 'debugger'
+	gem 'better_errors'
 end
+
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '4.0.0'

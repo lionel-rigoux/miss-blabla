@@ -16,9 +16,9 @@
 
   %p.reference
     - if @commande.status < 3
-      = "Le #{Time.now.strftime('%d/%m/%Y')}, facture n°#{@commande.reference}"
+      = "Le #{Time.now.strftime('%d/%m/%Y')}, commande référence #{@commande.reference}"
     - else
-      = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, commande n° #{@commande.numero_facture}"
+      = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, facture n° #{@commande.numero_facture}"
     = " pour #{@commande.client.societe}"
     = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
    
