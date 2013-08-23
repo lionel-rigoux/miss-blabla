@@ -99,8 +99,8 @@
       
       
 %p.informations
-  != "#{@patron.societe}"
-  != "-&nbsp;Siège social&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
-  != "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
+  != "#{@patron.societe} - #{@commande.client.nom}"
+  != "-&nbsp;Adresse&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
+  -#!= "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
   != "-&nbsp;SIRET&nbsp;:&nbsp;#{@patron.siret} -&nbsp;TVA&nbsp;:&nbsp;#{@patron.tva}"
   != "-&nbsp;Téléphone&nbsp;:&nbsp;#{@patron.telephone} -&nbsp;E-mail&nbsp;:&nbsp;#{@patron.email}"
