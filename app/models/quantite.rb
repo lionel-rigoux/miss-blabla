@@ -36,7 +36,13 @@ class Quantite < ActiveRecord::Base
       versions(args[0]).collect {|v| de(v)}.sum
     elsif args[0].is_a? Version
       if args[1]
-        self.detail[args[0].modele_id.to_s][args[0].id.to_s][args[1]].to_i
+        (((self.detail[args[0].modele_id.to_s] || {})[args[0].id.to_s] || {})[args[1]] || 0 ).to_i
+        #begin
+        #self.detail[args[0].modele_id.to_s][args[0].id.to_s][args[1]].to_i 
+        #rescue
+        #self.detail[args[0].modele_id.to_s] = {args[0].id.to_s => { args[1] => "0"}}
+        #0
+        #end
       else
        args[0].modele.liste_taille.compact.collect {|t| de(args[0],t)}.sum
       end

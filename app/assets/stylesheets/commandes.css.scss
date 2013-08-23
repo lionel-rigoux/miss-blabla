@@ -90,6 +90,7 @@ margin-left: 10cm;
 #page table {
 	margin: 80px auto 40px auto;
 	width: 100%;
+	font-size: 11pt;
 }
 
 #page tr.facture td {
@@ -128,7 +129,7 @@ padding-left: 5px;
 #page tr.blank  td.info {
   font-size: 8pt;
   text-align: justify;
-  padding-right: 25px; 
+  padding-right: 15px; 
 }
 
 
@@ -141,24 +142,26 @@ padding-left: 5px;
 }
 
 #page p.reference {
-	margin-top: 5.5cm;
+	margin-top: 6.5cm;
 	margin-bottom: -70px;
+	font-size: 8pt;
 }
 
 
 #page p.legislation {
+	margin-top: -30px;
 	width: 100%;
 	text-align: justify;
-  font-size: 7pt;
+    font-size: 7pt;
 }
 	
 #page p.informations{
-  width: 17cm;
+  width: 16.9cm;
   text-align: justify;
-  color: #999999;
+  color: #777777;
   font-size: 8pt;
   position:absolute;
-  margin-top: 11.5cm;
+  top: 28cm;
   display: block;
 
 }

@@ -8,6 +8,13 @@ group :development, :test do
 	gem 'sqlite3', '1.3.7'
 	gem 'debugger'
 	gem 'better_errors'
+	gem 'annotate'
+	gem 'bullet'
+	gem 'flay'
+	gem 'rack-mini-profiler'
+	gem 'rails-footnotes'
+	gem 'rails_best_practices'
+	gem 'meta_request'
 end
 
 

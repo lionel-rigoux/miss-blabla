@@ -13,8 +13,10 @@
     
   %p.reference
     = "Le #{Date.today.strftime('%d/%m/%Y')},"
-    = "commande n°#{@commande.reference}, pour #{@commande.client.societe}"
-    = "(SIRET: #{@commande.client.siret})." 
+    = "commande n°#{@commande.reference} pour :"
+    %br
+    = "#{@commande.client.societe.empty? ? @commande.client.nom : @commande.client.societe }"
+    = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
   
   %table.commande
     %tr

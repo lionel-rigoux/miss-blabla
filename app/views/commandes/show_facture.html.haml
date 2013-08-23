@@ -16,10 +16,11 @@
 
   %p.reference
     - if @commande.status < 3
-      = "Le #{Time.now.strftime('%d/%m/%Y')}, commande référence #{@commande.reference}"
+      = "Le #{Time.now.strftime('%d/%m/%Y')}, commande référence #{@commande.reference} pour :"
     - else
-      = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, facture n° #{@commande.numero_facture}"
-    = " pour #{@commande.client.societe}"
+      = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, facture n° #{@commande.numero_facture} pour :"
+    %br
+    = "#{@commande.client.societe.empty? ? @commande.client.nom : @commande.client.societe }"
     = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
    
   %table.commande
@@ -27,7 +28,7 @@
       %th{width: "400px;"} Désignation
       %th{width: "60px;"} Qnt.
       %th{width: "60px;"} P.U. H.T.
-      %th{width: "70px;"} Montant
+      %th{width: "90px;"} Montant
     - @commande.modeles.each do |modele|
       - if @commande.quantite.de(modele) > 0
         %tr.facture
@@ -65,7 +66,7 @@
         - if @commande.status < 3
           != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
           != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours."
-          != "Au delà, possibilité de paiement en troix fois à 15, 60 et 90 jours."
+          != "Au delà, possibilité de paiement en trois fois à 15, 60 et 90 jours."
         - else
           != "Payable par chèque ou virement pour la somme de #{prix(@commande.total)},"
           != "soit #{@commande.nombre_paiments} paiment#{mensualise(@commande,"s")} de #{prix(@commande.mensualite)} à valoir sous"
@@ -81,24 +82,25 @@
       %td.grandtotal{colspan: 2} Net à payer
       %td.grandtotal!= "#{prix(@commande.total)}"
   
+    
+    
+  %p.legislation
+    != "Pénalité de retard: 3% (taux annuel) plus une indemnité forfaitaire de 40&#x20AC; pour frais de recouvrement."
+    = "Escompte pour paiement anticipé: néant."
+    != "Droit de réserve&nbsp;: nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur&nbsp;;"
+    = "ce droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
+  
   - if @commande.status < 3
     %p.alert
       = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
       = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant réel "
       = "sera indiqué sur la facture définitive qui vous sera envoyée ultérieurement."
-      
-    
-    
-    %p.legislation
-      != "Pénalité de retard: 3% (taux annuel) plus une indemnité forfaitaire de 40&#x20AC; pour frais de recouvrement."
-      = "Escompte pour paiement anticipé: néant."
-      != "Droit de réserve&nbsp;: nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur&nbsp;;"
-      = "ce droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
+
       
       
-  %p.informations
-    != "#{@patron.societe}"
-    != "-&nbsp;Siège social&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
-    != "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
-    != "-&nbsp;SIRET&nbsp;:&nbsp;#{@patron.siret} -&nbsp;TVA&nbsp;:&nbsp;#{@patron.tva}"
-    != "-&nbsp;Téléphone&nbsp;:&nbsp;#{@patron.telephone} -&nbsp;E-mail&nbsp;:&nbsp;#{@patron.email}"
+%p.informations
+  != "#{@patron.societe}"
+  != "-&nbsp;Siège social&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
+  != "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
+  != "-&nbsp;SIRET&nbsp;:&nbsp;#{@patron.siret} -&nbsp;TVA&nbsp;:&nbsp;#{@patron.tva}"
+  != "-&nbsp;Téléphone&nbsp;:&nbsp;#{@patron.telephone} -&nbsp;E-mail&nbsp;:&nbsp;#{@patron.email}"

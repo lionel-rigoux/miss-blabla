@@ -16,7 +16,7 @@
   
   %h2 Frais de livraison
   != f.label :frais_de_port, "Montant de la livraison (&#x20AC;)".html_safe
-  =  f.number_field :frais_de_port
+  =  f.text_field :frais_de_port
 
   %h2 Paiment
   = "Ce client #{@commande.client.has_tva ? 'est' : 'n\'est pas'} soumis à la TVA."

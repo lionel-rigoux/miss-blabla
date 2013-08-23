@@ -12,7 +12,7 @@
         %td= version.couleurs
         - modele.liste_taille.each do |t|
           - if t
-            %td=  f.text_field "detail[#{modele.id}][#{version.id}][#{t}]" 
+            %td=  f.number_field "detail[#{modele.id}][#{version.id}][#{t}]" 
           - else
             %td
           

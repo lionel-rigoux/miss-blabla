@@ -53,10 +53,15 @@ class CommandesController < ApplicationController
 
   # PATCH/PUT /commandes/1
   # PATCH/PUT /commandes/1.json
-  def update
+  def update    
     case commande_params[:status].to_i
+      
     when 0
       @commande.update(commande_params)
+    when 1
+      @commande.update(commande_params)
+    when 2
+        @commande.update(commande_params)
     when 3
       commande_params[:date_facturation] = Time.now
       commande_params[:numero_facture] = Commande.nouveau_numero

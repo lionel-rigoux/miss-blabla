@@ -30,8 +30,9 @@ class StocksController < ApplicationController
 
   # POST /stocks
   # POST /stocks.json
-  def create
+  def create    
     case stock_params[:mode]
+      
     when "production"
       @old_stock = Stock.find_or_initialize_by_id(1)
       quantite = Quantite.new(stock_params[:quantite_attributes].permit!)
