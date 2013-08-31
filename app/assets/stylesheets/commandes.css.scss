@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 table.commande {
-	min-width: 100%;
+  min-width: 100%;
   }
 
 table.commande td {
@@ -18,8 +18,8 @@ text-align: right;
 
 
 body.printable{
-	    background-color: #FAFAFA;
-	}
+      background-color: #FAFAFA;
+  }
 #page {
 width: 21cm;
 min-height: 29.7cm;
@@ -49,13 +49,13 @@ font-weight: bold;
 @media print {
     .page {
         margin: 0;
-		        border: initial;
-		        border-radius: initial;
-		        width: initial;
-		        min-height: initial;
-		        box-shadow: initial;
-		        background: initial;
-		        page-break-after: always;
+            border: initial;
+            border-radius: initial;
+            width: initial;
+            min-height: initial;
+            box-shadow: initial;
+            background: initial;
+            page-break-after: always;
    }
 }
 
@@ -79,18 +79,18 @@ margin-left: 10cm;
 
 }
 #page .client p{
-	margin: 0px 0px 2px 0px;
+  margin: 0px 0px 2px 0px;
 }
 
 #page p.alert {
-	width: 100%;
-	text-align: justify;
-	color: #990000;
+  width: 100%;
+  text-align: justify;
+  color: #990000;
 }
 #page table {
-	margin: 80px auto 40px auto;
-	width: 100%;
-	font-size: 11pt;
+  margin: 80px auto 10px auto;
+  width: 100%;
+  /*font-size: 11pt;*/
 }
 
 #page tr.facture td {
@@ -101,60 +101,69 @@ text-align: left;
 padding-left: 5px;
 }
 
+
 #page tr > td:last-child {
   padding-right: 10px;
-  text-align: right;	
+  text-align: right;
 
 }
 #page tr.blank, #page tr.blank td  {
  border-top: 1px solid #FFFFFF;
+ border-bottom: 1px solid #FFFFFF;
  font-style: italic;
  font-weight:normal;
  text-align: left;
+  background-color: #FFFFFF;
 }
 
-#page td.total, #page  tr.blank > td.total, #page tr.blank > td.grandtotal  {
-	text-align: right;
-	padding-right: 10px;
-	font-weight: normal;
-	font-style: normal;
-	border-top: 1px solid #999999;
-	border-bottom: 1px solid #999999;
+#page td.total, #page td.grandtotal, #page  tr.blank > td.total, #page tr.blank > td.grandtotal  {
+  text-align: right;
+  padding-right: 10px;
+  font-weight: normal;
+  font-style: normal;
+  border-top: 1px solid #F3F3F3;
+  border-bottom: 1px solid #F3F3F3;
 }
 
 #page tr.blank > td.grandtotal {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 #page tr.blank  td.info {
   font-size: 8pt;
   text-align: justify;
-  padding-right: 15px; 
+  padding-right: 15px;
+  color: #333366;
+}
+
+#page tr.sep {
+  border-bottom: 1px solid #FFFFFF;
+  background: #FFFFFF;
 }
 
 
 
 #page .footer {
-	width: 100%;
-	text-align: right;
-	display: block;
-	
+  width: 100%;
+  text-align: right;
+  display: block;
+
 }
 
 #page p.reference {
-	margin-top: 6.5cm;
-	margin-bottom: -70px;
-	font-size: 8pt;
+  margin-top: 6.5cm;
+  margin-bottom: -70px;
+  font-size: 9pt;
 }
 
 
 #page p.legislation {
-	margin-top: -30px;
-	width: 100%;
-	text-align: justify;
-    font-size: 7pt;
+  margin-top: 0px;
+  width: 100%;
+  text-align: justify;
+  font-size: 7pt;
 }
-	
+
 #page p.informations{
   width: 16.9cm;
   text-align: justify;

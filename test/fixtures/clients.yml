@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: clients
+#
+#  id         :integer          not null, primary key
+#  societe    :string(255)
+#  nom        :string(255)
+#  siret      :string(255)
+#  tva        :string(255)
+#  email      :string(255)
+#  telephone  :string(255)
+#  adresse_1  :text
+#  adresse_2  :text
+#  agent_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  has_tva    :boolean
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 # This model initially had no columns defined.  If you add columns to the

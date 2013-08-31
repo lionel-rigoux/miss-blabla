@@ -3,14 +3,14 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    @clients = Client.all(order: :nom)
+    @clients = Client.all(order: :societe)
   end
 
   # GET /clients/new
   def new
     @client = Client.new()
   end
-  
+
   def show
   end
 
@@ -19,10 +19,9 @@ class ClientsController < ApplicationController
   end
 
   # POST /clients
-  def create    
-    @client = Client.create(client_params.permit!)
-    if @client.id
-      flash[:notice] = 'Le contact a bien été ajouté à la base de données !'
+  def create
+    @client = Client.new(client_params)
+    if @client.save
         redirect_to clients_path
     else
         render action: 'new'
@@ -31,8 +30,7 @@ class ClientsController < ApplicationController
 
   # PUT /clients/1
   def update
-      if @client.update(client_params.permit!)
-        flash[:notice] = 'Le client a bien été modifié.'
+      if @client.update(client_params)
         redirect_to @client
       else
         render action: 'edit'
@@ -53,6 +51,6 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params[:client]
+      params[:client].permit!
     end
 end

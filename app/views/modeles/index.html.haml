@@ -6,20 +6,20 @@
 
 %table
   %tr
-    %th{width: "20px;"}
-    %th{width: "30px;"} Id
-    %th{width: "160px;"} Nom
-    %th{width: "80px;"} Tailles
-    %th{width: "60px;"} P.U. H.T.
-    %th Versions
+    %th{width: "10px"}
+    %th{width: "30px"} #
+    %th Nom
+    %th{width: "80px"} Tailles
+    %th{width: "60px"} P.U. H.T.
+    %th{width: "40px"} Var.
 
   - @modeles.each do |modele|
     %tr
       %td= link_to '>', modele_path(modele)
-      %td= modele.numero
-      %td= modele.nom
-      %td= "#{modele.taille_min} -> #{modele.taille_max}"
-      %td!= "#{modele.prix} &#x20AC;"
-      %td= modele.liste_versions
+      %td.right= modele.numero
+      %td.left= modele.nom
+      %td.center= "#{modele.taille_min} -> #{modele.taille_max}"
+      %td.right!= prix(modele.prix)
+      %td.center= modele.versions.count
 
 

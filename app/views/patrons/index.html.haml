@@ -1,6 +1,6 @@
 %h1 Informations personnelles
 .actions
-  = link_to "Modifier", edit_patron_path(@patron) 
+  = link_to "Modifier", edit_patron_path(1)
 
 %h2 Contact
 
@@ -10,7 +10,7 @@
 
   %dt= "E-mail"
   %dd= @patron.agent.email
-  
+
   %dt= "Téléphone"
   %dd= @patron.agent.telephone
 
@@ -19,16 +19,16 @@
 %dl
   %dt= "Nome de la société"
   %dd= @patron.societe
-    
+
   %dt= "Numéro Siret"
   %dd= @patron.siret
-  
+
   %dt= "Numéro TVA"
   %dd= @patron.tva
-  
+
   %dt= "Capital"
   %dd= @patron.capital
- 
+
   %dt= "Adresse"
   %dd
     :plain

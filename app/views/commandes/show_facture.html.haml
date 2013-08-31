@@ -20,28 +20,25 @@
     - else
       = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, facture n° #{@commande.numero_facture} pour :"
     %br
-    = "#{@commande.client.societe.empty? ? @commande.client.nom : @commande.client.societe }"
-    = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
-   
+    = @commande.client.intitule
+    = "(#{@commande.client.identification})"
+
   %table.commande
     %tr.designation
       %th{width: "400px;"} Désignation
-      %th{width: "60px;"} Qnt.
-      %th{width: "60px;"} P.U. H.T.
-      %th{width: "90px;"} Montant
+      %th{width: "60px;"} Qnt
+      %th{width: "80px;"} PU HT
+      %th{width: "80px;"} Mnt HT
     - @commande.modeles.each do |modele|
       - if @commande.quantite.de(modele) > 0
         %tr.facture
-          %td= "N° #{modele.numero} - #{modele.nom}"
+          %td= "\##{modele.numero} - #{modele.nom}"
           %td= @commande.quantite.de(modele)
           %td!= "#{prix(modele.prix)}"
           %td!= "#{prix(@commande.montant(modele))}"
-    %tr
-      %td
-      %td
-      %td
-      %td
-    %tr
+    %tr.sep
+      %td{colspan: 4}
+    %tr.blank
       %td
       %td.total{colspan: 2} Total HT
       %td.total!= "#{prix(@commande.montant)}"
@@ -62,16 +59,16 @@
       %td.total{colspan: 2} TVA
       %td.total!= "#{prix(@commande.tva)}"
     %tr.blank
-      %td.info{rowspan: 3}
+      %td.info{rowspan: @commande.status >= 3 ? 3:2}
         - if @commande.status < 3
           != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
           != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours."
           != "Au delà, possibilité de paiement en trois fois à 15, 60 et 90 jours."
         - else
           != "Payable par chèque ou virement pour la somme de #{prix(@commande.total)},"
-          != "soit #{@commande.nombre_paiments} paiment#{mensualise(@commande,"s")} de #{prix(@commande.mensualite)} à valoir sous"
+          != "soit #{pluralize(@commande.nombre_paiments,'paiement')} de #{prix(@commande.mensualite)} à valoir sous"
           != "#{@commande.echeancier} jours #{mensualise(@commande,"respectivement")} à partir de la date de facturation,"
-          != "plus un paiement de #{prix(@commande.frais_de_port)} sous 90 jours."
+          != "plus un paiement de #{prix(@commande.frais_de_port)}, correspondant aux frais de port, sous 90 jours."
       %td.total{colspan: 2} Total TTC
       %td.total!= "#{prix(@commande.montant_ttc)}"
     - if @commande.status >= 3
@@ -81,26 +78,26 @@
     %tr.blank
       %td.grandtotal{colspan: 2} Net à payer
       %td.grandtotal!= "#{prix(@commande.total)}"
-  
-    
-    
+    %tr.sep
+      %td{colspan: 4}
+
   %p.legislation
     != "Pénalité de retard: 3% (taux annuel) plus une indemnité forfaitaire de 40&#x20AC; pour frais de recouvrement."
     = "Escompte pour paiement anticipé: néant."
     != "Droit de réserve&nbsp;: nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur&nbsp;;"
     = "ce droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
-  
+
   - if @commande.status < 3
     %p.alert
       = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
       = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant réel "
       = "sera indiqué sur la facture définitive qui vous sera envoyée ultérieurement."
 
-      
-      
+
+
 %p.informations
-  != "#{@patron.societe} - #{@commande.client.nom}"
-  != "-&nbsp;Adresse&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}"
+  != @patron.intitule
+  != "-&nbsp;Adresse&nbsp;:&nbsp;#{@patron.adresse.gsub("\r\n",", ")}&nbsp;-"
   -#!= "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
-  != "-&nbsp;SIRET&nbsp;:&nbsp;#{@patron.siret} -&nbsp;TVA&nbsp;:&nbsp;#{@patron.tva}"
+  != @patron.identification
   != "-&nbsp;Téléphone&nbsp;:&nbsp;#{@patron.telephone} -&nbsp;E-mail&nbsp;:&nbsp;#{@patron.email}"

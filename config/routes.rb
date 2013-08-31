@@ -1,10 +1,9 @@
 Blabla::Application.routes.draw do
 
+
   resources :stocks
 
   resources :quantites
-
-  root 'commandes#index'
 
   resources :productions
 
@@ -23,7 +22,8 @@ Blabla::Application.routes.draw do
   resources :agents
   resources :clients
 
-  
+  root 'commandes#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -64,7 +64,7 @@ Blabla::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

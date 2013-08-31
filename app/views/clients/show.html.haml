@@ -2,7 +2,7 @@
 .actions
   = link_to 'Retour', clients_path
   \|
-  = link_to "Modifier", edit_client_path(@client) 
+  = link_to "Modifier", edit_client_path(@client)
   \|
   = link_to 'Supprimer', @client, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce client ?' }
 
@@ -16,44 +16,34 @@
 
 %dl
 
-  %dt
-    Société
-  %dd
-    = @client.societe
+  %dt Société
+  %dd= @client.societe
 
-  %dt
-    Nom
-  %dd
-    = @client.nom
+  %dt Nom
+  %dd= @client.nom
 
   %dt= "Numéro Siret"
   %dd= @client.siret
-  
+
   %dt= "Numéro TVA"
   %dd= @client.tva
 
   %dt= "Soumis à la TVA"
   %dd= @client.has_tva ? "Oui" : "Non"
-  
-  %dt
-    E-mail
-  %dd
-    = @client.email
-  
-  %dt
-    téléphone
-  %dd
-    = @client.telephone
 
-  %dt
-    Adresse de facturation
+  %dt E-mail
+  %dd= @client.email
+
+  %dt Téléphone
+  %dd= @client.telephone
+
+  %dt Adresse de facturation
   %dd
     :plain
       #{to_html(@client.adresse_1)}
 
-  %dt
-    Adresse de livraison
+  %dt Adresse de livraison
   %dd
     :plain
       #{to_html(@client.adresse_2)}
-	 
+

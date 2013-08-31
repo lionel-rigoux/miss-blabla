@@ -10,14 +10,13 @@
     %p
       :plain
         #{to_html(@commande.client.adresse_2)}
-    
+
   %p.reference
     = "Le #{Date.today.strftime('%d/%m/%Y')},"
     = "commande n°#{@commande.reference} pour :"
     %br
-    = "#{@commande.client.societe.empty? ? @commande.client.nom : @commande.client.societe }"
-    = "(SIRET : #{@commande.client.siret}" + (@commande.client.tva.empty? ? "" : "; TVA : #{@commande.client.tva}") + ")"
-  
+    = "#{@commande.client.intitule} (#{@commande.client.identification})"
+
   %table.commande
     %tr
       %th= 'Désignation'
@@ -26,11 +25,11 @@
     - @commande.modeles.each do |modele|
       - if @commande.quantite.de(modele) > 0
         %tr.designation
-          %td= "N° #{modele.numero} - #{modele.nom}"
+          %td= "\##{modele.numero} - #{modele.nom}"
           - modele.liste_taille.each do |t|
             %td= t
           %td= @commande.quantite.de(modele.id)
-        
+
         - @commande.versions(modele).each do |version|
           - if @commande.quantite.de(version) > 0
             %tr
@@ -38,6 +37,6 @@
               - modele.liste_taille.each do |t|
                 %td= @commande.quantite.de(version,t) if t
               %td= @commande.quantite.de(version)
-  
+
   .footer
     = "Nombre total de pièces : #{@commande.quantite.de}"

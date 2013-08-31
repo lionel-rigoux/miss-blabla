@@ -8,9 +8,9 @@ class AgentsController < ApplicationController
 
   # GET /agents/new
   def new
-    @agent = Agent.new(agent_params)
+    @agent = Agent.new
   end
-  
+
   def show
   end
 
@@ -19,20 +19,18 @@ class AgentsController < ApplicationController
   end
 
   # POST /agents
-  def create    
-    @agent = Agent.create(agent_params.permit!)
-    if @agent.id
-      flash[:notice] = 'L\'agent a bien été ajouté à la base de données !'
-        redirect_to agents_path
+  def create
+    @agent = Agent.new(agent_params)
+    if @agent.save
+      redirect_to agents_path
     else
-        render action: 'new'
+      render action: 'new'
     end
   end
 
   # PUT /agents/1
   def update
-      if @agent.update(agent_params.permit!)
-        flash[:notice] = 'L\'agent a biet été modifié.'
+      if @agent.update(agent_params)
         redirect_to @agent
       else
         render action: 'edit'
@@ -53,6 +51,6 @@ class AgentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params[:agent]
+      params[:agent].permit!
     end
 end

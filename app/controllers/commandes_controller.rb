@@ -4,14 +4,14 @@ class CommandesController < ApplicationController
   # GET /commandes
   # GET /commandes.json
   def index
-    
+
     @commandes = Commande.all
   end
 
   # GET /commandes/1
   # GET /commandes/1.json
   def show
-    @modeles=Modele.all(order: 'numero ASC')
+    #@modeles=Modele.all(order: 'numero ASC')
     @patron=Patron.first
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
@@ -25,11 +25,11 @@ class CommandesController < ApplicationController
     end
   end
 
-  
+
 
   # GET /commandes/new
   def new
-    @commande = Commande.new
+    @commande = Commande.new()
   end
 
   # GET /commandes/1/edit
@@ -40,48 +40,50 @@ class CommandesController < ApplicationController
   # POST /commandes.json
   def create
     @commande = Commande.new(commande_params)
-    respond_to do |format|
       if @commande.save
-        format.html { redirect_to @commande, notice: 'Commande was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @commande }
+        render 'show'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @commande.errors, status: :unprocessable_entity }
+        render 'edit'
       end
-    end
   end
 
   # PATCH/PUT /commandes/1
   # PATCH/PUT /commandes/1.json
-  def update    
-    case commande_params[:status].to_i
-      
-    when 0
-      @commande.update(commande_params)
-    when 1
-      @commande.update(commande_params)
-    when 2
-        @commande.update(commande_params)
-    when 3
-      commande_params[:date_facturation] = Time.now
-      commande_params[:numero_facture] = Commande.nouveau_numero
-      if @commande.update(commande_params)
-        stock = Stock.find_or_initialize_by_id(1)
-        stock.prendre(@commande)
-        stock.quantite.save      
+  def update
+      case commande_params[:status].to_i
+      when 0
+        ok=@commande.update(commande_params)
+      when 1
+        ok=@commande.update(commande_params)
+      when 2
+        ok=@commande.update(commande_params)
+      when 3
+        commande_params[:date_facturation] = Time.now
+        commande_params[:numero_facture] = Commande.nouveau_numero
+        ok= @commande.update(commande_params)
+        if ok
+          stock = Stock.find_or_initialize_by_id(1)
+          stock -= @commande
+          unless stock.save
+            @commande.status -= 1
+            @commande.save
+            ok = false
+          end
+        end
       end
+    if ok
+      redirect_to @commande
+    else
+      render action: 'edit'
     end
-    redirect_to @commande
+
   end
 
   # DELETE /commandes/1
   # DELETE /commandes/1.json
   def destroy
     @commande.destroy
-    respond_to do |format|
-      format.html { redirect_to commandes_url }
-      format.json { head :no_content }
-    end
+    redirect_to commandes_url
   end
 
   private

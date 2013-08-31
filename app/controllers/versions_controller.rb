@@ -30,7 +30,7 @@ class VersionsController < ApplicationController
       if @version.save
         redirect_to modele_path(@version.modele)
       else
-        render action: 'new'
+        render 'new'
       end
   end
 
@@ -40,7 +40,7 @@ class VersionsController < ApplicationController
       if @version.update(version_params)
         redirect_to modele_path(@version.modele)
       else
-        render action: 'edit'
+        render 'edit'
       end
   end
 

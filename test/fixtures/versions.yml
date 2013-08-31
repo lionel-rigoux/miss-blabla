@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: versions
+#
+#  id            :integer          not null, primary key
+#  modele_id     :integer
+#  couleurs_1_id :integer
+#  couleurs_2_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 # This model initially had no columns defined.  If you add columns to the

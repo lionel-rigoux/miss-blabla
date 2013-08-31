@@ -1,9 +1,10 @@
-= form_for @patron, :method=>:put do |f|
+= render "/application/errors", :@record => @patron
+
+= form_for @patron, method: :put do |f|
   = f.hidden_field :id
 
-
   %h2 Coordonnées
-  = f.fields_for :agent do |ff|  
+  = f.fields_for :agent do |ff|
     = ff.label :nom, 'Nom et Prénom'
     = ff.text_field :nom
     %br

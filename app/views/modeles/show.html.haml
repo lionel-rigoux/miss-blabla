@@ -2,49 +2,40 @@
 .actions
   = link_to 'Retour', modeles_path
   \|
-  = link_to "Modifier", edit_modele_path(@modele) 
+  = link_to "Modifier", edit_modele_path(@modele)
   \|
   = link_to 'Supprimer', @modele, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce modele ?' }
 
 %h2 Descriptif
 
 %dl
+  %dt= "Numero"
+  %dd= @modele.numero
 
-  %dt
-    Numero
-  %dd
-    = @modele.numero
+  %dt= "Nom"
+  %dd= @modele.nom
 
-  %dt
-    Nom
-  %dd
-    = @modele.nom
+  %dt= "Tailles"
+  %dd= "#{@modele.taille_min} -> #{@modele.taille_max}"
 
-  %dt
-    Tailles
-  %dd
-    = "#{@modele.taille_min} -> #{@modele.taille_max}"
-
-  %dt
-    Prix unitaire HT
-  %dd
-    != "#{@modele.prix} &#x20AC;"
+  %dt= "Prix unitaire HT"
+  %dd!= prix(@modele.prix)
 
 %h2 Versions
 .actions
   = link_to ' + Ajouter une version', new_version_path(modele_id: @modele.id)
-  
+
   %table
     %tr
       %th{width: "20px;"}
       %th{width: "180px;"} Couleur principale
       %th Couleur secondaire
- 
+
     - @modele.versions.each do |version|
       %tr
         %td= link_to '>', edit_version_path(version)
         %td= version.couleur_1
         %td= version.couleur_2
- 
-  
-   
+
+
+

@@ -1,9 +1,13 @@
+$red: #B43104;
+$error_text_color: $red;
+$error_border_color: $red;
+
 * {padding: 0;
-	
-	}
+
+  }
 html, body {
   margin: 0;
-  height: 96%; 
+  height: 96%;
   padding: 0;
   color: #333333;
   font-family: Verdana, sans-serif;
@@ -14,14 +18,14 @@ html, body {
   max-width: 600px;
   width: 80%;
   margin: 5px auto 20px auto;
-	
+
 }
 div#header{
-	background-color: #DF01A5; 
-	width: 100%;
+  background-color: #DF01A5;
+  width: 100%;
     margin: 0px;
     padding: 0px;
-    height: 80px; 
+    height: 80px;
 
 }
 div#title {
@@ -35,26 +39,26 @@ div#title {
 
 div#main {
   margin: -20px auto 10px auto;
-  height: auto !important; 
-  height: 100%; 
+  height: auto !important;
+  height: 100%;
   padding: 10px 20px 20px  20px;
 
 }
 
 
 form {
-	width: 100%;
-	
+  width: 100%;
+
 }
-	
+
 div#navigation {
-	font-size:90%;
-  
+  font-size:90%;
+
 color: #74DF00;
 }
 div#navigation a {
-	font-size:100%;
-  
+  font-size:100%;
+
 color: #999999;
 }
 div#navigation a:hover {
@@ -87,12 +91,31 @@ h2 {
   width: 100%;
   border-bottom: 2px solid #0489B1;
 }
-div.actions {
-	display:block;
-	color: #222232;
-	text-align:right;
-	margin: -30px 2px 0 0;
-	font-size:100%;
+.actions {
+  display:block;
+  color: #222232;
+  text-align:right;
+  margin: -30px 2px 15px 0;
+  font-size:100%;
+}
+.erreurs {
+  color: $error_text_color;
+  padding-left: 0px;
+}
+
+.erreurs ul {
+  color: $error_text_color;
+  padding-left: 20px;
+  margin: 0px 0px 0px 5px;
+}
+
+.field_with_errors > input, .field_with_errors > textarea,  .field_with_errors > select {
+  border: 1px solid $error_border_color;
+  box-shadow: 0 0 2px $error_border_color;
+}
+
+.field_with_errors > label {
+  color: $error_text_color;
 }
 
 table {
@@ -102,46 +125,54 @@ table {
   border: 0px solid #666677;
 }
 table th {
-	background-color: #086A87;
-	color: #FFFFFF;
-	font-weight: bold;
-	text-align: center;
-	padding-left: 5px;
-	height: 20px;
-	border-left: 1px solid #288AA7;
-	border-bottom: 1px solid #FFFFFF;
+  background-color: #086A87;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 5px;
+  height: 20px;
+  border-left: 1px solid #288AA7;
+  border-bottom: 1px solid #FFFFFF;
 }
 
 table th:first-child {
-	border-left: 0px;
+  border-left: 0px;
 }
 
 tr {
-  border-bottom: 1px solid #AAAAAA;	
+  border-bottom: 1px solid #EEEEEE;
+}
+
+tr:nth-child(odd) {
+  background-color: #F3F3F3;
+}
+
+tr:nth-child(even) {
+  background-color: #FFFFFF;
 }
 
 tr > td:first-child {
   padding-left: 10px;
-  text-align: left;	
+  text-align: left;
 }
 
 table td {
-  margin: 0px;
-  padding: 2px;
+  margin: 0;
+  padding: 2px 5px 2px 5px;
   text-align: left;
   border: 0px;
 }
 
 tr.designation {
-	background-color: #9999AA;
-	color: #FFFFFF;
-	border-top: 2px solid #FFFFFF;	
-	border-bottom: 1px solid #FFFFFF;	
-	text-align: center;
+  background-color: #9999AA;
+  color: #FFFFFF;
+  border-top: 2px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  text-align: center;
 }
 
 tr.designation td {
-	border-left: 1pt solid #AAAABB;	
+  border-left: 1pt solid #AAAABB;
 }
 tr.designation > td:first-child {
   width: 230px;
@@ -151,8 +182,16 @@ tr.designation > td:first-child {
 
 }
 
+td.left {
+  text-align: left;
+}
 
-
+td.right {
+  text-align: right;
+}
+td.center {
+  text-align: center;
+}
 
 
 dl {
@@ -162,24 +201,24 @@ dl {
 
 
 
-dt, label { 
- margin: 0; 
+dt, label {
+ margin: 0;
  padding: 0 0 0.5em 0;
- float: left; 
- clear: left; 
- width: 180px; 
- text-align: left; 
- font-weight: Italic; 
+ float: left;
+ clear: left;
+ width: 180px;
+ text-align: left;
+ font-weight: Italic;
   color: #777787;
- } 
+ }
 
-dt:after, label:after { content: " :"; } 
+dt:after, label:after { content: " :"; }
 
-dd { 
+dd {
 width:304px;
-height: 12px;
-margin: 0 0 10px 180px; 
-padding: 0 0 0.5em 0; 
+min-height: 10px;
+margin: 0 0 10px 180px;
+padding: 0 0 0.5em 0;
 }
 
 input {
@@ -191,13 +230,13 @@ input {
 input, textarea, select {
     width:353px;
     margin: 0px 0 4px 0;
-	background: #FFFFFF;
-	   color: #111111;
-	   border: 1px solid #CCCCCC;
-	   line-height: 1.2;
-	   border-radius: 0;
-	   font-size:9pt;
-	   -webkit-appearance: none;
+  background: #FFFFFF;
+     color: #111111;
+     border: 1px solid #CCCCCC;
+     line-height: 1.2;
+     border-radius: 0;
+     font-size:9pt;
+     -webkit-appearance: none;
        padding: 4px;
     vertical-align: top;
   font-family: Verdana, sans-serif;
@@ -205,9 +244,9 @@ input, textarea, select {
 }
 
 select {
-	background: #FFFFFF;
-	   color: #111111;
-	   border: 1px solid #CCCCCC;
+  background: #FFFFFF;
+     color: #111111;
+     border: 1px solid #CCCCCC;
    width: 363px;
    padding: 2px;
    line-height: 1;
@@ -217,10 +256,20 @@ select {
    -webkit-appearance: none;
    }
 
+select.day {
+  width: 50px;
+}
+select.month {
+  width: 80px;
+}
+select.year {
+  width: 70px;
+}
+
 form table {
-	width: 250px;
-	vertical-align: top;
-	margin: 0px 0px 0 0;
+  width: 250px;
+  vertical-align: top;
+  margin: 0px 0px 0 0;
     border-collapse: collapse;
     border: 0px solid #666677;
 text-align: left;
@@ -235,6 +284,6 @@ input[type="checkbox"]{
 }
 
 select.taille{
-	width:60px;
-	margin: -2px 0 2px 0;
+  width:60px;
+  margin: -2px 0 2px 0;
 }

@@ -5,51 +5,50 @@ class ProductionsController < ApplicationController
   # GET /productions.json
   def index
     @commandes=Commande.find_all_by_status(0)
-    @productions = Production.all   
+    @productions = Production.all
   end
 
   # GET /productions/1
   # GET /productions/1.json
   def show
-     @patron = Patron.first
-     @production.update_quantite(@production.commandes)
-      render 'show', layout: "printable"
-   
+     @patron = Patron.find_or_initialize_by_id(1)
+     @production.up_to_date
+     @production.quantite.trimed
+     render 'show', layout: "printable"
+
   end
 
   # GET /productions/new
   def new
-    
-    production = Production.new
-    if production.save
-      production.quantite.init
-      production.update_quantite(Commande.find_all_by_status(0))
-      Commande.find_all_by_status(0).each {|c| c.update_status }
-      production.quantite.save
+    production = Production.create!(quantite: Quantite.new)
+    Commande.en_avance.each do |commande|
+        production += commande
+        if production.save
+          commande.update_status
+          commande.update(production: production)
+        end
     end
+      #quantite_commandees = pre_commandes.collect {|c| c.quantite}.sum
+      #production.update(quantite: Quantite.new + quantite_commandees)
+      #pre_commandes.each do |commande|
+      #  commande.update_status
+      #  commande.update(production: production)
+      #end
+    #end
     redirect_to productions_path
-    
+
   end
 
-  # GET /productions/1/edit
-  #def edit    
-  #  Commande.find_all_by_status(0).each do |c|
-  #    c.update_status
-  #    c.production = @production
-  #    c.save
-  #  end
-  #    redirect_to productions_path  
-  #end
-  
+
   def destroy
-    Commande.where(production: @production).all.each do |commande|
+    @production.commandes.each do |commande|
       commande.update(status: 0, production: nil)
     end
     @production.destroy
-    redirect_to productions_path  
-    
+    redirect_to productions_path
+
   end
-    
+
 
 
   private

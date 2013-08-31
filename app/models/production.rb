@@ -1,34 +1,47 @@
-class Production < ActiveRecord::Base
-  has_many :commandes
-  has_one :quantite, as: :quantifiable, :dependent => :delete
-  
+# == Schema Information
+#
+# Table name: productions
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#
 
-  after_initialize :init
-  
-  def init
-    self.quantite ||= Quantite.new
-  end
-  
-  def update_quantite(commandes)
-    quantite.reset
-    commandes.each do |c|        
-      c.production = self
-      c.save
-      self.quantite = self.quantite + c.quantite
-    end
-  end
-  
+class Production < ActiveRecord::Base
+
+  # RELATIONS
+  has_many :commandes
+  has_one :quantite, as: :quantifiable, :dependent => :destroy
+
+  # INITIALIZATION
+  #after_initialize :init
+
+  #def init
+  #  self.quantite ||= Quantite.new
+  #end
+
+  # METHODS
+  delegate :modeles, :versions, :de, to: :quantite
+
   def date
-    self.created_at.strftime('%d/%m/%Y')
+    created_at.strftime('%d/%m/%Y')
   end
-  
-  
-  def modeles
-    quantite.modeles
+
+  def up_to_date
+    self.quantite.reset
+    self.quantite += self.commandes.collect {|c| c.quantite}.sum
+    self.save
+    self
   end
-  
-  def versions(modele)
-    quantite.versions(modele)
+
+  def +(arg)
+    new_production = self.clone
+    if arg.is_a? Commande
+      new_production.quantite += arg.quantite
+    else
+      raise ArgumentError, "Opération non définie pour le type #{arg.class}"
+    end
+    new_production
   end
-      
+
 end

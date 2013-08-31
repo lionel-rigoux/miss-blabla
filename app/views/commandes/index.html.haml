@@ -2,20 +2,22 @@
 .actions
   = link_to ' + Ajouter une comande', new_commande_path()
 
-%table
-  %tr
-    %th{width: "20px;"}
-    %th{width: "160px;"} Client
-    %th{width: "90px;"} Date
-    %th{width: "70px;"} Total HT.
-    %th{width: "80px;"} Référence
-    %th{width: "120px;"} Statut
+- (0..4).each do |i|
+  - if @commandes.where(status: i).count > 0
+    %h2= Commande::STATUS_LIST[i]
+    %table
 
-  - @commandes.each do |commande|
-    %tr
-      %td= link_to ">", commande_path(commande)
-      %td= commande.client.societe
-      %td= commande.date
-      %td!= "#{commande.montant} &#x20AC;"
-      %td= commande.reference
-      %td= commande.info
+      %tr
+        %th{width: "10px;"}
+        %th{width: "200px;"} Client
+        %th{width: "70px;"} Total HT.
+        %th{width: "80px;"} Livraison
+        %th{width: "80px;"} Référence
+
+      - @commandes.where(status: i).each do |commande|
+        %tr
+          %td= link_to ">", commande_path(commande)
+          %td= commande.client.societe
+          %td.right!= prix(commande.montant)
+          %td.center= commande.date
+          %td.center= commande.reference

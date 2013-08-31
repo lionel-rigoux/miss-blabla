@@ -1,16 +1,23 @@
+= render "/application/errors", :@record => @commande
+
 = form_for @commande, :method=>(@commande.id ? :put : :post) do |f|
   = f.hidden_field :id
   = f.hidden_field :status
+
   %h2 Client
-  
+
   = f.label :client_id, 'Commande pour'
-  = f.collection_select :client_id, Client.all, :id, :societe, promt: "Select", :include_blank=>true
-    
+  = f.collection_select :client_id, Client.all, :id, :societe, prompt: "-- Selectionnez un client --"
+
+  %h2 Livraison
+  = f.label :livraison, "Date de livraison"
+  = f.date_select :livraison, order: [:day, :month, :year], start_year: Time.now.year, end_year: Time.now.year+1, month_names: t(:month_names), with_css_classes: true
+
   = f.label :commentaire, 'Commentaires'
   = f.text_area :commentaire, size: "30x5"
-  
+
   %h2 Items
   = f.fields_for :quantite do |ff|
-    = render "/quantites/form", {:@quantite => @commande.quantite, :f => ff}  
-      
-      
+    = render "/quantites/form", {:@quantite => @commande.quantite, :f => ff}
+
+

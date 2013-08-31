@@ -1,3 +1,5 @@
+= render "/application/errors", :@record => @client
+
 = form_for @client, :method=>(@client.id ? :put : :post) do |f|
 
   %h2 Agent
@@ -6,7 +8,7 @@
   = f.collection_select :agent_id, Agent.all, :id, :nom, promt: "Select"
 
   %h2 Coordonnées
-  
+
   = f.label :societe, 'Société'
   = f.text_field :societe
   %br
@@ -20,7 +22,7 @@
   = f.text_field :tva
   %br
   = f.label :has_tva, 'Soumis à la TVA'
-  = f.check_box :has_tva
+  = f.select :has_tva, {"Oui"=>true, "Non"=>false}
   %br
   = f.label :email, 'E-mail'
   = f.email_field :email

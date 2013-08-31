@@ -5,14 +5,14 @@
 %table
   %tr
     %th{width: "20px;"}
-    %th{width: "150px;"} Nom
+    %th{width: "150px;"} Société
     %th{width: "200px;"} E-mail
-    %th Societe
+    %th Nom
 
   - @clients.each do |client|
     %tr
       %td= link_to ">", client_path(client)
-      %td= client.nom
-      %td= client.email
       %td= client.societe
+      %td= client.email
+      %td= client.nom
 

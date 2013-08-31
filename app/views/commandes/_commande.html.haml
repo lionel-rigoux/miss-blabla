@@ -1,0 +1,7 @@
+%tr
+  %td= link_to ">", commande_path(commande)
+  %td= commande.client.societe
+  %td= commande.date
+  %td!= prix(commande.montant)
+  %td= commande.reference
+  %td= commande.info

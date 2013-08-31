@@ -4,7 +4,7 @@ class CouleursController < ApplicationController
   # GET /couleurs
   # GET /couleurs.json
   def index
-    @couleurs = Couleur.liste
+    @couleurs = Couleur.all
   end
 
   # GET /couleurs/1
@@ -25,7 +25,6 @@ class CouleursController < ApplicationController
   # POST /couleurs.json
   def create
     @couleur = Couleur.new(couleur_params)
-
       if @couleur.save
           redirect_to couleurs_path
         else

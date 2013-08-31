@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: couleurs
+#
+#  id         :integer          not null, primary key
+#  nom        :string(255)
+#  saison_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

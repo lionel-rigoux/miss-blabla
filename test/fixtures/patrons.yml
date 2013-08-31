@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: patrons
+#
+#  id         :integer          not null, primary key
+#  societe    :string(255)
+#  siret      :string(255)
+#  tva        :string(255)
+#  capital    :float
+#  adresse    :text
+#  agent_id   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 # This model initially had no columns defined.  If you add columns to the
