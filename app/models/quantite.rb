@@ -34,6 +34,11 @@ class Quantite < ActiveRecord::Base
   end
 
   # INITIALIZATION
+  after_initialize :init
+  def init
+    self.detail ||= {}
+  end
+
   def reset
     self.detail = {}
   end
