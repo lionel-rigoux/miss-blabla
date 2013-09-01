@@ -65,6 +65,8 @@ GEM
     flay (2.4.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.0)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -179,6 +181,7 @@ DEPENDENCIES
   debugger
   email_validator
   flay
+  formtastic
   haml
   haml-rails
   jbuilder (~> 1.2)

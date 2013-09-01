@@ -12,12 +12,10 @@
   = f.text_field :nom
 
   = f.label :tailles, 'Tailles'
-  %table
-    %tr
-      %td entre
-      %td= f.select :taille_min, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
-      %td{width: "30px;"} et
-      %td= f.select :taille_max, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
+  = f.select :taille_min, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
+  = ">>"
+  = f.select :taille_max, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
+  %br
 
   = f.label :prix, 'Prix Unitaire HT'
   = f.text_field :prix
