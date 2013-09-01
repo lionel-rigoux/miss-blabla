@@ -58,7 +58,6 @@ GEM
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
-    default_value_for (2.0.3)
     email_validator (1.4.0)
       activemodel
     erubis (2.7.0)
@@ -178,7 +177,6 @@ DEPENDENCIES
   bullet
   coffee-rails (= 4.0.0)
   debugger
-  default_value_for
   email_validator
   flay
   haml
