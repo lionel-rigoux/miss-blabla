@@ -14,7 +14,7 @@
 #  agent_id   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  has_tva    :boolean
+#  has_tva    :boolean          default(TRUE), not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

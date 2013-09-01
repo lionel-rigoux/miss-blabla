@@ -7,7 +7,7 @@
 #  siret      :string(255)
 #  tva        :string(255)
 #  capital    :float
-#  adresse    :text
+#  adresse    :text             not null
 #  agent_id   :integer
 #  created_at :datetime
 #  updated_at :datetime

@@ -3,11 +3,11 @@
 # Table name: modeles
 #
 #  id         :integer          not null, primary key
-#  numero     :string(255)
-#  nom        :string(255)
+#  numero     :string(255)      not null
+#  nom        :string(255)      not null
 #  taille_min :string(255)
 #  taille_max :string(255)
-#  prix       :float
+#  prix       :float            not null
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -37,7 +37,7 @@ class Modele < ActiveRecord::Base
   end
 
   # SCOPES
-  scope :catalogue, -> {order(:numero)}
+  scope :catalogue, -> {order(:numero).includes(:versions)}
 
   # METHODS
 

@@ -17,9 +17,11 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'meta_request'
   gem 'binding_of_caller'
+  gem 'ruby-growl'
+  gem 'railroady'
 end
 
-
+#gem 'default_value_for'
 gem 'email_validator'
 
 # Use SCSS for stylesheets

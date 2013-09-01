@@ -14,7 +14,7 @@
 #  agent_id   :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  has_tva    :boolean
+#  has_tva    :boolean          default(TRUE), not null
 #
 
 class Client < ActiveRecord::Base
@@ -42,7 +42,6 @@ class Client < ActiveRecord::Base
 
  # initialisation
  after_initialize :init
-
  def init
    self.has_tva = true if self.has_tva.nil?
  end

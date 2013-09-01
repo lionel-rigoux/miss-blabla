@@ -4,8 +4,7 @@ class CommandesController < ApplicationController
   # GET /commandes
   # GET /commandes.json
   def index
-
-    @commandes = Commande.all
+    @commandes = Commande.includes(:client, :quantite).load
   end
 
   # GET /commandes/1

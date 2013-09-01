@@ -5,7 +5,7 @@
 #  id                :integer          not null, primary key
 #  quantifiable_id   :integer
 #  quantifiable_type :string(255)
-#  detail            :text
+#  detail            :text             default("--- {}\n"), not null
 #  created_at        :datetime
 #  updated_at        :datetime
 #

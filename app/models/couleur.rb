@@ -3,7 +3,7 @@
 # Table name: couleurs
 #
 #  id         :integer          not null, primary key
-#  nom        :string(255)
+#  nom        :string(255)      not null
 #  saison_id  :integer
 #  created_at :datetime
 #  updated_at :datetime

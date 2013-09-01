@@ -6,7 +6,7 @@
 #  client_id        :integer
 #  livraison        :date
 #  commentaire      :text
-#  status           :integer
+#  status           :integer          default(0), not null
 #  production_id    :integer
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -49,8 +49,8 @@ class Commande < ActiveRecord::Base
 
 
   # initialization
-  after_initialize :init
 
+  after_initialize :init
   def init
     status ||= 0
     unless quantite
