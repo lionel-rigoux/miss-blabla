@@ -4,13 +4,24 @@ class CommandesController < ApplicationController
   # GET /commandes
   # GET /commandes.json
   def index
-    @commandes = Commande.includes(:client, :quantite).load
+    if params[:commande_status].blank?
+      @commandes = Commande.includes(:client, :quantite).load
+    else
+      @commandes = Commande.includes(:client, :quantite).where(status: params[:commande_status].to_i).load
+    end
+    @commandes.sort_by!  { |c| c.send(params[:commande_order] || 'societe')}
+
+
+    #@sorted_by = params[:sorted_by] || 'societe'
+    #@commandes = Commande.includes(:client, :quantite).load.sort_by!  { |c| c.send(@sorted_by)}
+
   end
 
   # GET /commandes/1
   # GET /commandes/1.json
   def show
     #@modeles=Modele.all(order: 'numero ASC')
+    @commande.quantite.trimed
     @patron=Patron.first
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
@@ -93,6 +104,6 @@ class CommandesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commande_params
-      params[:commande].permit!
+      params[:commande].permit! if params[:commande]
     end
 end

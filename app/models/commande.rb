@@ -67,8 +67,9 @@ class Commande < ActiveRecord::Base
 
  #delegation
  delegate :modeles, :versions, :de, to: :quantite
+ delegate :societe, to: :client
 
- STATUS_LIST = ["Pré-commande", "En Production", "En préparation", "Envoyée", "Payée"]
+ STATUS_LIST = {0=>"en pré-commande", 1=>"en production", 2=>"en préparation", 3=>"envoyée", 4=>"payée"}
 
   # methods
   def date
@@ -76,26 +77,19 @@ class Commande < ActiveRecord::Base
   end
 
   def reference
-    created_at.strftime('%y') + '-' + ("%03d" % client.id) + '-' + ("%04d" % id)
+    status < 3 ? numero_commande : numero_facture
+  end
+
+  def numero_commande
+    'C' + created_at.strftime('%y') + '-' + ("%03d" % client.id) + '-' + ("%03d" % id)
   end
 
   def numero_facture
-    date_facturation.strftime('%y')+'-'+ ("%03d" % client.id) + '-' + ("%04d" % self[:numero_facture]) if self[:numero_facture]
+    ('F' + date_facturation.strftime('%y')+'-'+ ("%03d" % client.id) + '-' + ("%03d" % self[:numero_facture])) if self[:numero_facture]
   end
 
   def info
-    case status
-    when 0
-      "Pré-commande"
-    when 1
-      "En production"
-    when 2
-      "En préparation"
-    when 3
-      "Envoyée"
-    when 4
-      "Réglée"
-    end
+    STATUS_LIST[status]
   end
 
   def update_status

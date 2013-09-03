@@ -135,6 +135,18 @@ table th {
   border-bottom: 1px solid #FFFFFF;
 }
 
+table th a {
+  color: #FFFFFF;
+}
+
+table th a:hover {
+  color: #FFFFFF;
+}
+
+th.sorted {
+  background: #197B98;
+}
+
 table th:first-child {
   border-left: 0px;
 }
@@ -145,6 +157,9 @@ tr {
 
 tr:nth-child(odd) {
   background-color: #F3F3F3;
+  input {
+    background-color: #F3F3F3;
+  }
 }
 
 tr:nth-child(even) {
@@ -226,6 +241,10 @@ input {
     margin: 2px 0 0 0;
 
 }
+td > input{
+  padding: 2px 1px 2px 1px;
+  margin: 1px 0 -1px 0;
+}
 
 input, textarea, select {
     width:353px;
@@ -287,3 +306,30 @@ select.taille{
   width:60px;
   margin: -2px 0 2px 0;
 }
+
+
+td.info_0 {
+  color: #FFFFFF;
+  background-color: #483D8B;
+}
+
+td.info_1 {
+  color: #FFFFFF;
+  background-color: #5F9EA0;
+}
+
+td.info_2 {
+  color: #FFFFFF;
+  background-color: #FF4500;
+}
+
+td.info_3 {
+  color: #FFFFFF;
+  background-color: #9ACD32;
+}
+
+td.info_4 {
+  color: #FFFFFF;
+  background-color: #ADFF2F;
+}
+
