@@ -1,28 +1,28 @@
 %h1 Commandes
+
+%h2 Liste des commandes
 .actions
   = link_to ' + Ajouter une comande', new_commande_path()
 
 
 = form_tag commandes_path, method: :get, id: 'commande_filter' do
   = "Afficher les commandes"
-  = select_tag :commande_status, options_for_select(Commande::STATUS_LIST.collect {|k,v| [v,k]}, params[:commande_status]), prompt: "  -- toutes --  ",  :onchange => 'this.form.submit();'
+  = select_tag :commande_status, options_for_select(Commande::STATUS_LIST.collect {|k,v| [v,k]}, params[:commande_status]), prompt: "(toutes)",  :onchange => 'this.form.submit();'
   = "triées par"
   = select_tag :commande_order, options_for_select([['client','societe'],['date de livraison','livraison'],['référence','reference'],['statut','status']],params[:commande_order]),  :onchange => 'this.form.submit();'
   ="."
 
 
-%table
+%table.listing
 
   %tr
-    %th{width: "10px;"}
-    %th{width: "200px;", class: ("sorted" if @sorted_by == 'societe')}= 'Client'
+    %th{width: "250px;", class: ("sorted" if @sorted_by == 'societe')}= 'Client'
     %th{width: "80px;",  class: ("sorted" if @sorted_by == 'livraison')}= 'Livraison'
     %th{width: "80px;",  class: ("sorted" if @sorted_by == 'reference')}= 'Reference'
     %th{width: "100px;",  class: ("sorted" if @sorted_by == 'status')}= 'Statut'
 
   - @commandes.each do |commande|
-    %tr
-      %td= link_to ">", commande_path(commande)
+    %tr{onclick: "window.location = $(this).attr('url')", url: commande_path(commande)}
       %td= commande.client.societe
       %td.center= commande.date
       %td.center= commande.reference

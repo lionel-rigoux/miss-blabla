@@ -4,18 +4,16 @@
 .actions
   = link_to ' + Ajouter un modèle', new_modele_path()
 
-%table
+%table.listing
   %tr
-    %th{width: "10px"}
-    %th{width: "30px"} #
+    %th{width: "25px"} #
     %th Nom
     %th{width: "80px"} Tailles
     %th{width: "60px"} P.U. H.T.
     %th{width: "40px"} Var.
 
   - @modeles.each do |modele|
-    %tr
-      %td= link_to '>', modele_path(modele)
+    %tr{onclick: "window.location = $(this).attr('url')", url: modele_path(modele)}
       %td.right= modele.numero
       %td.left= modele.nom
       %td.center= "#{modele.taille_min} -> #{modele.taille_max}"
