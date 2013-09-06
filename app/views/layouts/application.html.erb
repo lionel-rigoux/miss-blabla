@@ -6,15 +6,17 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 <div id='top'>
-<div id="header">
-  <div id="title">Miss BlaBla</div>
+  <div id="header">
+    <div id="title">Miss BlaBla</div>
+  </div>
+  <div id="header2">
+    <%= render 'menu' %>
+  </div>
 </div>
-<div id="header2">
-  <%= render 'menu' %>
-</div>
-</div>
+
 <div id="main">
   <%= yield %>
 </div>

@@ -21,6 +21,8 @@ group :development, :test do
   gem 'railroady'
 end
 
+gem 'taps'
+
 gem 'formtastic'
 #gem 'default_value_for'
 gem 'email_validator'
