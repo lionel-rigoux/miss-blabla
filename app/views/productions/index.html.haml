@@ -2,25 +2,20 @@
 
 %h2 Pré-commandes
 - if nombre_commandes(@commandes) == 0
-  = "Aucune pré-commande enregistrée. Ajouter des commandes avant de lancer leur production."
+  %p= "Aucune pré-commande enregistrée. Ajouter des commandes avant de lancer leur production."
 - else
-  = "Il y a actuellement #{nombre_commandes(@commandes)} pré-commandes à produire, pour un total de #{nombre_pieces(@commandes)} pieces."
-  - if @productions.count > 0
-    %br
-    = link_to 'Ajouter à la production actuelle', edit_production_path(@productions.last)
-    = "pour valider ces commandes et mettre à jour l'ordre de production."
-  - else
-    %br
+  %p= "Il y a actuellement #{nombre_commandes(@commandes)} pré-commandes à produire, pour un total de #{nombre_pieces(@commandes)} pieces."
+  %p
     = link_to 'Lancer la production', new_production_path
     = "pour valider ces commandes et voir l'ordre de production."
 
 %h2 Productions en cours
 - if @productions.count == 0
-  = "Il n'y a aucune production en cours"
+  %p= "Il n'y a aucune production en cours"
 - else
   %table
   - @productions.each do |production|
-    = "Production démarée le #{production.date} :"
-    = link_to 'Voir le bon de production', production_path(production), :target => '_blank'
-    = link_to 'Annuler', production, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir annuler cette production ?' }
-    %br
+    %p
+      = "Production démarée le #{production.date} :"
+      = link_to 'Voir le bon de production', production_path(production), :target => '_blank'
+      = link_to 'Annuler', production, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir annuler cette production ?' }

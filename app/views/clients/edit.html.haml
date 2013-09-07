@@ -1,9 +1,9 @@
-%h1 Clients :: modification
-.actions
+%h1 Clients :: modifier
+.actions2
   = link_to 'Annuler', client_path(@client)
-  \|
+  \/
   %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
 
-= render "/application/errors", :@record => @stock
+= render "/application/errors", :@record => @client
 
 = render 'form'

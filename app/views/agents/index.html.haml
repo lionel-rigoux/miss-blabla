@@ -1,19 +1,14 @@
 %h1 Agents
-.actions
+.actions2
   = link_to ' + Ajouter un agent', new_agent_path()
 
-%table
+%table.listing
   %tr
-    %th{width: "20px;"}
     %th{width: "150px;"} Nom
     %th E-mail
 
   - @agents.each do |agent|
-    %tr
-      - if agent.patron.nil?
-        %td= link_to  ">", agent_path(agent)
-      - else
-        %td
+    %tr{onclick: "window.location = $(this).attr('url')", url: agent_path(agent)}
       %td= agent.nom
       %td= agent.email
 

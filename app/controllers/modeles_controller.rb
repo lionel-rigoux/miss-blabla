@@ -4,7 +4,7 @@ class ModelesController < ApplicationController
   # GET /modeles
   # GET /modeles.json
   def index
-    @modeles = Modele.all    
+    @modeles = Modele.order(:numero).all
   end
 
   # GET /modeles/1
@@ -29,7 +29,7 @@ class ModelesController < ApplicationController
       if @modele.save
         redirect_to modele_path(@modele)
       else
-        render action: 'new' 
+        render action: 'new'
       end
   end
 
@@ -41,7 +41,7 @@ class ModelesController < ApplicationController
       else
         render action: 'edit'
       end
-    
+
   end
 
   # DELETE /modeles/1

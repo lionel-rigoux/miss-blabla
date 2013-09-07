@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130901073423) do
+ActiveRecord::Schema.define(version: 20130907141625) do
 
   create_table "agents", force: true do |t|
     t.string   "nom"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20130901073423) do
     t.integer  "nombre_paiments"
     t.integer  "numero_facture"
     t.date     "date_facturation"
+    t.float    "montant"
   end
 
   add_index "commandes", ["client_id"], name: "index_commandes_on_client_id"
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(version: 20130901073423) do
     t.text     "detail",            default: "--- {}\n", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "total"
   end
 
   add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id"

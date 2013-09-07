@@ -13,7 +13,7 @@
 
   = f.label :tailles, 'Tailles'
   = f.select :taille_min, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
-  = ">>"
+  .to= ">>"
   = f.select :taille_max, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
   %br
 

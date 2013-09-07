@@ -12,6 +12,9 @@ class AgentsController < ApplicationController
   end
 
   def show
+    if @agent.patron
+      redirect_to patrons_path
+    end
   end
 
   # GET /agents/1/edit

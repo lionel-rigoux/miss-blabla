@@ -1,8 +1,4 @@
-= render "/application/errors", :@record => @couleur
-
-= form_for @couleur, :method=>(@couleur.id ? :put : :post) do |f|
+= semantic_form_for @couleur, :method=>(@couleur.id ? :put : :post) do |f|
   = f.hidden_field :id
 
-  %br
-  = f.label :nom
-  = f.text_field :nom
+  = f.input :nom

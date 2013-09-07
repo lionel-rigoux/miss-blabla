@@ -1,17 +1,14 @@
-%h1 Catalogues
+%h1 Catalogue :: couleurs
 
-%h2 Couleurs
-.actions
+.actions2
   = link_to ' + Ajouter une couleur', new_couleur_path()
 
-%table
+%table.listing
   %tr
-    %th{width: "20px;"}
-    %th Intitulé
+    %th= "Intitulé"
 
   - @couleurs.each do |couleur|
-    %tr
-      %td= link_to '>', edit_couleur_path(couleur)
+    %tr{onclick: "window.location = $(this).attr('url')", url: edit_couleur_path(couleur)}
       %td= couleur.nom
 
 

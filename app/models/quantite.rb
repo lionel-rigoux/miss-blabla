@@ -39,6 +39,11 @@ class Quantite < ActiveRecord::Base
     self.detail ||= {}
   end
 
+  before_save :update_total
+  def update_total
+    self.total = self.de
+  end
+
   def reset
     self.detail = {}
   end

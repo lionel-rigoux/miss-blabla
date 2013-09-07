@@ -1,9 +1,9 @@
-%h1 Modele :: détails
-.actions
+%h1 Catalogue :: modèle
+.actions2
   = link_to 'Retour', modeles_path
-  \|
+  \/
   = link_to "Modifier", edit_modele_path(@modele)
-  \|
+  \/
   = link_to 'Supprimer', @modele, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce modele ?' }
 
 %h2 Descriptif
@@ -16,16 +16,19 @@
   %dd= @modele.nom
 
   %dt= "Tailles"
-  %dd= "#{@modele.taille_min} -> #{@modele.taille_max}"
+  %dd
+    = @modele.taille_min
+    .to_small= ">>"
+    = @modele.taille_max
 
   %dt= "Prix unitaire HT"
   %dd!= prix(@modele.prix)
 
 %h2 Versions
-.actions
+.actions2
   = link_to ' + Ajouter une version', new_version_path(modele_id: @modele.id)
 
-  %table
+  %table.listing
     %tr
       %th{width: "20px;"}
       %th{width: "180px;"} Couleur principale

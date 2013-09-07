@@ -1,23 +1,16 @@
 %h1 Catalogue
 
-%h2 Modèles
-.actions
+.actions2
   = link_to ' + Ajouter un modèle', new_modele_path()
 
-%table.listing
-  %tr
-    %th{width: "25px"} #
-    %th Nom
-    %th{width: "80px"} Tailles
-    %th{width: "60px"} P.U. H.T.
-    %th{width: "40px"} Var.
 
-  - @modeles.each do |modele|
-    %tr{onclick: "window.location = $(this).attr('url')", url: modele_path(modele)}
-      %td.right= modele.numero
-      %td.left= modele.nom
-      %td.center= "#{modele.taille_min} -> #{modele.taille_max}"
-      %td.right!= prix(modele.prix)
-      %td.center= modele.versions.count
-
-
+- @modeles.each do |modele|
+  .blob{onclick: "window.location = $(this).attr('url')", url: modele_path(modele)}
+    .left
+      .designation= modele.nom
+      .ref= modele.numero
+    .center
+      .prix!= prix(modele.prix)
+    .right
+      .tailles= modele.liste_taille.compact.join(', ')
+      .att= (modele.versions.collect {|v| v.couleurs}.join(', '))

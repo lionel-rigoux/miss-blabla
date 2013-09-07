@@ -22,7 +22,7 @@
 # '<abbr title="required">*</abbr>'. In other words, if you configure formtastic.required
 # in your locale, it will replace the abbr title properly. But if you don't want to use
 # abbr tag, you can simply give a string as below
-# Formtastic::FormBuilder.required_string = "(required)"
+Formtastic::FormBuilder.required_string = ""
 
 # Set the string that will be appended to the labels/fieldsets which are optional
 # Defaults to an empty string ("") and also accepts procs (see required_string above)
@@ -66,7 +66,7 @@
 # specifying that class here.  Defaults to Formtastic::FormBuilder.
 # Formtastic::Helpers::FormHelper.builder = MyCustomBuilder
 
-# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>` 
+# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>`
 # and `<textarea>` tags by setting this to false (defaults to true).
 # Formtastic::FormBuilder.use_required_attribute = true
 

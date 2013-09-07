@@ -1,17 +1,15 @@
 %h1 Clients
-.actions
+.actions2
   = link_to ' + Ajouter un client', new_client_path()
 
-%table
+%table.listing
   %tr
-    %th{width: "20px;"}
     %th{width: "150px;"} Société
     %th{width: "200px;"} E-mail
     %th Nom
 
   - @clients.each do |client|
-    %tr
-      %td= link_to ">", client_path(client)
+    %tr{onclick: "window.location = $(this).attr('url')", url: client_path(client)}
       %td= client.societe
       %td= client.email
       %td= client.nom

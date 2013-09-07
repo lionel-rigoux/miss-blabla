@@ -66,7 +66,7 @@
           != "Au delà, possibilité de paiement en trois fois à 15, 60 et 90 jours."
         - else
           != "Payable par chèque ou virement pour la somme de #{prix(@commande.total)},"
-          != "soit #{pluralize(@commande.nombre_paiments,'paiement')} de #{prix(@commande.mensualite)} à valoir sous"
+          != "soit #{pluralize(@commande.nombre_paiments,'paiement')} à valoir sous"
           != "#{@commande.echeancier} jours #{mensualise(@commande,"respectivement")} à partir de la date de facturation,"
           != "plus un paiement de #{prix(@commande.frais_de_port)}, correspondant aux frais de port, sous 90 jours."
       %td.total{colspan: 2} Total TTC

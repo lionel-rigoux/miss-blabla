@@ -28,16 +28,10 @@ class ProductionsController < ApplicationController
           commande.update(production: production)
         end
     end
-      #quantite_commandees = pre_commandes.collect {|c| c.quantite}.sum
-      #production.update(quantite: Quantite.new + quantite_commandees)
-      #pre_commandes.each do |commande|
-      #  commande.update_status
-      #  commande.update(production: production)
-      #end
-    #end
     redirect_to productions_path
 
   end
+
 
 
   def destroy

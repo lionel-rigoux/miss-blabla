@@ -1,0 +1,25 @@
+$orange: #FF4500;
+$error_text_color: $orange;
+$error_border_color: $orange;
+
+form {
+
+  li {
+   list-style-type: none;
+  
+  }
+
+  p.inline-errors{
+    color: $error_text_color;
+    margin: 2px 0px 0px 150px;
+  }
+
+  .error {
+    input, textarea, select {
+      border: 1px solid $error_border_color;
+      box-shadow: 0 0 2px -1px $error_border_color;
+    }
+  }
+
+
+}

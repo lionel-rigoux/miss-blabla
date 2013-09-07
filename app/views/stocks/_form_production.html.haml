@@ -1,11 +1,11 @@
 = render "/application/errors", :@record => @stock
 
 %h2= "Réception d'arrivage"
-= "Entrez ci-dessous les quantités reçues (voir le "
-= link_to 'bon de production', production_path(@production), :target => '_blank'
-= ") avant d'enrigistrer l'arrivage dans les stocks."
+%p
+  = "Entrez ci-dessous les quantités reçues (voir le "
+  = link_to 'bon de production', production_path(@production), :target => '_blank'
+  = ") avant d'enrigistrer l'arrivage dans les stocks."
 
-%h2 Inventaire
 = form_for @stock, :method=>:post do |f|
   = hidden_field_tag "mode", "production"
   = hidden_field_tag "production", @production.id

@@ -13,10 +13,12 @@
   = f.label :livraison, "Date de livraison"
   = f.date_select :livraison, order: [:day, :month, :year], start_year: Time.now.year, end_year: Time.now.year+1, month_names: t(:month_names), with_css_classes: true
 
+  %br
   = f.label :commentaire, 'Commentaires'
   = f.text_area :commentaire, size: "30x5"
 
-  %h2 Items
+  %br
+  %br
   = f.fields_for :quantite do |ff|
     = render "/quantites/form", {:@quantite => @commande.quantite, :f => ff}
 

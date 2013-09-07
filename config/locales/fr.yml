@@ -1,12 +1,14 @@
 
+
 fr:
   date:
     formats:
       default: "%d/%M/%Y"
-      long: "%e %B %Y"
+      long: "%d %b %y"
       short: "%d/%M/%y"
 
-    month_names: [Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+    month_names: [~,Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+    abbr_month_names: [~, Jan., Fév., Mar., Avr., Mai., Jun., Jul., Aou., Sep., Oct., Nov., Déc.]
 
   activerecord:
     attributes:
@@ -23,6 +25,7 @@ fr:
         modele:
           attributes:
             numero:
+              taken: "Cette référence existe déjà."
               blank: "Veuillez saisir une référence."
             nom:
               blank: "Veuillez saisir un intitulé."

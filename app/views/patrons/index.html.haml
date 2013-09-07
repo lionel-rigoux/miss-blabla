@@ -1,5 +1,5 @@
 %h1 Informations personnelles
-.actions
+.actions2
   = link_to "Modifier", edit_patron_path(1)
 
 %h2 Contact
@@ -30,7 +30,6 @@
   %dd= @patron.capital
 
   %dt= "Adresse"
-  %dd
-    :plain
-      #{to_html(@patron.adresse)}
+  %dd!= to_html(@patron.adresse)
+
 

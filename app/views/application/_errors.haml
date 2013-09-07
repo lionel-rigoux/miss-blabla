@@ -1,7 +1,6 @@
 - if @record.errors.any?
   #error_explanation
     .erreurs
-      = "\# L'enregistrement n'a pas eu lieu :"
       %ul
         - @record.errors.messages.each do |msg|
           %li= msg[1][0]

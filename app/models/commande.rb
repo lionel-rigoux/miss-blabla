@@ -65,6 +65,10 @@ class Commande < ActiveRecord::Base
     end
   end
 
+  before_save :update_montant
+  def update_montant
+    self[:montant] = modeles.collect { |m| montant(m) }.sum
+  end
  #delegation
  delegate :modeles, :versions, :de, to: :quantite
  delegate :societe, to: :client
@@ -74,6 +78,10 @@ class Commande < ActiveRecord::Base
   # methods
   def date
     livraison.strftime('%d/%m/%y')
+  end
+
+  def pasee_le
+    created_at.strftime('%d/%m/%y')
   end
 
   def reference
@@ -97,21 +105,9 @@ class Commande < ActiveRecord::Base
     self.save
   end
 
-#  def quantites_totale
-#    self.quantite.de
-#  end
-
-#  def quantite_version(version)
-#    self.quantite.de(version)
-#  end
-
-  #def quantite(version,taille)
-  #  eval(lignes_for(version).quantites[taille])
-  #end
-
   def montant(*args)
     if args.count == 0
-      self.modeles.collect { |m| montant(m) }.sum
+      self[:montant]
     elsif args[0].is_a?(Modele)
         self.quantite.de(args[0]) * args[0].prix
     end
@@ -131,6 +127,11 @@ class Commande < ActiveRecord::Base
 
   def total
     montant_ttc + (frais_de_port || 0)
+  end
+  
+  def quantite_totale
+
+    self.quantite.total
   end
 
   def echeancier

@@ -1,7 +1,7 @@
-%h1 Modèle :: nouveau
-.actions
-  = link_to 'Annuler', modeles_path
-  \|
+%h1 Catalogue :: modèle :: créer
+.actions2
+  = link_to 'Retour', modeles_path
+  \/
   %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
 
 = render 'form'
