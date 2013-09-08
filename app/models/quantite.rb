@@ -67,7 +67,7 @@ class Quantite < ActiveRecord::Base
   # METHODS
 
   def modeles
-    Modele.where(id: detail.keys).to_a
+    Modele.where(id: detail.keys).order(:numero).to_a
   end
 
   def versions(modele)
