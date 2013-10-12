@@ -21,7 +21,7 @@
 
   .left {
     height: inherit;
-    width: 160px;
+    width: 260px;
     float: left;
     display: table-column;
     border-right: 1px dashed #DDDDDD;
@@ -38,7 +38,7 @@
   }
   }
   .center{
-    width: 90px;
+    width: 60px;
     height: inherit;
     float: left;
     display: table-column;
@@ -54,7 +54,7 @@
 }
   .right {
 
-     width: 300px;
+     width: auto;
       height: inherit;
       float: left;
       display: table-column;

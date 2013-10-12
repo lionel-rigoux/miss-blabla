@@ -46,6 +46,10 @@ class Client < ActiveRecord::Base
    self.has_tva = true if self.has_tva.nil?
  end
 
+ # SCOPES
+  default_scope order(:societe)
+
+
   def intitule
     int = []
     int += [self.societe] unless self.societe.blank?
