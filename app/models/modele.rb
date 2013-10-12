@@ -42,7 +42,7 @@ class Modele < ActiveRecord::Base
   # METHODS
 
   def tailles_possibles
-    ['S','M','L','XL','XXL','XXXL']
+    ['XS','S','M','L','XL','XXL','XXXL']
   end
 
   def liste_taille
