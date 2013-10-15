@@ -20,7 +20,7 @@
       %th{colspan: 7}= 'Tailles'
       %th= 'Total'
     - @production.modeles.each do |modele|
-      %th.designation
+      %tr.designation
         %td= "N° #{modele.numero} - #{modele.nom}"
         - modele.liste_taille.each do |t|
           %td= t
