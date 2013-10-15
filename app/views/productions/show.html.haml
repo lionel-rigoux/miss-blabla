@@ -3,7 +3,7 @@
 
 .bon_production
   %h1 Production order
-  
+
   .client
     %p= @patron.agent.nom
     %p
@@ -11,8 +11,8 @@
         #{to_html(@patron.adresse)}
     %p= @patron.agent.telephone
     %p= @patron.agent.email
-  
-  
+
+
   %p.reference= Date.today.strftime('%B %d, %Y')
   %table.commande
     %tr.header
@@ -20,7 +20,7 @@
       %th{colspan: 7}= 'Tailles'
       %th= 'Total'
     - @production.modeles.each do |modele|
-      %tr.designation
+      %th.designation
         %td= "N° #{modele.numero} - #{modele.nom}"
         - modele.liste_taille.each do |t|
           %td= t
