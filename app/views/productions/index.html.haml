@@ -10,7 +10,7 @@
     = "pour valider ces commandes et voir l'ordre de production."
 
 %h2 Productions en cours
-- if @commandes_0 == 0
+- if @productions.count == 0
   %p= "Il n'y a aucune production en cours"
 - else
   %table
