@@ -1,16 +1,16 @@
 %h1 Productions
 
 %h2 Pré-commandes
-- if nombre_commandes(@commandes) == 0
+- if @commandes_0 == 0
   %p= "Aucune pré-commande enregistrée. Ajouter des commandes avant de lancer leur production."
 - else
-  %p= "Il y a actuellement #{nombre_commandes(@commandes)} pré-commandes à produire, pour un total de #{nombre_pieces(@commandes)} pieces."
+  %p= "Il y a actuellement #{@commandes_0} pré-commandes à produire."
   %p
     = link_to 'Lancer la production', new_production_path
     = "pour valider ces commandes et voir l'ordre de production."
 
 %h2 Productions en cours
-- if @productions.count == 0
+- if @commandes_0 == 0
   %p= "Il n'y a aucune production en cours"
 - else
   %table

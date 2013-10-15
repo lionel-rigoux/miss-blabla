@@ -4,7 +4,7 @@ class ProductionsController < ApplicationController
   # GET /productions
   # GET /productions.json
   def index
-    @commandes=Commande.find_all_by_status(0)
+    @commandes_0=Commande.where(status: 0).count
     @productions = Production.all
   end
 
