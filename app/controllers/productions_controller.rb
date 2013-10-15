@@ -12,7 +12,7 @@ class ProductionsController < ApplicationController
   # GET /productions/1.json
   def show
      @patron = Patron.find_or_initialize_by_id(1)
-     @production.up_to_date
+     #@production.up_to_date
      @production.quantite.trimed
      render 'show', layout: "printable"
 
