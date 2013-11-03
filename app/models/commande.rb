@@ -53,16 +53,6 @@ class Commande < ActiveRecord::Base
   after_initialize :init
   def init
     status ||= 0
-    unless quantite
-      self.quantite = Quantite.new
-      Modele.catalogue.each do |modele|
-        modele.versions.each do |version|
-          modele.liste_taille.compact.each do |taille|
-            self.quantite.set(modele.id,version.id,taille,0)
-          end
-        end
-      end
-    end
   end
 
   before_save :update_montant
@@ -74,6 +64,17 @@ class Commande < ActiveRecord::Base
  delegate :societe, to: :client
 
  STATUS_LIST = {0=>"en pré-commande", 1=>"en production", 2=>"en préparation", 3=>"envoyée", 4=>"payée"}
+
+ def prepare
+   self.quantite = Quantite.new
+      Modele.catalogue.each do |modele|
+        modele.versions.each do |version|
+          modele.liste_taille.compact.each do |taille|
+            self.quantite.set(modele.id,version.id,taille,0)
+          end
+        end
+     end
+ end
 
   # methods
   def date
@@ -128,7 +129,7 @@ class Commande < ActiveRecord::Base
   def total
     montant_ttc + (frais_de_port || 0)
   end
-  
+
   def quantite_totale
 
     self.quantite.total

@@ -43,7 +43,7 @@ class Client < ActiveRecord::Base
  # initialisation
  after_initialize :init
  def init
-   self.has_tva = true if self.has_tva.nil?
+   has_tva = true if self.has_tva.nil?
  end
 
  # SCOPES

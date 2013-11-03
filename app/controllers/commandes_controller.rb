@@ -5,9 +5,9 @@ class CommandesController < ApplicationController
   # GET /commandes.json
   def index
     if params[:commande_status].blank?
-      @commandes = Commande.includes(:client).all
+      @commandes = Commande.includes(:client,:quantite).to_a
     else
-      @commandes = Commande.includes(:client).where(status: params[:commande_status].to_i).all
+      @commandes = Commande.includes(:client,:quantite).where(status: params[:commande_status].to_i).to_a
     end
     @commandes.sort_by!  { |c| c.send(params[:commande_order] || 'societe')}
 
@@ -40,6 +40,7 @@ class CommandesController < ApplicationController
   # GET /commandes/new
   def new
     @commande = Commande.new()
+    @commande.prepare
   end
 
   # GET /commandes/1/edit
