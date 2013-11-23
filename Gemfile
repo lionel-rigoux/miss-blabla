@@ -19,7 +19,10 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'ruby-growl'
   gem 'railroady'
+  gem 'rspec-rails'
+  gem 'watchr'
 end
+
 
 gem 'taps'
 

@@ -13,20 +13,19 @@ class ProductionsController < ApplicationController
   def show
      @patron = Patron.find_or_initialize_by_id(1)
      #@production.up_to_date
-     @production.quantite.trimed
+     @catalogue = Modele.catalogue
+      @couleurs = Hash[Couleur.pluck(:id,:nom)]
      render 'show', layout: "printable"
 
   end
 
   # GET /productions/new
   def new
-    production = Production.create!(quantite: Quantite.new)
-    Commande.en_avance.each do |commande|
-        production += commande
-        if production.save
-          commande.update_status
-          commande.update(production: production)
-        end
+    pre_orders = Commande.en_avance
+    quantite= pre_orders.to_a.inject(Quantite.new) {|q,c| q+c.quantite}
+    production = Production.new(quantite: quantite)
+    if production.save
+      pre_orders.update_all(status: 1, production_id: production.id)
     end
     redirect_to productions_path
 
@@ -35,9 +34,7 @@ class ProductionsController < ApplicationController
 
 
   def destroy
-    @production.commandes.each do |commande|
-      commande.update(status: 0, production: nil)
-    end
+    @production.commandes.update_all(status: 0, production_id: nil)
     @production.destroy
     redirect_to productions_path
 

@@ -10,9 +10,10 @@ class StocksController < ApplicationController
       @stock = Stock.find_or_initialize_by_id(1)
     when 'net'
       @stock = Stock.find_or_initialize_by_id(1)
-      quantite_totale = Commande.en_preparation.collect { |c|  c.quantite }.sum
-      @stock.quantite -= quantite_totale unless quantite_totale == 0
+      Commande.en_preparation.includes(:quantite).each { |c|  @stock.quantite -= c.quantite }
     end
+    @catalogue = Modele.catalogue.to_a
+    @couleurs = Hash[Couleur.pluck(:id,:nom)]
 
   end
 
@@ -28,8 +29,11 @@ class StocksController < ApplicationController
   # GET /stocks/1/edit
 
   def edit
-    @production = Production.find(params[:production]).up_to_date
+    @production = Production.find(params[:production])
     @stock=Stock.new(quantite: Quantite.new + @production.quantite)
+    @catalogue = Modele.catalogue.to_a
+    @couleurs = Hash[Couleur.pluck(:id,:nom)]
+
   end
 
   # POST /stocks
@@ -45,10 +49,7 @@ class StocksController < ApplicationController
       if @stock.valid?
         @old_stock.quantite += @stock.quantite
         if @old_stock.save
-          @production.commandes.each do |c|
-            c.update_status
-            c.update(production: nil)
-          end
+          @production.commandes.update_all(production_id: nil, status: 2)
           @production.destroy
           redirect_to stocks_path
           return

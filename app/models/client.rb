@@ -43,11 +43,13 @@ class Client < ActiveRecord::Base
  # initialisation
  after_initialize :init
  def init
-   has_tva = true if self.has_tva.nil?
+      begin
+        has_tva = true if has_tva.nil?
+      end
  end
 
  # SCOPES
-  default_scope order(:societe)
+  default_scope { order(:societe) }
 
 
   def intitule

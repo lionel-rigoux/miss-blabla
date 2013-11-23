@@ -4,7 +4,8 @@ class ModelesController < ApplicationController
   # GET /modeles
   # GET /modeles.json
   def index
-    @modeles = Modele.order(:numero).all
+    @modeles = Modele.includes(:versions).order(:numero).load
+    @couleurs = Hash[Couleur.pluck(:id,:nom)]
   end
 
   # GET /modeles/1

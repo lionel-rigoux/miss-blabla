@@ -15,8 +15,6 @@
     = "Afficher le"
     = select_tag :stock_mode, options_for_select([['stock réel (en réserve)','reel'],['stock net (commandes déduites)','net']],selected: params[:stock_mode]), :onchange => 'document.forms[0].submit();'
 
-- if @stock.quantite.de > 0
-  = render "/quantites/show", :@quantite => @stock.quantite
-- else
-  %p= "Le stock est actuellement vide."
+%p= "Il y a #{pluralize(@stock.quantite.de,'pièce')} en stock."
+= render "/quantites/show", :@quantite => @stock.quantite
 

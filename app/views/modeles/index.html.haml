@@ -5,6 +5,7 @@
 
 
 - @modeles.each do |modele|
+  - couleurs = modele.versions.collect {|v| @couleurs[v.couleurs_1_id]}
   .blob{onclick: "window.location = $(this).attr('url')", url: modele_path(modele)}
     .left
       .designation= modele.nom
@@ -13,4 +14,4 @@
       .prix!= prix(modele.prix)
     .right
       .tailles= modele.liste_taille.compact.join(', ')
-      .att= (modele.versions.collect {|v| v.couleurs}.join(', '))
+      .att= couleurs.join(', ')

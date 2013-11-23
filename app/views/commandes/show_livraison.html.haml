@@ -22,7 +22,8 @@
       %th= 'Désignation'
       %th{colspan: 7}= 'Tailles'
       %th= 'Total'
-    - @commande.modeles.each do |modele|
+    - @commande.quantite.modeles_ids(@catalogue).each do |modele_id|
+      - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
       - if @commande.quantite.de(modele) > 0
         %tr.designation
           %td= "\##{modele.numero} - #{modele.nom}"
@@ -30,7 +31,9 @@
             %td= t
           %td= @commande.quantite.de(modele.id)
 
-        - @commande.versions(modele).each do |version|
+        - @commande.quantite.versions_ids(modele.id).each do |version_id|
+          - version=modele.versions.select {|v| v.id == version_id.to_i}.first
+          - couleur=@couleurs[version.couleurs_1_id]
           - if @commande.quantite.de(version) > 0
             %tr
               %td= version.couleurs

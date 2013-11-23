@@ -1,16 +1,17 @@
 class CommandesController < ApplicationController
   before_action :set_commande, only: [:show, :edit, :update, :destroy]
+  before_action :set_catalogue, only: [:show, :new, :edit, :update]
 
   # GET /commandes
   # GET /commandes.json
   def index
     if params[:commande_status].blank?
-      @commandes = Commande.includes(:client,:quantite).to_a
+      @commandes = Commande.includes(:client).to_a
     else
-      @commandes = Commande.includes(:client,:quantite).where(status: params[:commande_status].to_i).to_a
+      @commandes = Commande.includes(:client).where(status: params[:commande_status].to_i).to_a
     end
     @commandes.sort_by!  { |c| c.send(params[:commande_order] || 'societe')}
-
+    @quantite = Hash[Quantite.where(quantifiable_id: @commandes.collect {|c| c.id}).pluck(:quantifiable_id,:total)]
 
     #@sorted_by = params[:sorted_by] || 'societe'
     #@commandes = Commande.includes(:client, :quantite).load.sort_by!  { |c| c.send(@sorted_by)}
@@ -21,7 +22,7 @@ class CommandesController < ApplicationController
   # GET /commandes/1.json
   def show
     #@modeles=Modele.all(order: 'numero ASC')
-    @commande.quantite.trimed
+    @commande.quantite
     @patron=Patron.first
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
@@ -39,12 +40,14 @@ class CommandesController < ApplicationController
 
   # GET /commandes/new
   def new
-    @commande = Commande.new()
-    @commande.prepare
+    @commande = Commande.new.prepare
   end
 
   # GET /commandes/1/edit
   def edit
+    @commande.quantite += Commande.new.prepare.quantite
+    sorted_list = @catalogue.collect(&:id)
+    @commande.quantite.detail.sort {|a,b| sorted_list.index(a) <=> sorted_list.index(b)}
   end
 
   # POST /commandes
@@ -100,9 +103,13 @@ class CommandesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_commande
-      @commande = Commande.find(params[:id])
+      @commande = Commande.where(id: params[:id]).includes(:quantite).first
     end
 
+    def set_catalogue
+      @catalogue = Modele.catalogue
+      @couleurs = Hash[Couleur.pluck(:id,:nom)]
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def commande_params
       params[:commande].permit! if params[:commande]

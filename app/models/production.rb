@@ -14,11 +14,11 @@ class Production < ActiveRecord::Base
   has_one :quantite, as: :quantifiable, :dependent => :destroy
 
   # INITIALIZATION
-  #after_initialize :init
+  after_initialize :init
 
-  #def init
-  #  self.quantite ||= Quantite.new
-  #end
+  def init
+    self.quantite ||= Quantite.new
+  end
 
   # METHODS
   delegate :modeles, :versions, :de, to: :quantite
@@ -35,13 +35,12 @@ class Production < ActiveRecord::Base
   end
 
   def +(arg)
-    new_production = self.clone
     if arg.is_a? Commande
-      new_production.quantite += arg.quantite
+      self.quantite += arg.quantite
     else
       raise ArgumentError, "Opération non définie pour le type #{arg.class}"
     end
-    new_production
+    self
   end
 
 end

@@ -12,25 +12,8 @@
     %p= @patron.agent.telephone
     %p= @patron.agent.email
 
-
   %p.reference= Date.today.strftime('%B %d, %Y')
-  %table.commande
-    %tr.header
-      %th= 'Name'
-      %th{colspan: 7}= 'Tailles'
-      %th= 'Total'
-    - @production.modeles.each do |modele|
-      %tr.designation
-        %td= "N° #{modele.numero} - #{modele.nom}"
-        - modele.liste_taille.each do |t|
-          %td= t
-        %td= @production.quantite.de(modele)
-        - @production.versions(modele).each do |version|
-          %tr
-            %td= version.couleurs
-            - modele.liste_taille.each do |t|
-              %td= @production.quantite.de(version,t) if t
-            %td= @production.quantite.de(version)
+  = render "/quantites/show", :@quantite => @production.quantite
 
   .footer
   = "Total number of items: #{@production.quantite.de}"

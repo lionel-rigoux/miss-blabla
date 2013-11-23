@@ -41,7 +41,7 @@ class Commande < ActiveRecord::Base
   end
 
   # SCOPES
-  scope :en_avance, -> {where(status: 0)}
+  scope :en_avance, -> {where(status: 0).includes(:quantite)}
   scope :en_production, -> {where(status: 1)}
   scope :en_preparation, -> {where(status: 2)}
   scope :envoyees, -> {where(status: 3)}
@@ -57,7 +57,8 @@ class Commande < ActiveRecord::Base
 
   before_save :update_montant
   def update_montant
-    self[:montant] = modeles.collect { |m| montant(m) }.sum
+    modeles_list = Modele.where(id: modeles).to_a
+    self[:montant] = modeles_list.collect { |m| montant(m) }.sum
   end
  #delegation
  delegate :modeles, :versions, :de, to: :quantite
@@ -74,6 +75,7 @@ class Commande < ActiveRecord::Base
           end
         end
      end
+     self
  end
 
   # methods
@@ -150,5 +152,13 @@ class Commande < ActiveRecord::Base
     self.where(date_facturation: Time.new.beginning_of_year..Time.now).count + 1
   end
 
+  def +(arg)
+    if arg.is_a? Commande
+      self.quantite += arg.quantite
+    else
+      raise ArgumentError, "Opération non définie pour le type #{arg.class}"
+    end
+    self
+  end
 
 end

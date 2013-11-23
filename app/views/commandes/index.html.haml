@@ -40,7 +40,7 @@
       .status= commande.info
     .center
       .prix!= prix(commande.montant)
-      .pieces= "#{commande.quantite_totale} pcs."
+      .pieces= "#{@quantite[commande.id]} pcs."
     .right
       .lab= "passée le :"
       .date= l commande.created_at.to_date, format: :long

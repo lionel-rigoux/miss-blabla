@@ -29,7 +29,8 @@
       %th{width: "60px;"} Qnt
       %th{width: "80px;"} PU HT
       %th{width: "80px;"} Mnt HT
-    - @commande.modeles.each do |modele|
+    - @commande.quantite.modeles_ids(@catalogue).each do |modele_id|
+      - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
       - if @commande.quantite.de(modele) > 0
         %tr.facture
           %td= "\##{modele.numero} - #{modele.nom}"

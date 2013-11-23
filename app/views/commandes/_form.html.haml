@@ -7,7 +7,7 @@
   %h2 Client
 
   = f.label :client_id, 'Commande pour'
-  = f.collection_select :client_id, Client.all, :id, :societe, prompt: "-- Selectionnez un client --"
+  = f.collection_select :client_id, Client.select(:id,:societe).load, :id, :societe, prompt: "-- Selectionnez un client --"
 
   %h2 Livraison
   = f.label :livraison, "Date de livraison"
