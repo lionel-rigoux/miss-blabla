@@ -133,7 +133,6 @@ class Commande < ActiveRecord::Base
   end
 
   def quantite_totale
-
     self.quantite.total
   end
 
