@@ -6,15 +6,13 @@ class CommandesController < ApplicationController
   # GET /commandes.json
   def index
     if params[:commande_status].blank?
-      @commandes = Commande.includes(:client).to_a
+      @commandes = Commande.includes(:client)
     else
-      @commandes = Commande.includes(:client).where(status: params[:commande_status].to_i).to_a
+      @commandes = Commande.includes(:client).where(status: params[:commande_status].to_i)
     end
-    @commandes.sort_by!  { |c| c.send(params[:commande_order] || 'societe')}
-    @quantite = Hash[Quantite.where(quantifiable_id: @commandes.collect {|c| c.id}).pluck(:quantifiable_id,:total)]
+    @commandes.order(params[:commande_order])
 
-    #@sorted_by = params[:sorted_by] || 'societe'
-    #@commandes = Commande.includes(:client, :quantite).load.sort_by!  { |c| c.send(@sorted_by)}
+    @quantite = Hash[Quantite.where(quantifiable_id: @commandes.collect {|c| c.id}).pluck(:quantifiable_id,:total)]
 
   end
 
@@ -45,9 +43,11 @@ class CommandesController < ApplicationController
 
   # GET /commandes/1/edit
   def edit
-    @commande.quantite += Commande.new.prepare.quantite
-    sorted_list = @catalogue.collect(&:id)
-    @commande.quantite.detail.sort {|a,b| sorted_list.index(a) <=> sorted_list.index(b)}
+    q_new = Commande.new.prepare.quantite
+    q_new.id = @commande.quantite.id
+    @commande.quantite += q_new
+    #sorted_list = @catalogue.collect(&:id)
+    #@commande.quantite.detail.sort {|a,b| sorted_list.index(a) <=> sorted_list.index(b)}
   end
 
   # POST /commandes

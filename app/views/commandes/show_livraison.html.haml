@@ -36,7 +36,7 @@
           - couleur=@couleurs[version.couleurs_1_id]
           - if @commande.quantite.de(version) > 0
             %tr
-              %td= version.couleurs
+              %td= couleur
               - modele.liste_taille.each do |t|
                 %td= @commande.quantite.de(version,t) if t
               %td= @commande.quantite.de(version)
