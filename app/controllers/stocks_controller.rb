@@ -12,7 +12,6 @@ class StocksController < ApplicationController
       @stock = Stock.find_or_initialize_by_id(1)
       Commande.en_preparation.includes(:quantite).each { |c|  @stock.quantite -= c.quantite }
     end
-    @stock.quantite.trimed
     @catalogue = Modele.catalogue.to_a
     @couleurs = Hash[Couleur.pluck(:id,:nom)]
 
