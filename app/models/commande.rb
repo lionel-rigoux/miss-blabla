@@ -60,6 +60,7 @@ class Commande < ActiveRecord::Base
     modeles_list = Modele.where(id: modeles).to_a
     self[:montant] = modeles_list.collect { |m| montant(m) }.sum
   end
+
  #delegation
  delegate :modeles, :versions, :de, to: :quantite
  delegate :societe, to: :client

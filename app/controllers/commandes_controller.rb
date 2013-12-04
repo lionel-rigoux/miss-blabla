@@ -5,14 +5,11 @@ class CommandesController < ApplicationController
   # GET /commandes
   # GET /commandes.json
   def index
-    if params[:commande_status].blank?
-      @commandes = Commande.includes(:client)
-    else
-      @commandes = Commande.includes(:client).where(status: params[:commande_status].to_i)
-    end
-    @commandes.order(params[:commande_order])
 
-    @quantite = Hash[Quantite.where(quantifiable_id: @commandes.collect {|c| c.id}).pluck(:quantifiable_id,:total)]
+    @commandes = Commande.includes(:quantite,:client)
+    @commandes = @commandes.where(status: params[:commande_status].to_i) unless params[:commande_status].blank?
+
+    @commandes.sort_by! { |c| c.send(params[:commande_order] || 'societe')}
 
   end
 
@@ -20,7 +17,7 @@ class CommandesController < ApplicationController
   # GET /commandes/1.json
   def show
     #@modeles=Modele.all(order: 'numero ASC')
-    @commande.quantite
+
     @patron=Patron.first
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"

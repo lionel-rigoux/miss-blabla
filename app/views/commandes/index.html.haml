@@ -29,7 +29,7 @@
     ="Afficher les commandes "
     =select_tag :commande_status, options_for_select(Commande::STATUS_LIST.collect {|k,v| [v,k]}, params[:commande_status]), prompt: "(toutes)",  :onchange => 'this.form.submit();'
     = " triées par "
-    =select_tag :commande_order, options_for_select([['client','societe'],['statut','status'],['référence','reference'],['montant','montant'],['nbr. de pièces','quantite_totale'],['date de livraison','livraison']],params[:commande_order]),  :onchange => 'this.form.submit();'
+    =select_tag :commande_order, options_for_select([['client','societe'],['statut','status'],['référence','id'],['montant','montant'],['nbr. de pièces','quantite_totale'],['date de livraison','livraison']],params[:commande_order]),  :onchange => 'this.form.submit();'
 
 
 - @commandes.each do |commande|
@@ -40,7 +40,8 @@
       .status= commande.info
     .center
       .prix!= prix(commande.montant)
-      .pieces= "#{@quantite[commande.id]} pcs."
+      -#.pieces= "#{@quantite[commande.id]} pcs."
+      .pieces= "#{commande.quantite.total} pcs."
     .right
       .lab= "passée le :"
       .date= l commande.created_at.to_date, format: :long
