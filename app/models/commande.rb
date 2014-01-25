@@ -118,7 +118,7 @@ class Commande < ActiveRecord::Base
   end
 
   def tva(*args)
-    client.has_tva ? montant(*args)*0.196 : 0
+    client.has_tva ? montant(*args)*0.200 : 0
   end
 
   def montant_ttc(*args)
