@@ -15,7 +15,11 @@
 - if @commande.status == 0
   %p= "Ceci est une pré-commande. Elle sera automatiquement intégrée à la prochaine production. Procédez à la production et réceptionnez le stock avant de continuer."
 - if @commande.status == 1
-  %p= "Cette commande est en cours de production. Elle pourra être traitée à la prochaine rentrée de stock."
+  %p= "Cette commande est en cours de production. Elle pourra être traitée à la prochaine rentrée de stock. "
+  %p
+    = "Envoyer le "
+    = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
+    = '.'
 - if @commande.status == 2
   %p
     = "Cette commande doit être préparée. Pour cela, imprimez le"
