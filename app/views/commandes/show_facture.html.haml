@@ -54,7 +54,7 @@
         %td.total!= "#{prix(@commande.remise)}"
     %tr.blank
       -if @commande.client.has_tva
-        %td.info="Base TVA: 19.6\%"
+        %td.info="Base TVA: 20.0\%"
       - else
         %td.info= "TVA non applicable, art. 293 B du CGI"
       %td.total{colspan: 2} TVA
