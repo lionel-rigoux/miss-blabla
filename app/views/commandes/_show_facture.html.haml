@@ -31,12 +31,6 @@
     = @commande.client.intitule
     = "(#{@commande.client.identification})"
 
-  - if @commande.status < 3
-    %p.alert
-      = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
-      = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant réel "
-      = "sera indiqué sur la facture définitive qui vous sera envoyée ultérieurement."
-
   %table.commande
     %tr.designation
       %th{width: "400px;"} Désignation
@@ -102,4 +96,9 @@
     != "Droit de réserve&nbsp;: nous nous réservons la propriété des marchandises jusqu'au paiement du prix par l'acheteur&nbsp;;"
     = "ce droit de revendication porte aussi bien sur les marchandises que sur leur prix si elles ont déjà été revendues (Loi du 12 mai 1989)."
 
+  - if @commande.status < 3
+    %p.alert
+      = "Attention ! Ceci n'est pas une facture : elle n'inclut pas les frais de livraison ni"
+      = "les changements qui peuvent intervenir d'ici l'envoi de votre commande. Le montant réel "
+      = "sera indiqué sur la facture définitive qui vous sera envoyée ultérieurement."
 

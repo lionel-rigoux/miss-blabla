@@ -258,9 +258,11 @@ font-weight: bold;
 #page h1 {
 color: #555555;
 width: 100%;
+text-align: right;
 font-size: 16pt;
 border-bottom: 0px;
 margin-bottom: 30px;
+margin-top: -25px;
 }
 
 #page p{
@@ -283,11 +285,26 @@ margin-left: 10cm;
   margin: 0px 0px 2px 0px;
 }
 
+#page .informations{
+  width: 7cm;
+  text-align: left;
+  font-size: 8pt;
+  margin-top: -15px;
+  display: block;
+
+}
+
+#page .informations p{
+  color: #CCCCCC;
+  margin: 0px 0px 2px 0px;
+}
+
 #page p.alert {
   width: 100%;
   text-align: justify;
   color: #990000;
-  margin-top: 10px;
+  margin-top: 70px;
+  margin-bottom: -70px;
 }
 #page table {
   margin: 80px auto 10px auto;
@@ -370,13 +387,12 @@ padding-left: 5px;
   color: #666666;
 }
 
-#page p.informations{
-  width: 16.9cm;
-  text-align: justify;
-  color: #777777;
-  font-size: 8pt;
-  position:absolute;
-  top: 28cm;
-  display: block;
 
+#page .pagebreak{
+  page-break-after:always;
 }
+
+
+
+
+
