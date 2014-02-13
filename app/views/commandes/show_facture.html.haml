@@ -27,7 +27,7 @@
       = "Le #{Time.now.strftime('%d/%m/%Y')}, commande référence #{@commande.reference} pour :"
     - else
       = "Le #{@commande.date_facturation.strftime('%d/%m/%Y')}, facture n° #{@commande.numero_facture} pour :"
-    %br
+    -#%br
     = @commande.client.intitule
     = "(#{@commande.client.identification})"
 

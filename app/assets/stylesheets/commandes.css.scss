@@ -238,12 +238,12 @@ font-weight: bold;
 
 @page {
     size: A4;
-    margin: 2.5cm 0 2.5cm 0;
+    margin: 1.5cm 0 1.5cm 0;
 }
 
 @media print {
     .page {
-            margin: 2.5cm 0 2.5cm 0;
+            margin: 1.5cm 0 1.5cm 0;
             border: initial;
             border-radius: initial;
             width: initial;
@@ -303,11 +303,11 @@ margin-left: 10cm;
   width: 100%;
   text-align: justify;
   color: #990000;
-  margin-top: 70px;
-  margin-bottom: -70px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 #page table {
-  margin: 80px auto 10px auto;
+  margin: 10px auto 10px auto;
   width: 100%;
   /*font-size: 11pt;*/
 }
@@ -374,8 +374,8 @@ padding-left: 5px;
 }
 
 #page p.reference {
-  margin-top: 6.5cm;
-  margin-bottom: -70px;
+  margin-top: 5.5cm;
+  margin-bottom: 5px;
   font-size: 9pt;
 }
 
