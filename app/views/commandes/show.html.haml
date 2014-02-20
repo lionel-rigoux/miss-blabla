@@ -17,8 +17,12 @@
 - if @commande.status == 1
   %p= "Cette commande est en cours de production. Elle pourra être traitée à la prochaine rentrée de stock. "
   %p
-    = "Envoyer le "
+    = "Imprimer le "
     = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
+    = '.'
+  %p
+    = "Imprimer le "
+    = link_to 'bon de livraison', commande_path(@commande, mode: 'livraison'), :target => '_blank'
     = '.'
 - if @commande.status == 2
   %p
