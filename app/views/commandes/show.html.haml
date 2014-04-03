@@ -14,27 +14,19 @@
 %h2 Statut
 - if @commande.status == 0
   %p= "Ceci est une pré-commande. Elle sera automatiquement intégrée à la prochaine production. Procédez à la production et réceptionnez le stock avant de continuer."
-- if @commande.status == 1
-  %p= "Cette commande est en cours de production. Elle pourra être traitée à la prochaine rentrée de stock. "
-  %p
-    = "Imprimer le "
-    = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
-    = '.'
+- if @commande.status == 1 || @commande.status == 2
   %p
     = "Imprimer le "
     = link_to 'bon de livraison', commande_path(@commande, mode: 'livraison'), :target => '_blank'
     = '.'
-- if @commande.status == 2
   %p
-    = "Cette commande doit être préparée. Pour cela, imprimez le"
-    = link_to 'bon de livraison', commande_path(@commande, mode: 'livraison'), :target => '_blank'
-    = " et le"
+    = "Imprimer le "
     = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
     = '.'
   %p
     = "Une fois la commande expédiée, vous pouvez"
     = link_to 'procéder à la facturation', commande_path(@commande, mode: 'validation')
-    = ". Attention ! Il ne sera plus possible de modifier la commande une la facture crée."
+    = ". Attention ! Il ne sera plus possible de modifier la commande une la facture crée !"
 - if @commande.status == 3
   %p
     = "Cette commande a été facturée. Voir la"

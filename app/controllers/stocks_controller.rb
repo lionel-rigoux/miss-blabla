@@ -40,11 +40,12 @@ class StocksController < ApplicationController
   # POST /stocks
   # POST /stocks.json
   def create
+    @old_stock = Stock.find_or_initialize_by_id(1)
+    @stock = Stock.new(stock_params)
+
     case params[:mode]
 
     when "production"
-      @old_stock = Stock.find_or_initialize_by_id(1)
-      @stock = Stock.new(stock_params)
       @production = Production.find(params[:production])
 
       if @stock.valid?
@@ -59,6 +60,19 @@ class StocksController < ApplicationController
         render 'edit'
         return
       end
+
+      when "free"
+
+      if @stock.valid?
+        @old_stock.quantite += @stock.quantite
+        if @old_stock.save
+          redirect_to stocks_path
+          return
+        end
+      end
+      render 'edit'
+      return
+
     end
     redirect_to stocks_path
 

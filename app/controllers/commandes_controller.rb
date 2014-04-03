@@ -25,7 +25,6 @@ class CommandesController < ApplicationController
   # GET /commandes/1.json
   def show
     #@modeles=Modele.all(order: 'numero ASC')
-
     @patron=Patron.first
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
@@ -79,16 +78,23 @@ class CommandesController < ApplicationController
       when 3
         commande_params[:date_facturation] = Time.now
         commande_params[:numero_facture] = Commande.nouveau_numero
+        commande_params[:status] = 3
         ok= @commande.update(commande_params)
-        if ok
-          stock = Stock.find_or_initialize_by_id(1)
-          stock -= @commande
-          unless stock.save
-            @commande.status -= 1
-            @commande.save
-            ok = false
-          end
+        if !ok
+          @commande.status -= 1
+          render action: 'show_validation' and return
+
+          #set_commande
+          #render action: 'show_facture', layout: "printable" and return
         end
+        #  stock = Stock.find_or_initialize_by_id(1)
+        #  stock -= @commande
+        #  unless stock.save
+        #    @commande.status -= 1
+        #    @commande.save
+        #    ok = false
+        #  end
+        #end
       end
     if ok
       redirect_to @commande

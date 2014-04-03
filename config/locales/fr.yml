@@ -1,5 +1,8 @@
 
 
+
+
+
 fr:
   date:
     formats:
@@ -44,6 +47,8 @@ fr:
               invalid: "La date de livraison ne peut être passée."
             quantite:
               invalid: "Pas assez de pièces commandées."
+            frais_de_port:
+              not_a_number: "Les frais de port doivent être plus grand que zero."
 
         client:
           attributes:
