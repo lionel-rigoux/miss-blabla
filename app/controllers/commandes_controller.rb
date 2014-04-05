@@ -115,6 +115,9 @@ class CommandesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_commande
       @commande = Commande.where(id: params[:id]).includes(:quantite).first
+      if @commande.status == 2
+        @commande.update(status: 3)
+      end
     end
 
     def set_catalogue

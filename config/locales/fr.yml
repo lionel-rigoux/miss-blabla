@@ -48,8 +48,8 @@ fr:
             quantite:
               invalid: "Pas assez de pièces commandées."
             frais_de_port:
-              not_a_number: "Les frais de port doivent être plus grand que zero."
-
+              not_a_number: "Les frais de port indiqués ne sont pas un nombre."
+              greater_than_or_equal_to: "Les frais de port doivent être plus grand que zero."
         client:
           attributes:
             societe:

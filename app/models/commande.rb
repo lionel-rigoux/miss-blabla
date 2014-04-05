@@ -29,7 +29,7 @@ class Commande < ActiveRecord::Base
   validates_inclusion_of :status, :in => 0..4
   validate :validations, :on => :create
   validates_uniqueness_of :numero_facture, allow_blank: true
-  validates_numericality_of :frais_de_port, :greater_than => 0.1
+  validates_numericality_of :frais_de_port, :greater_than_than_or_equal_to => 0
 
   def validations
     self.errors.add(:livraison) if self.livraison < Time.now-1.day
@@ -38,6 +38,7 @@ class Commande < ActiveRecord::Base
   before_validation :remove_comma
 
   def remove_comma
+    @attributes["frais_de_port"] ||= 0
     @attributes["frais_de_port"].to_s.gsub!(',', '.') if @attributes["frais_de_port"]
   end
 
@@ -54,6 +55,7 @@ class Commande < ActiveRecord::Base
   after_initialize :init
   def init
     status ||= 0
+    frais_de_port ||= 0
   end
 
   before_save :update_montant
