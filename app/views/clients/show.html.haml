@@ -6,6 +6,8 @@
   \/
   = link_to 'Supprimer', @client, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce client ?' }
 
+= render "/application/errors", :@record => @client
+
 %h2 Agent
 - if @client.agent
   %p= @client.agent.nom

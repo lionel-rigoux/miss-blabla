@@ -21,8 +21,11 @@
   = f.hidden_field :date_facturation
   = f.hidden_field :numero_facture
 
-  = f.label :frais_de_port, "Frais de livraison"
-  =  f.text_field :frais_de_port
+  = f.label :frais_de_port, "Frais de port (euros)"
+  = f.number_field :frais_de_port
+
+  = f.label :frais_de_port, "Avoir (euros)"
+  = f.number_field :avoir
 
   = f.label "Facilité de paiment"
   = f.select :nombre_paiments, options_for_select((1..3).collect {|i| ["en #{i} fois", i]} )

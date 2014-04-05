@@ -31,6 +31,7 @@ class Client < ActiveRecord::Base
  validates :email, email: true
  validates_format_of :telephone, :with => /[0-9]{10}/
  before_validation :format_phone
+
  def format_phone
    self.telephone = self.telephone.gsub(/[^\d]/,'')
  end
@@ -40,6 +41,16 @@ class Client < ActiveRecord::Base
      self.errors.add(:tva)
    end
  end
+
+ # destruction
+ before_destroy :check_for_orders
+
+ def check_for_orders
+    if commandes.count > 0
+      self.errors.add(:commandes,"Impossible de suppirmer. Ce client a des commandes en cours")
+      return false
+    end
+  end
 
  # initialisation
  after_initialize :init

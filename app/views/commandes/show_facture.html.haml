@@ -90,7 +90,14 @@
       %tr.blank
         %td.total{colspan: 2} Frais de port
         %td.total!= "#{prix(@commande.frais_de_port)}"
+        - if @commande.avoir > 0
+          %tr.blank
+          %td
+          %td.total{colspan: 2} Avoir
+          %td.total!= "- #{prix(@commande.avoir)}"
     %tr.blank
+      - if @commande.avoir > 0
+        %td
       %td.grandtotal{colspan: 2} Net à payer
       %td.grandtotal!= "#{prix(@commande.total)}"
     %tr.sep

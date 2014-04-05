@@ -39,8 +39,11 @@ class ClientsController < ApplicationController
 
   # DELETE /clients/1
   def destroy
-    @client.destroy
+    if @client.destroy
     redirect_to clients_url
+    else
+    render action: 'show'
+    end
   end
 
   private

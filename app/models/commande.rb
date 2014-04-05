@@ -30,6 +30,7 @@ class Commande < ActiveRecord::Base
   validate :validations, :on => :create
   validates_uniqueness_of :numero_facture, allow_blank: true
   validates_numericality_of :frais_de_port, :greater_than_than_or_equal_to => 0
+  validates_numericality_of :avoir, :greater_than_than_or_equal_to => 0
 
   def validations
     self.errors.add(:livraison) if self.livraison < Time.now-1.day
@@ -40,10 +41,12 @@ class Commande < ActiveRecord::Base
   def remove_comma
     @attributes["frais_de_port"] ||= 0
     @attributes["frais_de_port"].to_s.gsub!(',', '.') if @attributes["frais_de_port"]
+    @attributes["avoir"] ||= 0
+    @attributes["avoir"].to_s.gsub!(',', '.') if @attributes["avoir"]
   end
 
   # SCOPES
-  scope :en_avance, -> {where(status: 0).includes(:quantite)}
+  scope :en_avance, -> {where(status: 0)}
   scope :en_production, -> {where(status: 1)}
   scope :en_preparation, -> {where(status: 2)}
   scope :envoyees, -> {where(status: 3)}
@@ -54,8 +57,9 @@ class Commande < ActiveRecord::Base
 
   after_initialize :init
   def init
-    status ||= 0
-    frais_de_port ||= 0
+    self.status ||= 0
+    self.frais_de_port ||= 0
+    self.avoir ||= 0
   end
 
   before_save :update_montant
@@ -133,7 +137,7 @@ class Commande < ActiveRecord::Base
   end
 
   def total
-    montant_ttc + (frais_de_port || 0)
+    montant_ttc + (frais_de_port || 0) - (avoir || 0)
   end
 
   def quantite_totale

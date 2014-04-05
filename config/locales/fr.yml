@@ -50,6 +50,9 @@ fr:
             frais_de_port:
               not_a_number: "Les frais de port indiqués ne sont pas un nombre."
               greater_than_or_equal_to: "Les frais de port doivent être plus grand que zero."
+            avoir:
+              not_a_number: "L'avoir indiqué n'est pas un nombre."
+              greater_than_or_equal_to: "L'avoir doit être plus grand que zero."
         client:
           attributes:
             societe:
