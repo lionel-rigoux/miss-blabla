@@ -1,0 +1,16 @@
+%h1 Retour
+.actions2
+  = link_to 'Retour', retour_path(@retour)
+  \/
+  %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Valider
+
+
+%p
+  = "Vous-êtes sur le point de solder l'avoir n° #{@retour.numero_avoir} pour #{@retour.client.societe}, "
+  != "d'un montant total de #{prix(@retour.total)} TTC."
+
+%p= "Après cette opération, vous ne pourrez plus modifier cet avoir !"
+
+= form_for @retour do |f|
+  = f.hidden_field :id
+  = f.hidden_field :status, value: 1

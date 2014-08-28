@@ -69,6 +69,12 @@ fr:
               blank: "Veuillez indiquer l'adresse de livraion."
             tva:
               invalid: "Au moins un numéro d'identification (siret ou TVA) est requis."
+        retour:
+          attributes:
+            quantite:
+              invalid: "Le nombre de pièces retournées est invalide."
+            frais_de_port:
+              greater_than: "Les frais de ports ne peuvent être zéro."
         agent:
           attributes:
             nom:

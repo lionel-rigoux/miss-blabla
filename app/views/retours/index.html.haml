@@ -1,0 +1,34 @@
+%h1 Retours
+
+.actions2
+  = link_to ' + Rentrer un retour de produit', new_retour_path()
+
+
+.commande_aide
+  %h2 Aide
+
+  .aide_blobs
+    .aide_blob
+      .aide_head{'data-status' => 2}= 'en attente'
+    .aide_blob
+      .aide_head{'data-status' => 1}= 'soldé'
+
+
+- @retours.each do |retour|
+  .commande_blob{onclick: "window.location = $(this).attr('url')", url: retour_path(retour),  'data-status'=> 2-retour.status}
+    .left
+      .client= retour.client.societe
+      .ref= retour.numero_avoir
+      .status= retour.info
+    .center
+      .prix!= prix(retour.total)
+      - #.pieces= "#{retour.quantite.total} pcs."
+    .right
+      .lab= "reçu le :"
+      .date= l retour.created_at.to_date, format: :long
+      %br
+      - if retour.status > 0
+        .lab= "soldé  le :"
+        .date= l retour.updated_at.to_date, format: :long
+
+

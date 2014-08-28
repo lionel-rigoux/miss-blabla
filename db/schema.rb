@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140405140133) do
+ActiveRecord::Schema.define(version: 20140822102423) do
 
   create_table "agents", force: true do |t|
     t.string    "nom"
@@ -39,19 +39,19 @@ ActiveRecord::Schema.define(version: 20140405140133) do
   add_index "clients", ["agent_id"], name: "index_clients_on_agent_id"
 
   create_table "commandes", force: true do |t|
-    t.integer   "client_id"
-    t.date      "livraison"
-    t.text      "commentaire"
-    t.integer   "status",           default: 0, null: false
-    t.integer   "production_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.float     "frais_de_port"
-    t.integer   "nombre_paiments"
-    t.integer   "numero_facture"
-    t.date      "date_facturation"
-    t.float     "montant"
-    t.float     "avoir"
+    t.integer  "client_id"
+    t.date     "livraison"
+    t.text     "commentaire"
+    t.integer  "status",           default: 0, null: false
+    t.integer  "production_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "frais_de_port"
+    t.integer  "nombre_paiments"
+    t.integer  "numero_facture"
+    t.date     "date_facturation"
+    t.float    "montant"
+    t.float    "avoir"
   end
 
   add_index "commandes", ["client_id"], name: "index_commandes_on_client_id"
@@ -103,6 +103,17 @@ ActiveRecord::Schema.define(version: 20140405140133) do
 
   add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id"
   add_index "quantites", ["quantifiable_type"], name: "index_quantites_on_quantifiable_type"
+
+  create_table "retours", force: true do |t|
+    t.integer  "client_id"
+    t.float    "frais_de_port"
+    t.float    "montant"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "status"
+  end
+
+  add_index "retours", ["client_id"], name: "index_retours_on_client_id"
 
   create_table "stocks", force: true do |t|
     t.timestamp "created_at"

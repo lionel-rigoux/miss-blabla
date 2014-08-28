@@ -159,12 +159,17 @@ class Commande < ActiveRecord::Base
     self.where(date_facturation: Time.new.beginning_of_year..Time.now).count + 1
   end
 
+  def avoirs_en_attente
+    self.client.retours(status: 0)
+  end
+
   def +(arg)
     if arg.is_a? Commande
       self.quantite += arg.quantite
     else
       raise ArgumentError, "Opération non définie pour le type #{arg.class}"
     end
+    self.update_montant
     self
   end
 

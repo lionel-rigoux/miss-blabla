@@ -22,6 +22,7 @@ class Client < ActiveRecord::Base
  # relations
  belongs_to :agent
  has_many :commandes
+ has_many :retours
 
  # validations
  validates_presence_of :societe, :email, :telephone, :adresse_1, :adresse_2

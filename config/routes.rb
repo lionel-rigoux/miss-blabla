@@ -21,6 +21,7 @@ Blabla::Application.routes.draw do
 
   resources :agents
   resources :clients
+  resources :retours
 
   root 'commandes#index'
 
