@@ -11,7 +11,7 @@ class Retour < ActiveRecord::Base
   # validation
   validates_presence_of :client_id
   validate :validations, :on => :create
-  validates_numericality_of :frais_de_port, :greater_than => 0
+  validates_numericality_of :frais_de_port, :greater_than_or_equal_to => 0
 
   def validations
     self.errors.add(:quantite) unless self.quantite.de > 0
