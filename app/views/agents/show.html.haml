@@ -17,3 +17,11 @@
 
   %dt= "Téléphone"
   %dd= @agent.telephone
+
+  %h2 Portefeuille
+
+  %dl
+    %dt= "Nb. de clients suivis"
+    %dd= @agent.clients.count
+    %dt= "Performance"
+    %dd!= prix(@agent.portefeuille)

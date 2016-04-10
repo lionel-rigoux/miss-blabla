@@ -26,4 +26,9 @@ class Agent < ActiveRecord::Base
     self.telephone = (self.telephone || "").gsub(/[^\d]/,'')
   end
 
+  def portefeuille
+    agent_commandes=self.clients.collect(&:commandes)
+    agent_commandes.inject(0){|s,c| s+c.sum(:montant)}
+  end
+
 end
