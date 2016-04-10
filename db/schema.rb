@@ -14,26 +14,26 @@
 ActiveRecord::Schema.define(version: 20140822102423) do
 
   create_table "agents", force: true do |t|
-    t.string    "nom"
-    t.text      "email"
-    t.string    "telephone"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "nom"
+    t.text     "email"
+    t.string   "telephone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "clients", force: true do |t|
-    t.string    "societe"
-    t.string    "nom"
-    t.string    "siret"
-    t.string    "tva"
-    t.string    "email"
-    t.string    "telephone"
-    t.text      "adresse_1"
-    t.text      "adresse_2"
-    t.integer   "agent_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.boolean   "has_tva",    default: true, null: false
+    t.string   "societe"
+    t.string   "nom"
+    t.string   "siret"
+    t.string   "tva"
+    t.string   "email"
+    t.string   "telephone"
+    t.text     "adresse_1"
+    t.text     "adresse_2"
+    t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "has_tva",    default: true, null: false
   end
 
   add_index "clients", ["agent_id"], name: "index_clients_on_agent_id"
@@ -58,47 +58,47 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   add_index "commandes", ["production_id"], name: "index_commandes_on_production_id"
 
   create_table "couleurs", force: true do |t|
-    t.string    "nom",        null: false
-    t.integer   "saison_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "nom",        null: false
+    t.integer  "saison_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "modeles", force: true do |t|
-    t.string    "numero",     null: false
-    t.string    "nom",        null: false
-    t.string    "taille_min"
-    t.string    "taille_max"
-    t.float     "prix",       null: false
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "numero",     null: false
+    t.string   "nom",        null: false
+    t.string   "taille_min"
+    t.string   "taille_max"
+    t.float    "prix",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "patrons", force: true do |t|
-    t.string    "societe"
-    t.string    "siret"
-    t.string    "tva"
-    t.float     "capital"
-    t.text      "adresse",    null: false
-    t.integer   "agent_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "societe"
+    t.string   "siret"
+    t.string   "tva"
+    t.float    "capital"
+    t.text     "adresse",    null: false
+    t.integer  "agent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "patrons", ["agent_id"], name: "index_patrons_on_agent_id"
 
   create_table "productions", force: true do |t|
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "quantites", force: true do |t|
-    t.integer   "quantifiable_id"
-    t.string    "quantifiable_type"
-    t.text      "detail",            null: false
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "total"
+    t.integer  "quantifiable_id"
+    t.string   "quantifiable_type"
+    t.text     "detail",            default: "--- {}\n", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "total"
   end
 
   add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id"
@@ -116,16 +116,16 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   add_index "retours", ["client_id"], name: "index_retours_on_client_id"
 
   create_table "stocks", force: true do |t|
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "versions", force: true do |t|
-    t.integer   "modele_id"
-    t.integer   "couleurs_1_id"
-    t.integer   "couleurs_2_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.integer  "modele_id"
+    t.integer  "couleurs_1_id"
+    t.integer  "couleurs_2_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "versions", ["couleurs_1_id"], name: "index_versions_on_couleurs_1_id"
