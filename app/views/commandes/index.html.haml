@@ -4,6 +4,18 @@
   = link_to ' + Ajouter une comande', new_commande_path()
 
 .commande_aide
+  %h2 Total géneral
+  %p
+    = @commandes.count
+    = "commandes"
+  %p
+    = @commandes.inject(0){ |sum, c| sum+c.quantite.total}
+    = "pièces"
+  %p
+    != prix(@commandes.sum(:montant))
+
+
+.commande_aide
   %h2 Aide
 
   .aide_blobs
@@ -32,6 +44,7 @@
     =select_tag :commande_order, options_for_select([['client','societe'],['statut','status'],['référence','id'],['montant','montant'],['nbr. de pièces','quantite_totale'],['date de livraison','livraison']],params[:commande_order]),  :onchange => 'this.form.submit();'
 
 
+
 - @commandes.each do |commande|
   .commande_blob{onclick: "window.location = $(this).attr('url')", url: commande_path(commande), 'data-status'=> commande.status}
     .left
@@ -48,5 +61,3 @@
       %br
       .lab= "à livrer  le :"
       .date= l commande.livraison, format: :long
-
-
