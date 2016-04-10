@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140822102423) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "agents", force: true do |t|
     t.string   "nom"
     t.text     "email"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.boolean  "has_tva",    default: true, null: false
   end
 
-  add_index "clients", ["agent_id"], name: "index_clients_on_agent_id"
+  add_index "clients", ["agent_id"], name: "index_clients_on_agent_id", using: :btree
 
   create_table "commandes", force: true do |t|
     t.integer  "client_id"
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.float    "avoir"
   end
 
-  add_index "commandes", ["client_id"], name: "index_commandes_on_client_id"
-  add_index "commandes", ["production_id"], name: "index_commandes_on_production_id"
+  add_index "commandes", ["client_id"], name: "index_commandes_on_client_id", using: :btree
+  add_index "commandes", ["production_id"], name: "index_commandes_on_production_id", using: :btree
 
   create_table "couleurs", force: true do |t|
     t.string   "nom",        null: false
@@ -85,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.datetime "updated_at"
   end
 
-  add_index "patrons", ["agent_id"], name: "index_patrons_on_agent_id"
+  add_index "patrons", ["agent_id"], name: "index_patrons_on_agent_id", using: :btree
 
   create_table "productions", force: true do |t|
     t.datetime "created_at"
@@ -101,8 +104,8 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.integer  "total"
   end
 
-  add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id"
-  add_index "quantites", ["quantifiable_type"], name: "index_quantites_on_quantifiable_type"
+  add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id", using: :btree
+  add_index "quantites", ["quantifiable_type"], name: "index_quantites_on_quantifiable_type", using: :btree
 
   create_table "retours", force: true do |t|
     t.integer  "client_id"
@@ -113,7 +116,7 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.integer  "status"
   end
 
-  add_index "retours", ["client_id"], name: "index_retours_on_client_id"
+  add_index "retours", ["client_id"], name: "index_retours_on_client_id", using: :btree
 
   create_table "stocks", force: true do |t|
     t.datetime "created_at"
@@ -128,7 +131,7 @@ ActiveRecord::Schema.define(version: 20140822102423) do
     t.datetime "updated_at"
   end
 
-  add_index "versions", ["couleurs_1_id"], name: "index_versions_on_couleurs_1_id"
-  add_index "versions", ["modele_id"], name: "index_versions_on_modele_id"
+  add_index "versions", ["couleurs_1_id"], name: "index_versions_on_couleurs_1_id", using: :btree
+  add_index "versions", ["modele_id"], name: "index_versions_on_modele_id", using: :btree
 
 end
