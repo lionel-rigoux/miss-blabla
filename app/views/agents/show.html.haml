@@ -24,4 +24,6 @@
     %dt= "Nb. de clients suivis"
     %dd= @agent.clients.count
     %dt= "Performance"
-    %dd!= prix(@agent.portefeuille)
+    %dd
+      != prix(@agent.portefeuille)
+      = "HT"
