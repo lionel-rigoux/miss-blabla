@@ -10,8 +10,8 @@
   .informations
   -#%p= @patron.intitule
   %p!= "#{@patron.adresse.gsub("\r\n",", ")}"
-  -#!= "-&nbsp;EURL au capital de #{@patron.capital.round}&#x20AC;"
-  %p= @patron.identification
+  %p!= "SASU au capital de 5000&#x20AC;"
+  %p= "RCS: 823359757 Albi - TVA: FR85823359757"
   %p= "#{@patron.telephone}"
   %p= "#{@patron.email}"
 
