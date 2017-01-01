@@ -1,5 +1,5 @@
 .title
-  BlaBla
+  BlaBla 81
 
 .bon
   - if @commande.status < 3
@@ -69,15 +69,17 @@
       %td.total!= "#{prix(@commande.tva)}"
     %tr.blank
       %td.info{rowspan: @commande.status >= 3 ? 3:2}
-        - if @commande.status < 3
-          != "L'envoi de votre commande sera effectué dès la réception de votre paiement."
-          != "En dessous de 500&#x20AC;, paiement en une fois à 30 jours après la livraison."
-          != "Au delà, paiement en trois fois à 15, 60 et 90 jours (30%, 30%, et 40%). "
-        - else
-          != "Payable par chèque ou virement pour la somme de #{prix(@commande.total)},"
-          != "soit #{pluralize(@commande.nombre_paiments,'paiement')} à valoir sous"
-          != "#{@commande.echeancier} jours #{mensualise(@commande,"respectivement")} à partir de la date de facturation,"
-          != "plus un paiement de #{prix(@commande.frais_de_port)}, correspondant aux frais de port, sous 90 jours."
+      - if @commande.status < 3
+        != "L'envoi de votre commande sera effectuée après la réception de tous les chèques. "
+        != "En dessous de 500&#x20AC;, encaissement en une fois à 30 jours après livraison."
+        != "Au delà, encaissement en trois fois à 15, 60 et 90 jours (30%, 30%, et 40%)."
+        != "Les chèques sont à mettre à l'ordre de BLABLA 81"
+      - else
+        != "Payable par chèque pour la somme de #{prix(@commande.total)},"
+        != "soit #{pluralize(@commande.nombre_paiments,'paiement')} à valoir sous"
+        != "#{@commande.echeancier} jours #{mensualise(@commande,"respectivement")} à partir de la date de livraison."
+        != "L'envoi de votre commande sera effectuée après la réception des chèques."
+        != "Les chèques sont à mettre à l'ordre de BLABLA 81"
       %td.total{colspan: 2} Total TTC
       %td.total!= "#{prix(@commande.montant_ttc)}"
     - if @commande.status >= 3
