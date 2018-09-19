@@ -23,7 +23,16 @@
   %dl
     %dt= "Nb. de clients suivis"
     %dd= @agent.clients.count
-    %dt= "Performance"
+    %dt= "Performance totale"
     %dd
-      != prix(@agent.portefeuille)
-      = "HT"
+      != prix(@agent.performance)
+    %table.listing
+      %tr
+        %th Client
+        %th{width: "50px;"} # commandes
+        %th{width: "100px;"} Net à payer
+      - @agent.portefeuille.each do |client|
+        %tr
+          %td= client[:societe]
+          %td= client[:nbCommandes]
+          %td{class: "right"}!= prix(client[:total])

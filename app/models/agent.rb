@@ -27,8 +27,18 @@ class Agent < ActiveRecord::Base
   end
 
   def portefeuille
-    agent_commandes=self.clients.collect(&:commandes)
-    agent_commandes.inject(0){|s,c| s+c.sum(:montant)}
+    self.clients.collect { |c|
+      commandes = c.commandes.where(status: 3)
+      {
+        societe: c.societe,
+        nbCommandes: commandes.count,
+        total: commandes.inject(0){|s,c| s+c.total}
+      }
+    }
+  end
+
+  def performance
+    self.portefeuille.inject(0){|s,c| s+c[:total]}
   end
 
 end
