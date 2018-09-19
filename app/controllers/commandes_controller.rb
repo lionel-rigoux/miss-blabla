@@ -32,7 +32,7 @@ class CommandesController < ApplicationController
       render 'show_facture', layout: "printable"
     elsif params[:mode] == "validation"
       @commande.status=3
-      @avoir = @commande.avoirs_en_attente.to_a.sum(&:total)
+      @avoir = @commande.avoirs_en_attente.where(status: 0).to_a.sum(&:total)
       render 'show_validation'
      else
       render 'show'
