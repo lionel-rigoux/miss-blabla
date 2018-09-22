@@ -2,6 +2,8 @@
 
 .actions2
   = link_to ' + Ajouter une comande', new_commande_path()
+  = '//'
+  = link_to ' > Imprimer un bon de commande', new_commande_path(mode: 'print'), :target => '_blank'
 
 .commande_aide
   %h2 Total géneral

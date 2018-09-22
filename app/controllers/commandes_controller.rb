@@ -43,7 +43,12 @@ class CommandesController < ApplicationController
 
   # GET /commandes/new
   def new
-    @commande = Commande.new.prepare
+    if params[:mode] == "print"
+      render 'new_print', layout: "printable"
+    else
+      @commande = Commande.new.prepare
+      render 'new'
+    end
   end
 
   # GET /commandes/1/edit
@@ -116,7 +121,7 @@ class CommandesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_commande
-      @commande = Commande.where(id: params[:id]).includes(:quantite).first
+      @commande = Commande.where(id: params[:id]).includes(:quantite, :client).first
       if @commande.status == 2
         @commande.update(status: 3)
       end
