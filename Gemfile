@@ -26,6 +26,9 @@ group :development, :test do
   gem 'watchr'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
 
 gem 'taps'
 
