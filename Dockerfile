@@ -1,26 +1,30 @@
-FROM mayok/alpine-ruby
+FROM alpine:3.5
 
-# communication with the database
-RUN apk update -qq
-RUN apk add nodejs postgresql-client
-RUN apk add postgresql-dev
-
-# install ruby 2.0.0
-#RUN apk add software-properties-common
-#RUN apt-add-repository ppa:brightbox/ruby-ng
-#RUN apt-get update -qq
-#RUN apt-get install -y ruby2.0
-#RUN apt-get install -y ruby2.0-dev
+# install core
+RUN apk update
+RUN apk add \
+  bash \
+  nodejs \
+  postgresql-client \
+  ruby \
+  ruby-bigdecimal
 
 # prepare app folder
 RUN mkdir /myapp
 WORKDIR /myapp
 
 # install dependencies
+RUN gem install bundler -v "~>1.0" --no-ri --no-rdoc
+RUN apk add --no-cache --virtual .build-deps \
+  build-base \
+  ruby-dev \
+  postgresql-dev
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-RUN gem install bundler -v "~>1.0"
 RUN bundle install
+
+RUN apk del .build-deps
 
 # copy app
 COPY . /myapp
