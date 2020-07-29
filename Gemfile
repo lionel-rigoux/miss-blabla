@@ -3,18 +3,20 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.0.0'
 gem 'rails', '4.0.0'
-gem 'pg'
+gem 'pg', '0.18.4'
+gem 'rails_12factor', '0.0.3'
 
 gem 'puma'
 
+
 # Use sqlite3 as the database for Active Record
 group :development, :test do
-  gem 'better_errors'
-  gem 'annotate'
+  gem 'better_errors', '2.1.1'
+  gem 'annotate', '2.7.0'
   gem 'bullet'
   gem 'flay'
   gem 'foreman'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', '0.9.9.2'
   gem 'rails-footnotes'
   gem 'rails_best_practices'
   gem 'rb-readline'
@@ -26,11 +28,12 @@ group :development, :test do
   gem 'watchr'
 end
 
-group :production do
-  gem 'rails_12factor'
-end
 
+gem 'rake', '10.5.0'
+gem 'uniform_notifier', '1.9.0'
+gem 'sexp_processor', '4.7.0'
 gem 'taps'
+gem 'debug_inspector', '0.0.2'
 
 gem 'formtastic'
 #gem 'default_value_for'
@@ -52,10 +55,10 @@ gem 'coffee-rails', '4.0.0'
 gem 'jquery-rails', '2.2.1'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '2.5.3'
 
-gem 'haml'
-gem 'haml-rails', :group => :development
+gem 'haml', '4.0.7'
+gem 'haml-rails', '0.5.1', :group => :development
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 
