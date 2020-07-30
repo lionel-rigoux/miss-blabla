@@ -1,5 +1,8 @@
 FROM alpine:3.5
 
+ARG RAILS_ENV
+ARG PORT
+
 # install core
 RUN apk update
 RUN apk add \
@@ -10,8 +13,8 @@ RUN apk add \
   ruby-bigdecimal
 
 # prepare app folder
-RUN mkdir /myapp
-WORKDIR /myapp
+RUN mkdir /web
+WORKDIR /web
 
 # install dependencies
 RUN gem install bundler -v "~>1.0" --no-ri --no-rdoc
@@ -20,21 +23,20 @@ RUN apk add --no-cache --virtual .build-deps \
   ruby-dev \
   postgresql-dev
 
-COPY ./myapp/Gemfile /myapp/Gemfile
-RUN touch /myapp/Gemfile.lock
+COPY ./web/Gemfile /web/Gemfile
+RUN touch /web/Gemfile.lock
 RUN bundle install
 
 RUN apk del .build-deps
 
 # copy app
-COPY ./myapp /myapp
-RUN ls /myapp
+COPY ./web /web
+RUN ls /web
 
 # Add a script to be executed every time the container starts.
-COPY ./myapp/entrypoint.sh /usr/bin/
+COPY ./web/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
 
 # Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD bundle exec rails server -b 0.0.0.0 -p $PORT
