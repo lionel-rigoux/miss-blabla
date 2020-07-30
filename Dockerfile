@@ -21,7 +21,7 @@ RUN apk add --no-cache --virtual .build-deps \
   postgresql-dev
 
 COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+RUN touch /myapp/Gemfile.lock
 RUN bundle install
 
 RUN apk del .build-deps
