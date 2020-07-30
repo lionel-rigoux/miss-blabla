@@ -20,17 +20,18 @@ RUN apk add --no-cache --virtual .build-deps \
   ruby-dev \
   postgresql-dev
 
-COPY Gemfile /myapp/Gemfile
+COPY ./myapp/Gemfile /myapp/Gemfile
 RUN touch /myapp/Gemfile.lock
 RUN bundle install
 
 RUN apk del .build-deps
 
 # copy app
-COPY . /myapp
+COPY ./myapp /myapp
+RUN ls /myapp
 
 # Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
+COPY ./myapp/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
