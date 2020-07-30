@@ -10,8 +10,6 @@ services:
     build: .
     volumes:
       - ./web:/web
-    environment:
-      - PORT=3000
     ports:
       - "3000:3000"
     depends_on:

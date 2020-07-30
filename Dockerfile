@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-ARG RAILS_ENV
+ARG RACK_ENV
 ARG PORT
 
 # install core
@@ -39,4 +39,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 # Start the main process.
-CMD bundle exec rails server -b 0.0.0.0 -p $PORT
+CMD bundle exec puma
