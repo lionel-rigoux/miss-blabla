@@ -1,8 +1,5 @@
 FROM alpine:3.5
 
-ARG RACK_ENV
-ARG PORT
-
 # install core
 RUN apk update
 RUN apk add \
@@ -31,7 +28,6 @@ RUN apk del .build-deps
 
 # copy app
 COPY ./web /web
-RUN ls /web
 
 # Add a script to be executed every time the container starts.
 COPY ./web/entrypoint.sh /usr/bin/
