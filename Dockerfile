@@ -1,5 +1,10 @@
 FROM alpine:3.5
 
+ENV RUBY_VERSION="2.3.8-r0"
+ENV APP_USER=webuser
+ENV APP_GROUP=webgroup
+ENV APP_PATH=/web
+
 # install core
 RUN apk update \
  && apk add \
@@ -7,7 +12,7 @@ RUN apk update \
   sudo \
   nodejs \
   postgresql-client \
-  ruby \
+  ruby=$RUBY_VERSION \
   ruby-bigdecimal
 
 RUN apk add --no-cache --virtual .build-deps \
@@ -16,26 +21,27 @@ RUN apk add --no-cache --virtual .build-deps \
   postgresql-dev
 
 # prepare app folder
-RUN mkdir /web
-WORKDIR /web
+RUN mkdir $APP_PATH
+WORKDIR $APP_PATH
 
-RUN echo "myuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN adduser -D myuser
+RUN addgroup -S $APP_GROUP
+RUN adduser -D $APP_USER
+RUN echo "$APP_USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER myuser
+USER $APP_USER
 
 # install dependencies
 RUN sudo gem install bundler -v "~>1.0" --no-ri --no-rdoc
 
-COPY ./web/Gemfile /web/Gemfile
-RUN sudo chown -R myuser /web
-RUN touch /web/Gemfile.lock
+COPY ./web/Gemfile $APP_PATH/Gemfile
+RUN sudo chown -R $APP_USER $APP_PATH
+RUN touch $APP_PATH/Gemfile.lock
 RUN bundle install
 
 RUN sudo apk del .build-deps
 
 # copy app
-COPY ./web /web
+COPY ./web $APP_PATH
 
 # Add a script to be executed every time the container starts.
 RUN sudo cp /web/entrypoint.sh /usr/bin/ \
