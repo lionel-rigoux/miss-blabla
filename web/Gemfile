@@ -9,7 +9,6 @@ gem 'rails_12factor', '0.0.3'
 gem 'puma'
 gem 'irb'
 
-
 group :development, :test do
   gem 'better_errors'
   gem 'annotate'
@@ -30,8 +29,7 @@ group :development, :test do
   gem 'haml-rails', '~> 1.0.0'
 end
 
-
-gem 'rake', '10.5.0'
+gem 'rake'
 gem 'uniform_notifier'
 gem 'sexp_processor'
 gem 'taps'
@@ -41,53 +39,24 @@ gem 'formtastic'
 gem 'email_validator'
 
 
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '4.0.0'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '2.1.1'
-
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails', '2.2.1'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '2.5.3'
 
 # for upgrading rails to >4.1
 gem 'pkg-config'
 gem 'tzinfo'
 gem 'tzinfo-data'
-
 gem 'haml'
 
-
+# Use jquery as the JavaScript library
+gem 'jquery-rails', '2.2.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-
 gem 'jbuilder', '~> 1.2'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  #gem 'sdoc', require: false
-end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-# for Heroku deployment - as described in Ap. A of ELLS book
