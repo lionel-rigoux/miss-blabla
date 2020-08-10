@@ -20,7 +20,8 @@ RUN apk add --no-cache --virtual .build-deps \
   sudo \
   build-base \
   ruby-dev \
-  postgresql-dev
+  postgresql-dev \
+  zlib-dev
 
 # Create non root user
 RUN addgroup -S $APP_GROUP

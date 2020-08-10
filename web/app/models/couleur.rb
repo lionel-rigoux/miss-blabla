@@ -16,6 +16,6 @@ class Couleur < ActiveRecord::Base
   validates_uniqueness_of :nom
 
   # SCOPE
-  default_scope order(:nom)
+  default_scope { order(:nom) }
 
 end
