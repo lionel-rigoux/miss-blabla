@@ -5,4 +5,4 @@ build:
   docker:
     web: Dockerfile
   config:
-    RAKE_ENV: development
+    RAKE_ENV: production

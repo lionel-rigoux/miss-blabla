@@ -11,7 +11,7 @@ Before the first use, run:
 
 ```
 docker-compose up -d db
-docker-compose run web rake db:setup
+docker-compose run --entrypoint "" web rake db:setup
 docker-compose stop db
 ```
 
