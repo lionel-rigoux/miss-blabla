@@ -1,6 +1,6 @@
 class CommandesController < ApplicationController
   before_action :set_commande, only: [:show, :edit, :update, :destroy]
-  before_action :set_catalogue, only: [:show, :new, :edit, :update, :index]
+  before_action :set_catalogue, only: [:show, :new, :create, :edit, :update, :index]
 
   # GET /commandes
   # GET /commandes.json
@@ -9,7 +9,7 @@ class CommandesController < ApplicationController
     @commandes = Commande.includes(:quantite,:client)
     @commandes = @commandes.where(status: params[:commande_status].to_i) unless params[:commande_status].blank?
 
-    @commandes.sort_by! { |c| c.send(params[:commande_order] || 'societe')}
+    @commandes.to_a.sort_by! { |c| c.send(params[:commande_order] || 'societe')}
 
     #if params[:factures] == 'pro'
    #    @patron=Patron.first

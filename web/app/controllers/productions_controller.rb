@@ -11,7 +11,7 @@ class ProductionsController < ApplicationController
   # GET /productions/1
   # GET /productions/1.json
   def show
-     @patron = Patron.find_or_initialize_by_id(1)
+     @patron = Patron.find_or_initialize_by(id: 1)
      #@production.up_to_date
      @catalogue = Modele.catalogue
       @couleurs = Hash[Couleur.pluck(:id,:nom)]
