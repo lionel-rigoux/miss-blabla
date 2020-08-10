@@ -5,6 +5,7 @@ ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web
 
+
 # install core
 RUN apk update \
  && apk add \
@@ -28,19 +29,23 @@ RUN addgroup -S $APP_GROUP
 RUN adduser -D $APP_USER $APP_GROUP
 RUN echo "$APP_USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# create and copy app folder
+# create app folder
 RUN mkdir $APP_PATH
-COPY --chown=$APP_USER:$APP_GROUP ./web $APP_PATH
 
 # Add a script to be executed every time the container starts.
-RUN mv /web/entrypoint.sh /usr/bin/ \
- && chmod +x /usr/bin/entrypoint.sh
+WORKDIR /usr/bin/
+ADD /web/entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-# bundle for end user
+# install gems
 USER $APP_USER
 WORKDIR $APP_PATH
+COPY --chown=$APP_USER:$APP_GROUP web/Gemfile* ./
 RUN bundle install
+
+# install app
+COPY --chown=$APP_USER:$APP_GROUP ./web ./
 
 # clean up
 RUN sudo apk del .build-deps

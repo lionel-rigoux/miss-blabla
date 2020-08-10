@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:9.6.18-alpine
     volumes:
-      - ./web/tmp/db:/var/lib/postgresql/data
+      - ./tmp/db:/var/lib/postgresql/data
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
   web:
