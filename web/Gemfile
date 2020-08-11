@@ -26,7 +26,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
   gem 'debug_inspector'
-  gem 'haml-rails', '~> 1.0.0'
+  gem 'haml-rails'
 end
 
 gem 'rake'
@@ -53,10 +53,7 @@ gem 'tzinfo-data'
 gem 'haml'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '2.2.1'
+gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'jbuilder'
