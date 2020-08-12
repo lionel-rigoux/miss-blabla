@@ -1,4 +1,4 @@
-= render "/application/errors", :@record => @retour
+= render "/application/errors", :record => @retour
 
 = form_for @retour, :method=>(@retour.id ? :put : :post) do |f|
   = f.hidden_field :id
@@ -31,7 +31,3 @@
 
     = f.fields_for :quantite do |ff|
       = render "/quantites/form", {:@quantite => @retour.quantite, :f => ff}
-
-
-
-

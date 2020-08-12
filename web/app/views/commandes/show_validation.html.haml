@@ -13,7 +13,7 @@
 %p= "Après validation, vous ne pourrez plus modifier cette commande !"
 
 %h2 Détails de la facturation
-%p= render "/application/errors", :@record => @commande
+%p= render "/application/errors", :record => @commande
 
 = form_for @commande do |f|
   = f.hidden_field :id
@@ -29,5 +29,3 @@
 
   = f.label "Facilité de paiment"
   = f.select :nombre_paiments, options_for_select((1..3).collect {|i| ["en #{i} fois", i]} )
-
-

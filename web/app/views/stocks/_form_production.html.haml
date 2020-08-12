@@ -1,4 +1,4 @@
-= render "/application/errors", :@record => @stock
+= render "/application/errors", :record => @stock
 
 %h2= "Réception d'arrivage"
 %p
@@ -11,4 +11,3 @@
   = hidden_field_tag "production", @production.id
   = f.fields_for :quantite do |ff|
     = render "/quantites/form", {:@quantite => @stock.quantite, :f => ff}
-

@@ -33,7 +33,7 @@ class Modele < ActiveRecord::Base
 
   before_validation :remove_comma
   def remove_comma
-    @attributes["prix"].gsub!(',', '.') if @attributes["prix"]
+    self.prix = self.read_attribute_before_type_cast('prix').to_s.gsub(',', '.').to_f
   end
 
   # SCOPES
