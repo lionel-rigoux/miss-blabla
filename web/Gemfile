@@ -26,7 +26,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
   gem 'debug_inspector'
-  gem 'haml-rails'
 end
 
 gem 'rake'
@@ -51,6 +50,8 @@ gem 'pkg-config'
 gem 'tzinfo'
 gem 'tzinfo-data'
 gem 'haml'
+gem 'haml-rails', "~> 1.0.0"
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
