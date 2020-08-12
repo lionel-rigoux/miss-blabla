@@ -84,10 +84,4 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: d7c999e01co008
-  port: 5432
-  host: ec2-54-217-213-236.eu-west-1.compute.amazonaws.com
-  username: jdbtsxnjrxudpx
-  password: 6F4FXEUxWfBqMhWLgj4OoaRhki
-  pool: 5
-  timeout: 5000
+  url: <%= ENV['DATABASE_URL'] %>
