@@ -2,7 +2,7 @@
 ## Usage
 
 ```
-docker-compose up
+docker-compose up -d && docker attach $(docker-compose ps -q web)
 ```
 
 ## Initialisation of the database

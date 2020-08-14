@@ -13,7 +13,7 @@
     %p= @patron.agent.email
 
   %p.reference= Date.today.strftime('%B %d, %Y')
-  = render "/quantites/show", :@quantite => @production.quantite
+  = render "/quantites/show", :quantite => @production.quantite
 
   .footer
   = "Total number of items: #{@production.quantite.de}"

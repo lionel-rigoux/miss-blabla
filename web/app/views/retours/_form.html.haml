@@ -30,4 +30,4 @@
     %h2 Quantités
 
     = f.fields_for :quantite do |ff|
-      = render "/quantites/form", {:@quantite => @retour.quantite, :f => ff}
+      = render "/quantites/form", {:quantite => @retour.quantite, :f => ff}

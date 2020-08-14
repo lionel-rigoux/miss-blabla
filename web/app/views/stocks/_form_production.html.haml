@@ -10,4 +10,4 @@
   = hidden_field_tag "mode", "production"
   = hidden_field_tag "production", @production.id
   = f.fields_for :quantite do |ff|
-    = render "/quantites/form", {:@quantite => @stock.quantite, :f => ff}
+    = render "/quantites/form", {:quantite => @stock.quantite, :f => ff}

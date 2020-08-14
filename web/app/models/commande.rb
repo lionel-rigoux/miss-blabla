@@ -39,10 +39,8 @@ class Commande < ActiveRecord::Base
   before_validation :remove_comma
 
   def remove_comma
-    @attributes["frais_de_port"] ||= 0
-    @attributes["frais_de_port"].to_s.gsub!(',', '.') if @attributes["frais_de_port"]
-    @attributes["avoir"] ||= 0
-    @attributes["avoir"].to_s.gsub!(',', '.') if @attributes["avoir"]
+    self[:frais_de_port] = self.read_attribute_before_type_cast('frais_de_port').to_s.gsub(',', '.').to_f
+    self[:avoir] = self.read_attribute_before_type_cast('avoir').to_s.gsub(',', '.').to_f
   end
 
   # SCOPES
