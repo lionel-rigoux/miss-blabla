@@ -1,6 +1,6 @@
 %h1 Informations personnelles
 .actions
-   = link_to "Modifier", edit_patron_path(@patron) 
+   = link_to "Modifier", edit_patron_path(@patron)
 
 
 %h2 Coordonnées
@@ -29,13 +29,8 @@
 
   %dt
     Adresse de facturation
-  %dd
-    :plain
-      #{to_html(@patron.adresse_1)}
+  %dd=raw to_html(@patron.adresse_1)
 
   %dt
     Adresse de livraison
-  %dd
-    :plain
-      #{to_html(@patron.adresse_2)}
-	 
+  %dd=raw to_html(@patron.adresse_2)

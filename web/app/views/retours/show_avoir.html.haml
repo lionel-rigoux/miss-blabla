@@ -13,9 +13,7 @@
   .client
     %p= @retour.client.societe
     %p= @retour.client.nom
-    %p
-      :plain
-        #{to_html(@retour.client.adresse_1)}
+    %p=raw to_html(@retour.client.adresse_1)
 
   %p.reference
     = "Le #{@retour.created_at.strftime('%d/%m/%Y')}, bon n° #{@retour.numero_avoir} pour :"
@@ -65,5 +63,3 @@
       %td.grandtotal!= "#{prix(@retour.total)}"
     %tr.sep
       %td{colspan: 4}
-
-

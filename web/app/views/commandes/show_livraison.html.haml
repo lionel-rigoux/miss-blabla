@@ -7,9 +7,7 @@
   .client
     %p= @commande.client.societe
     %p= @commande.client.nom
-    %p
-      :plain
-        #{to_html(@commande.client.adresse_2)}
+    %p=raw to_html(@commande.client.adresse_2)
 
   %p.reference
     = "Le #{Date.today.strftime('%d/%m/%Y')},"

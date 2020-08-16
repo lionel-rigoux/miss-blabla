@@ -6,9 +6,7 @@
 
   .client
     %p= @patron.agent.nom
-    %p
-      :plain
-        #{to_html(@patron.adresse)}
+    %p=raw to_html(@patron.adresse)
     %p= @patron.agent.telephone
     %p= @patron.agent.email
 

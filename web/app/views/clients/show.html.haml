@@ -40,11 +40,7 @@
   %dd= @client.telephone
 
   %dt Adresse de facturation
-  %dd
-    :plain
-      #{to_html(@client.adresse_1)}
+  %dd=raw to_html(@client.adresse_1)
 
   %dt Adresse de livraison
-  %dd
-    :plain
-      #{to_html(@client.adresse_2)}
+  %dd=raw to_html(@client.adresse_2)
