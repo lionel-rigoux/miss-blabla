@@ -9,3 +9,4 @@ build:
 release:
   command:
     - ./release-tasks.sh
+  image: web
