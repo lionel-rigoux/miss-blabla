@@ -14,6 +14,7 @@ ENV TERM=dumb
 RUN apk update \
  && apk add \
   bash \
+  curl \
   nodejs \
   postgresql-client \
   ruby=$RUBY_VERSION \

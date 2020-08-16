@@ -7,5 +7,7 @@ build:
   config:
     RAKE_ENV: production
 release:
-  - rake db:migrate
-  - rake assets:precompile
+  image: web
+  command:
+    - rake db:migrate
+    - rake assets:precompile
