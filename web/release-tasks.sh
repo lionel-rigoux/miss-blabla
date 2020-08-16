@@ -1,4 +1,3 @@
 #!/bin/sh
-
-rake db:migrate
-rake assets:precompile
+bundle exec rake assets:precompile
+bundle exec rake db:migrate

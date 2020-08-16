@@ -4,13 +4,13 @@ class FastQuantite < ActiveRecord::Migration
     add_column :commandes, :montant, :float
 
     Quantite.reset_column_information
-    Quantite.find(:all).each do |q|
+    Quantite.find_each do |q|
       q.update_total
       q.save
     end
 
     Commande.reset_column_information
-    Commande.find(:all).each do |c|
+    Commande.find_each do |c|
       c.update_montant
       c.save
     end
