@@ -6,3 +6,6 @@ build:
     web: Dockerfile
   config:
     RAKE_ENV: production
+release:
+  command:
+    - ./release-tasks.sh

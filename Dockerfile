@@ -7,6 +7,7 @@ ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web
 ENV RAKE_ENV=$RAKE_ENV
+ENV RAILS_ENV=$RAKE_ENV
 ENV TERM=dumb
 
 # install core

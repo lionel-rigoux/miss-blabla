@@ -16,32 +16,32 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "agents", force: true do |t|
-    t.string   "nom"
+  create_table "agents", force: :cascade do |t|
+    t.string   "nom",        limit: 255
     t.text     "email"
-    t.string   "telephone"
+    t.string   "telephone",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "clients", force: true do |t|
-    t.string   "societe"
-    t.string   "nom"
-    t.string   "siret"
-    t.string   "tva"
-    t.string   "email"
-    t.string   "telephone"
+  create_table "clients", force: :cascade do |t|
+    t.string   "societe",    limit: 255
+    t.string   "nom",        limit: 255
+    t.string   "siret",      limit: 255
+    t.string   "tva",        limit: 255
+    t.string   "email",      limit: 255
+    t.string   "telephone",  limit: 255
     t.text     "adresse_1"
     t.text     "adresse_2"
     t.integer  "agent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "has_tva",    default: true, null: false
+    t.boolean  "has_tva",                default: true, null: false
   end
 
   add_index "clients", ["agent_id"], name: "index_clients_on_agent_id", using: :btree
 
-  create_table "commandes", force: true do |t|
+  create_table "commandes", force: :cascade do |t|
     t.integer  "client_id"
     t.date     "livraison"
     t.text     "commentaire"
@@ -60,29 +60,29 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   add_index "commandes", ["client_id"], name: "index_commandes_on_client_id", using: :btree
   add_index "commandes", ["production_id"], name: "index_commandes_on_production_id", using: :btree
 
-  create_table "couleurs", force: true do |t|
-    t.string   "nom",        null: false
+  create_table "couleurs", force: :cascade do |t|
+    t.string   "nom",        limit: 255, null: false
     t.integer  "saison_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "modeles", force: true do |t|
-    t.string   "numero",     null: false
-    t.string   "nom",        null: false
-    t.string   "taille_min"
-    t.string   "taille_max"
-    t.float    "prix",       null: false
+  create_table "modeles", force: :cascade do |t|
+    t.string   "numero",     limit: 255, null: false
+    t.string   "nom",        limit: 255, null: false
+    t.string   "taille_min", limit: 255
+    t.string   "taille_max", limit: 255
+    t.float    "prix",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "patrons", force: true do |t|
-    t.string   "societe"
-    t.string   "siret"
-    t.string   "tva"
+  create_table "patrons", force: :cascade do |t|
+    t.string   "societe",    limit: 255
+    t.string   "siret",      limit: 255
+    t.string   "tva",        limit: 255
     t.float    "capital"
-    t.text     "adresse",    null: false
+    t.text     "adresse",                null: false
     t.integer  "agent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -90,15 +90,15 @@ ActiveRecord::Schema.define(version: 20140822102423) do
 
   add_index "patrons", ["agent_id"], name: "index_patrons_on_agent_id", using: :btree
 
-  create_table "productions", force: true do |t|
+  create_table "productions", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "quantites", force: true do |t|
+  create_table "quantites", force: :cascade do |t|
     t.integer  "quantifiable_id"
-    t.string   "quantifiable_type"
-    t.text     "detail",            default: "--- {}\n", null: false
+    t.string   "quantifiable_type", limit: 255
+    t.text     "detail",                        default: "--- {}\n", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "total"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   add_index "quantites", ["quantifiable_id"], name: "index_quantites_on_quantifiable_id", using: :btree
   add_index "quantites", ["quantifiable_type"], name: "index_quantites_on_quantifiable_type", using: :btree
 
-  create_table "retours", force: true do |t|
+  create_table "retours", force: :cascade do |t|
     t.integer  "client_id"
     t.float    "frais_de_port"
     t.float    "montant"
@@ -118,12 +118,12 @@ ActiveRecord::Schema.define(version: 20140822102423) do
 
   add_index "retours", ["client_id"], name: "index_retours_on_client_id", using: :btree
 
-  create_table "stocks", force: true do |t|
+  create_table "stocks", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.integer  "modele_id"
     t.integer  "couleurs_1_id"
     t.integer  "couleurs_2_id"
