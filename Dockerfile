@@ -54,6 +54,9 @@ RUN bundle install
 COPY ./web ./
 RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
 
+# allow to execute migration tasks
+RUN sudo chmod +x ./release-tasks.sh
+
 # clean up
 RUN sudo apk del .build-deps
 

@@ -9,10 +9,10 @@ gem 'rails_12factor', '0.0.3'
 gem 'puma'
 gem 'irb'
 
-gem 'web-console', '~> 2.0'
 gem 'responders', '~> 2.0'
 
 group :development, :test do
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'annotate'
   gem 'bullet'
