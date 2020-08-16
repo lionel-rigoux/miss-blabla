@@ -9,5 +9,4 @@ build:
 release:
   image: web
   command:
-    - rake db:migrate
-    - rake assets:precompile
+    - ./release-tasks.sh
