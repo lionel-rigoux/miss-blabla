@@ -1,4 +1,4 @@
-= render "/application/errors", :@record => @client
+= render "/application/errors", :record => @client
 
 = form_for @client, :method=>(@client.id ? :put : :post) do |f|
 

@@ -19,8 +19,7 @@ class Retour < ActiveRecord::Base
   before_validation :remove_comma
 
   def remove_comma
-    @attributes["frais_de_port"] ||= 0
-    @attributes["frais_de_port"].to_s.gsub!(',', '.') if @attributes["frais_de_port"]
+    self[:frais_de_port] = self.read_attribute_before_type_cast('frais_de_port').to_s.gsub(',', '.').to_f
   end
 
  STATUS_LIST = {0=>"en attente", 1=>"soldé"}

@@ -2,12 +2,15 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '2.3.8'
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 gem 'pg', '0.18.4'
 gem 'rails_12factor', '0.0.3'
 
 gem 'puma'
 gem 'irb'
+
+gem 'web-console', '~> 2.0'
+gem 'responders', '~> 2.0'
 
 group :development, :test do
   gem 'better_errors'
@@ -26,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
   gem 'debug_inspector'
+  gem 'byebug'
 end
 
 gem 'rake'

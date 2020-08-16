@@ -1,4 +1,4 @@
-= render "/application/errors", :@record => @commande
+= render "/application/errors", :record => @commande
 
 = form_for @commande, :method=>(@commande.id ? :put : :post) do |f|
   = f.hidden_field :id
@@ -20,6 +20,4 @@
   %br
   %br
   = f.fields_for :quantite do |ff|
-    = render "/quantites/form", {:@quantite => @commande.quantite, :f => ff}
-
-
+    = render "/quantites/form", {:quantite => @commande.quantite, :f => ff}

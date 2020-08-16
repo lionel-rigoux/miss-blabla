@@ -16,5 +16,4 @@
     = select_tag :stock_mode, options_for_select([['stock réel (en réserve)','reel'],['stock net (commandes déduites)','net']],selected: params[:stock_mode]), :onchange => 'document.forms[0].submit();'
 
 %p= "Il y a #{pluralize(@stock.quantite.de,'pièce')} en stock."
-= render "/quantites/show", :@quantite => @stock.quantite
-
+= render "/quantites/show", :quantite => @stock.quantite

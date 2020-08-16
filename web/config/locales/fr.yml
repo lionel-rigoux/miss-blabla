@@ -1,8 +1,6 @@
 
 
 
-
-
 fr:
   date:
     formats:
@@ -35,6 +33,7 @@ fr:
             prix:
               blank: "Veuillez indiquer le prix."
               not_a_number: "Le prix indiqué n'est pas valide."
+              greater_than: "Le prix doit être superieur à 0."
         quantite:
           attributes:
             detail:
@@ -74,7 +73,7 @@ fr:
             quantite:
               invalid: "Le nombre de pièces retournées est invalide."
             frais_de_port:
-              greater_than: "Les frais de ports ne peuvent être zéro."
+              greater_than_or_equal_to: "Les frais de ports ne peuvent être negatifs."
         agent:
           attributes:
             nom:
@@ -91,4 +90,3 @@ fr:
                 blank: "Veuillez indiquer une adresse de contact."
               tva:
                 invalid: "Au moins un numéro d'identification (siret ou TVA) est requis."
-
