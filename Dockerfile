@@ -44,11 +44,13 @@ ENTRYPOINT ["entrypoint.sh"]
 # install gems
 USER $APP_USER
 WORKDIR $APP_PATH
-COPY --chown=${APP_USER}:${APP_GROUP} web/Gemfile* ./
+COPY web/Gemfile* ./
+RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
 RUN bundle install
 
 # install app
-COPY --chown=${APP_USER}:${APP_GROUP} ./web ./
+COPY ./web ./
+RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
 
 # clean up
 RUN sudo apk del .build-deps
