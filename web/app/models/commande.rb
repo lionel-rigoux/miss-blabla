@@ -22,7 +22,7 @@ class Commande < ApplicationRecord
   belongs_to :client
   belongs_to :production
   has_one :quantite, as: :quantifiable, dependent: :destroy
-  accepts_nested_attributes_for :quantite
+  accepts_nested_attributes_for :quantite, allow_destroy: true
 
   # validation
   validates_presence_of :client_id
@@ -158,7 +158,7 @@ class Commande < ApplicationRecord
   end
 
   def avoirs_en_attente
-    self.client.retours(status: 0)
+    self.client.retours.where(status: 0)
   end
 
   def +(arg)
