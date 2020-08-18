@@ -41,6 +41,7 @@ gem 'formtastic'
 #gem 'default_value_for'
 gem 'email_validator'
 
+gem 'wicked_pdf'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'

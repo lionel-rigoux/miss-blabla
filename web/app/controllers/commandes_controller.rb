@@ -29,7 +29,14 @@ class CommandesController < ApplicationController
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
     elsif params[:mode] == "facture"
-      render 'show_facture', layout: "printable"
+
+      pdf = WickedPdf.new.pdf_from_string(
+        render_to_string('commandes/show_facture', layout: 'printable')
+      )
+      send_data pdf, filename: 'facture.pdf'
+
+
+      #render 'show_facture', layout: "printable"
     elsif params[:mode] == "validation"
       @commande.status=3
       @avoir = @commande.avoirs_en_attente.where(status: 0).to_a.sum(&:total)

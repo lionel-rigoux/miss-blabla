@@ -30,6 +30,10 @@ RUN apk add --no-cache --virtual .build-deps \
   postgresql-dev \
   zlib-dev
 
+# install pdf maker
+RUN apk add ttf-ubuntu-font-family wkhtmltopdf
+
+
 # Create non root user
 RUN addgroup -S $APP_GROUP
 RUN adduser -D $APP_USER $APP_GROUP
