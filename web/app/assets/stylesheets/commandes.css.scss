@@ -127,7 +127,7 @@
 
   .left {
     height: inherit;
-    width: 310px;
+    width: 510px;
     float: left;
     display: table-column;
     border-right: 1px dashed #DDDDDD;
@@ -214,7 +214,9 @@ text-align: right;
 
 body.printable{
       background-color: #FAFAFA;
+      width: 100%;
   }
+
 #page {
 width: 21cm;
 min-height: 29.7cm;
@@ -236,20 +238,27 @@ font-size: 28pt;
 font-weight: bold;
 }
 
-@page {
-    size: A4;
-    margin: 1.5cm 0 1.5cm 0;
-}
+
 
 @media print {
-    .page {
-            margin: 1.5cm 0 1.5cm 0;
-            border: initial;
-            border-radius: initial;
+  @page {
+      size: A4;
+      margin: 0;
+  }
+
+  body {
+  zoom:125%; /*or whatever percentage you need, play around with this number*/
+  }
+
+    #page {
+            margin: 0 auto;
+            padding: 2cm 2cm 2cm 2cm;
+            border: none;
+            border-radius: none;
             width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
+            min-height: 29.7cm;
+            box-shadow: none;
+            background: white;
             page-break-after: always;
    }
    thead {display: table-header-group;}
@@ -391,8 +400,3 @@ padding-left: 5px;
 #page .pagebreak{
   page-break-after:always;
 }
-
-
-
-
-

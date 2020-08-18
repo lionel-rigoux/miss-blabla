@@ -5,18 +5,6 @@
   = '//'
   = link_to ' > Imprimer un bon de commande', new_commande_path(mode: 'print'), :target => '_blank'
 
-.commande_aide
-  %h2 Total géneral
-  %p
-    = @commandes.count
-    = "commandes"
-  %p
-    = @commandes.inject(0){ |sum, c| sum+c.quantite.total}
-    = "pièces"
-  %p
-    != prix(@commandes.sum(:montant))
-    = "HT"
-
 
 .commande_aide
   %h2 Aide
@@ -46,7 +34,17 @@
     = " triées par "
     =select_tag :commande_order, options_for_select([['client','societe'],['statut','status'],['référence','id'],['montant','montant'],['nbr. de pièces','quantite_totale'],['date de livraison','livraison']],params[:commande_order]),  :onchange => 'this.form.submit();'
 
-
+.commande_aide
+  %h2 Résumé de la sélection
+  %p
+    = @commandes.count
+    = "commandes"
+    = "  //  "
+    = @commandes.inject(0){ |sum, c| sum+c.quantite.total}
+    = "pièces"
+    = "  //  "
+    != prix(@commandes.sum(&:montant))
+    = "HT"
 
 - @commandes.each do |commande|
   .commande_blob{onclick: "window.location = $(this).attr('url')", url: commande_path(commande), 'data-status'=> commande.status}

@@ -9,8 +9,9 @@ class CommandesController < ApplicationController
     @commandes = Commande.includes(:quantite,:client)
     @commandes = @commandes.where(status: params[:commande_status].to_i) unless params[:commande_status].blank?
 
-    @commandes.to_a.sort_by! { |c| c.send(params[:commande_order] || 'societe')}
-
+    #@commandes.sort_by { |c| c.send(params[:commande_order] || 'societe')}
+    order_value = params[:commande_order] || 'societe'
+    @commandes = @commandes.sort_by(&order_value.to_sym)
     #if params[:factures] == 'pro'
    #    @patron=Patron.first
    #   @commandes = @commandes.where(status: 2)
@@ -29,14 +30,11 @@ class CommandesController < ApplicationController
     if params[:mode] == "livraison"
       render 'show_livraison', layout: "printable"
     elsif params[:mode] == "facture"
-
-      pdf = WickedPdf.new.pdf_from_string(
-        render_to_string('commandes/show_facture', layout: 'printable')
-      )
-      send_data pdf, filename: 'facture.pdf'
-
-
-      #render 'show_facture', layout: "printable"
+      render pdf: 'facture',
+        disposition: 'inline',                 # default 'inline'
+        template:    'commandes/show_facture',
+        layout:      'printable',
+        show_as_html: params[:debug].present? #true
     elsif params[:mode] == "validation"
       @commande.status=3
       @avoir = @commande.avoirs_en_attente.where(status: 0).to_a.sum(&:total)
