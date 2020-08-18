@@ -128,10 +128,10 @@ class Quantite < ApplicationRecord
     detail.collect {|k,v| de_modele(k)}.sum
   end
   def de_modele(modele_id)
-    detail[modele_id].to_h.collect {|k,v| de_version(modele_id,k)}.sum
+    detail[modele_id].collect {|k,v| de_version(modele_id,k)}.sum
   end
   def de_version(modele_id, version_id)
-    detail[modele_id][version_id].to_h.collect {|k,v| de_taille(modele_id,version_id,k)}.sum
+    detail[modele_id][version_id].collect {|k,v| de_taille(modele_id,version_id,k)}.sum
   end
   def de_taille(modele_id,version_id,taille)
       (((detail[modele_id.to_s] || {})[version_id.to_s] || {})[taille] || 0).to_i
