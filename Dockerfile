@@ -1,8 +1,8 @@
-FROM alpine:3.7
+FROM alpine:3.10
 
 ARG RAKE_ENV=development
 
-ENV RUBY_VERSION="2.4.6-r0"
+ENV RUBY_VERSION="2.5.8-r0"
 ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web
@@ -18,7 +18,8 @@ RUN apk update \
   nodejs \
   postgresql-client \
   ruby=$RUBY_VERSION \
-  ruby-bigdecimal
+  ruby-bigdecimal \
+  ruby-etc
 
 # install bundler and building tools
 RUN gem install bundler -v "~>1.0" --no-ri --no-rdoc
