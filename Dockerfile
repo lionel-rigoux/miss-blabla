@@ -1,8 +1,8 @@
-FROM alpine:3.5
+FROM alpine:3.7
 
 ARG RAKE_ENV=development
 
-ENV RUBY_VERSION="2.3.8-r0"
+ENV RUBY_VERSION="2.4.6-r0"
 ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web

@@ -7,7 +7,7 @@
 #  updated_at :datetime
 #
 
-class Production < ActiveRecord::Base
+class Production < ApplicationRecord
 
   # RELATIONS
   has_many :commandes

@@ -10,7 +10,7 @@
 #  updated_at :datetime
 #
 
-class Agent < ActiveRecord::Base
+class Agent < ApplicationRecord
 
   # relations
   has_many :clients

@@ -10,11 +10,11 @@
 #  updated_at        :datetime
 #
 
-class Quantite < ActiveRecord::Base
+class Quantite < ApplicationRecord
 
   # RELATIONS
   belongs_to :quantifiable, :polymorphic => true
-  serialize :detail, Hash
+  serialize :detail
 
   # VALIDATIONS
   validate :validations
@@ -26,7 +26,6 @@ class Quantite < ActiveRecord::Base
             self.errors.add("detail[#{modele}][#{version}][#{taille}]".to_sym,I18n.t('activerecord.errors.models.quantite.attributes.detail.invalid'))
             # try to restore from db
             previous_quantite = Quantite.where(id: self.id).first
-            debugger
             self.set(modele,version,taille,previous_quantite ? previous_quantite.de(modele,version,taille) : 0)
           end
         end

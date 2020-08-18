@@ -1,11 +1,11 @@
-class LigneCommande < ActiveRecord::Base
+class LigneCommande < ApplicationRecord
   belongs_to :commande
   belongs_to :version
-  
+
   def self.parse_params(params)
     quantities={}
     parsed_params={}
-    
+
     params.each do |k,v|
       if k.match(/quantity_(.*)$/)
         quantities.store($1,v)
@@ -16,7 +16,7 @@ class LigneCommande < ActiveRecord::Base
     parsed_params.store("quantities",quantities.to_yaml)
     params=parsed_params
   end
-    
+
   def quantites
     if self.quantities
       YAML.load(self.quantities)
@@ -26,7 +26,7 @@ class LigneCommande < ActiveRecord::Base
       q
     end
   end
-    
+
   def method_missing(method_id,*args)
     if method_id.to_s.match(/quantity_?(.*)$/)
       taille =  args[0] || $1
@@ -38,10 +38,10 @@ class LigneCommande < ActiveRecord::Base
       end
     end
   end
-  
+
   def total
     q = self.quantities ? YAML.load(self.quantities) : {}
     q.values.map {|v| eval(v)}.sum
   end
-  
+
 end

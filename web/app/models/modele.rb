@@ -12,7 +12,7 @@
 #  updated_at :datetime
 #
 
-class Modele < ActiveRecord::Base
+class Modele < ApplicationRecord
 
   # RELATIONS
   has_many :versions, :dependent => :destroy
