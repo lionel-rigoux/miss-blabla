@@ -17,7 +17,7 @@
 #  has_tva    :boolean          default(TRUE), not null
 #
 
-class Client < ActiveRecord::Base
+class Client < ApplicationRecord
 
  # relations
  belongs_to :agent

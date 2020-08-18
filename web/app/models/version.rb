@@ -10,7 +10,7 @@
 #  updated_at    :datetime
 #
 
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
 
     # RELATIONS
     belongs_to :modele

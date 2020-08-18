@@ -13,7 +13,7 @@
 #  updated_at :datetime
 #
 
-class Patron < ActiveRecord::Base
+class Patron < ApplicationRecord
 
   # RELATIONS
   belongs_to :agent

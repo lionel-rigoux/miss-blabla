@@ -7,7 +7,7 @@
 #  updated_at :datetime
 #
 
-class Stock < ActiveRecord::Base
+class Stock < ApplicationRecord
 
    # RELATIONS
   has_one :quantite, as: :quantifiable, :dependent => :destroy

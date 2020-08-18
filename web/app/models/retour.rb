@@ -1,7 +1,7 @@
 # == Schema Information
 #
 
-class Retour < ActiveRecord::Base
+class Retour < ApplicationRecord
 
   # relations
   belongs_to :client

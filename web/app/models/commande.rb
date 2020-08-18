@@ -16,7 +16,7 @@
 #  date_facturation :date
 #
 
-class Commande < ActiveRecord::Base
+class Commande < ApplicationRecord
 
   # relations
   belongs_to :client

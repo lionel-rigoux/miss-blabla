@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class Couleur < ActiveRecord::Base
+class Couleur < ApplicationRecord
 
   # VALIDATION
   validates_presence_of :nom
