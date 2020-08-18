@@ -28,10 +28,20 @@ class CommandesController < ApplicationController
     #@modeles=Modele.all(order: 'numero ASC')
     @patron=Patron.first
     if params[:mode] == "livraison"
-      render 'show_livraison', layout: "printable"
+      filename = "bon-livraison_" + @commande.numero_commande
+      render pdf: filename,
+        disposition: 'attachment',                 # default 'inline'
+        template:    'commandes/show_livraison',
+        layout:      'printable',
+        show_as_html: params[:debug].present? #true
     elsif params[:mode] == "facture"
-      render pdf: 'facture',
-        disposition: 'inline',                 # default 'inline'
+      if @commande.status < 2
+        filename = "pro-forma_" + @commande.numero_commande
+      else
+        filename = "facture_" + @commande.numero_facture
+      end
+      render pdf: filename,
+        disposition: 'attachment',                 # default 'inline'
         template:    'commandes/show_facture',
         layout:      'printable',
         show_as_html: params[:debug].present? #true
@@ -138,6 +148,8 @@ class CommandesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def commande_params
-      params[:commande].permit! if params[:commande]
+      #params[:commande].permit! if params[:commande]
+      params.require(:commande).permit!
+
     end
 end
