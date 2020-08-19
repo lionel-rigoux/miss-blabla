@@ -6,7 +6,7 @@ class Retour < ApplicationRecord
   # relations
   belongs_to :client
   has_one :quantite, as: :quantifiable, dependent: :destroy
-  accepts_nested_attributes_for :quantite
+  accepts_nested_attributes_for :quantite, allow_destroy: true
 
   # validation
   validates_presence_of :client_id

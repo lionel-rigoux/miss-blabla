@@ -54,6 +54,6 @@ class AgentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params[:agent].permit!
+      params.require(:agent).permit!
     end
 end

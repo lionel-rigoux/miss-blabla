@@ -60,7 +60,7 @@ class RetoursController < ApplicationController
 
 
   def retour_params
-      params[:retour].permit! if params[:retour]
+    params.require(:retour).permit!
     end
 
        def set_catalogue

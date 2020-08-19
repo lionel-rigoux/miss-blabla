@@ -50,6 +50,6 @@ class ProductionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def production_params
-      params[:production]
+      params.require(:production).permit!
     end
 end
