@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822102423) do
+ActiveRecord::Schema.define(version: 20200819115300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(version: 20140822102423) do
   create_table "quantites", id: :serial, force: :cascade do |t|
     t.string "quantifiable_type"
     t.integer "quantifiable_id"
-    t.text "detail", default: "--- {}\n", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "total"
+    t.json "detail"
     t.index ["quantifiable_id"], name: "index_quantites_on_quantifiable_id"
     t.index ["quantifiable_type"], name: "index_quantites_on_quantifiable_type"
   end

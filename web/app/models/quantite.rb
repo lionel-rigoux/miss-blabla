@@ -5,7 +5,7 @@
 #  id                :integer          not null, primary key
 #  quantifiable_id   :integer
 #  quantifiable_type :string(255)
-#  detail            :text             default("--- {}\n"), not null
+#  detail            :json             not null
 #  created_at        :datetime
 #  updated_at        :datetime
 #
@@ -14,7 +14,6 @@ class Quantite < ApplicationRecord
 
   # RELATIONS
   belongs_to :quantifiable, :polymorphic => true
-  serialize :detail#, JSON
 
   # VALIDATIONS
   validate :validations
