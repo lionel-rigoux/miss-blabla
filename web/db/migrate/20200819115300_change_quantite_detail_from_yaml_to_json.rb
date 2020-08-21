@@ -3,7 +3,7 @@ class ChangeQuantiteDetailFromYamlToJson < ActiveRecord::Migration[5.1]
     updated_quantites = fetch_quantites.map do |r|
       {
         id: r['id'],
-        detail: escape_sql(JSON.dump(YAML.load(r['detail'])))
+        detail: escape_sql(JSON.dump(permit(YAML.load(r['detail']))))
       }
     end
 
@@ -63,6 +63,14 @@ class ChangeQuantiteDetailFromYamlToJson < ActiveRecord::Migration[5.1]
   # @return [String] the escaped version of the string provided
   def escape_sql(string)
     return string.gsub("'","''")
+  end
+
+  # catch entries that were unfortunately saved as unpermitted strong parameters
+  def permit(d)
+    if d.respond_to?(:to_unsafe_h)
+      d = d.to_unsafe_h
+    end
+    return d
   end
 
 end

@@ -16,20 +16,20 @@ ActiveRecord::Schema.define(version: 20200819115300) do
   enable_extension "plpgsql"
 
   create_table "agents", id: :serial, force: :cascade do |t|
-    t.string "nom"
+    t.string "nom", limit: 255
     t.text "email"
-    t.string "telephone"
+    t.string "telephone", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "clients", id: :serial, force: :cascade do |t|
-    t.string "societe"
-    t.string "nom"
-    t.string "siret"
-    t.string "tva"
-    t.string "email"
-    t.string "telephone"
+    t.string "societe", limit: 255
+    t.string "nom", limit: 255
+    t.string "siret", limit: 255
+    t.string "tva", limit: 255
+    t.string "email", limit: 255
+    t.string "telephone", limit: 255
     t.text "adresse_1"
     t.text "adresse_2"
     t.integer "agent_id"
@@ -58,31 +58,26 @@ ActiveRecord::Schema.define(version: 20200819115300) do
   end
 
   create_table "couleurs", id: :serial, force: :cascade do |t|
-    t.string "nom", null: false
+    t.string "nom", limit: 255, null: false
     t.integer "saison_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "couleurs_modeles", id: false, force: :cascade do |t|
-    t.integer "couleur_id"
-    t.integer "modele_id"
-  end
-
   create_table "modeles", id: :serial, force: :cascade do |t|
-    t.string "numero", null: false
-    t.string "nom", null: false
-    t.string "taille_min"
-    t.string "taille_max"
+    t.string "numero", limit: 255, null: false
+    t.string "nom", limit: 255, null: false
+    t.string "taille_min", limit: 255
+    t.string "taille_max", limit: 255
     t.float "prix", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "patrons", id: :serial, force: :cascade do |t|
-    t.string "societe"
-    t.string "siret"
-    t.string "tva"
+    t.string "societe", limit: 255
+    t.string "siret", limit: 255
+    t.string "tva", limit: 255
     t.float "capital"
     t.text "adresse", null: false
     t.integer "agent_id"
@@ -97,8 +92,8 @@ ActiveRecord::Schema.define(version: 20200819115300) do
   end
 
   create_table "quantites", id: :serial, force: :cascade do |t|
-    t.string "quantifiable_type"
     t.integer "quantifiable_id"
+    t.string "quantifiable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "total"

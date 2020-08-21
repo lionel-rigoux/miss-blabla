@@ -14,7 +14,7 @@ class Quantite < ApplicationRecord
 
   # RELATIONS
   belongs_to :quantifiable, :polymorphic => true
-
+  
   # VALIDATIONS
   validate :validations
   def validations
