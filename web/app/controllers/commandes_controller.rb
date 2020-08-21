@@ -59,7 +59,12 @@ class CommandesController < ApplicationController
   # GET /commandes/new
   def new
     if params[:mode] == "print"
-      render 'new_print', layout: "printable"
+      filename = "bon-commande"
+      render pdf: filename,
+        disposition: 'inline',                 # default 'inline'
+        template:    'commandes/new_print',
+        layout:      'printable',
+        show_as_html: params[:debug].present?
     else
       @commande = Commande.new.prepare
       render 'new'
