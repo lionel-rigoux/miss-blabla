@@ -1,4 +1,4 @@
-class AddMontantToRetours < ActiveRecord::Migration
+class AddMontantToRetours < ActiveRecord::Migration[4.2]
   def up
         add_column :retours, :montant, :float
   end

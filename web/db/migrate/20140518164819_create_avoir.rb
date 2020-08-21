@@ -1,4 +1,4 @@
-class CreateAvoir < ActiveRecord::Migration
+class CreateAvoir < ActiveRecord::Migration[4.2]
 
   def up
     create_table :retours do |t|

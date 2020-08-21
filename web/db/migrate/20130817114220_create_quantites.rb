@@ -1,4 +1,4 @@
-class CreateQuantites < ActiveRecord::Migration
+class CreateQuantites < ActiveRecord::Migration[4.2]
   def change
     create_table :stocks do |t|
       t.timestamps
@@ -8,6 +8,6 @@ class CreateQuantites < ActiveRecord::Migration
       t.text :detail
       t.timestamps
     end
-    
+
   end
 end

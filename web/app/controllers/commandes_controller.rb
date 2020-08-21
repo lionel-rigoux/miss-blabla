@@ -30,10 +30,10 @@ class CommandesController < ApplicationController
     if params[:mode] == "livraison"
       filename = "bon-livraison_" + @commande.numero_commande
       render pdf: filename,
-        disposition: 'attachment',                 # default 'inline'
+        disposition: 'inline',                 # default 'inline'
         template:    'commandes/show_livraison',
         layout:      'printable',
-        show_as_html: params[:debug].present? #true
+        show_as_html: params[:debug].present?
     elsif params[:mode] == "facture"
       if @commande.status < 2
         filename = "pro-forma_" + @commande.numero_commande
@@ -41,7 +41,7 @@ class CommandesController < ApplicationController
         filename = "facture_" + @commande.numero_facture
       end
       render pdf: filename,
-        disposition: 'attachment',                 # default 'inline'
+        disposition: 'inline',                 # default 'inline'
         template:    'commandes/show_facture',
         layout:      'printable',
         show_as_html: params[:debug].present? #true

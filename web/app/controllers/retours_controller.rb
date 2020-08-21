@@ -32,7 +32,13 @@ class RetoursController < ApplicationController
  def show
     if params[:mode] == "avoir"
       @patron=Patron.first
-      render 'show_avoir', layout: "printable"
+      filename = "avoir_" + @retour.numero_avoir
+      render pdf: filename,
+        disposition: 'inline',                 # default 'inline'
+        template:    'retours/show_avoir',
+        layout:      'printable',
+        show_as_html: params[:debug].present?
+
     elsif params[:mode] == "solde"
       render 'show_validation'
     else

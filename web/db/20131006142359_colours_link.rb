@@ -1,4 +1,4 @@
-class ColoursLink < ActiveRecord::Migration
+class ColoursLink < ActiveRecord::Migration[4.2]
   def up
     create_table :couleurs_modeles, :id => false do |t|
       t.belongs_to :couleur

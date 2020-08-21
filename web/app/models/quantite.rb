@@ -14,7 +14,7 @@ class Quantite < ApplicationRecord
 
   # RELATIONS
   belongs_to :quantifiable, :polymorphic => true
-  serialize :detail
+  serialize :detail#, JSON
 
   # VALIDATIONS
   validate :validations
@@ -128,6 +128,8 @@ class Quantite < ApplicationRecord
     detail.collect {|k,v| de_modele(k)}.sum
   end
   def de_modele(modele_id)
+
+
     detail[modele_id].collect {|k,v| de_version(modele_id,k)}.sum
   end
   def de_version(modele_id, version_id)

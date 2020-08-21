@@ -24,7 +24,7 @@
       %th= 'Total'
     - @catalogue.each do |modele|
       %tr.designation
-        %td= "\##{modele.numero} - #{modele.nom}"
+        %td= "#{modele.numero} - #{modele.nom}"
         - modele.liste_taille.each do |t|
           %td= t
         %td
