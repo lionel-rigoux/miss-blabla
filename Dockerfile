@@ -59,6 +59,9 @@ RUN bundle install
 COPY ./web ./
 RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
 
+# compile assets if necessary
+RUN bundle exec rake assets:precompile
+
 # allow to execute migration tasks
 RUN sudo chmod u+x ./release-tasks.sh
 
