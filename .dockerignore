@@ -1,0 +1,9 @@
+# ignore .git and .cache folders
+*.log
+*.DS_Store
+
+.git
+.cache
+
+docker-compose.yml
+Dockerfile

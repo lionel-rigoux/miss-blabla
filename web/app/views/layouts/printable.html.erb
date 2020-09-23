@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mademoiselle BlaBla</title>
+  <%= wicked_pdf_stylesheet_link_tag "application"%>
+  <%= csrf_meta_tags %>
+  <meta charset="UTF-8">
+</head>
+<body class="printable">
+
+<div id="page">
+    <%= yield %>
+</div>
+</body>
+</html>

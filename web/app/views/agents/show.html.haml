@@ -1,0 +1,38 @@
+%h1 Agent
+.actions2
+  = link_to 'Retour', agents_path
+  \/
+  = link_to "Modifier", edit_agent_path(@agent)
+  \/
+  = link_to 'Supprimer', @agent, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cet agent ?' }
+
+%h2 Coordonnées
+
+%dl
+  %dt= "Nom"
+  %dd= @agent.nom
+
+  %dt= "E-mail"
+  %dd= @agent.email
+
+  %dt= "Téléphone"
+  %dd= @agent.telephone
+
+  %h2 Portefeuille
+
+  %dl
+    %dt= "Nb. de clients suivis"
+    %dd= @agent.clients.count
+    %dt= "Performance totale"
+    %dd
+      != prix(@agent.performance)
+    %table.listing
+      %tr
+        %th Client
+        %th{width: "50px;"} # commandes
+        %th{width: "100px;"} Net à payer
+      - @agent.portefeuille.each do |client|
+        %tr
+          %td= client[:societe]
+          %td= client[:nbCommandes]
+          %td{class: "right"}!= prix(client[:total])

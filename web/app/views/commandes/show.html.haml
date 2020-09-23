@@ -1,0 +1,39 @@
+%h1 Commande
+.actions2
+  = link_to 'Retour', commandes_path
+  - if @commande.status < 3
+    \/
+    = link_to "Modifier", edit_commande_path(@commande)
+    \/
+    = link_to 'Supprimer', @commande, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cette commande ?' }
+
+%h2 Infos
+%p!= "Commande passée le #{@commande.date} pour #{@commande.client.societe} pour un montant total de #{prix(@commande.montant)} HT."
+%p= @commande.commentaire
+
+%h2 Statut
+- if @commande.status == 0
+  %p= "Ceci est une pré-commande. Elle sera automatiquement intégrée à la prochaine production. Procédez à la production et réceptionnez le stock avant de continuer."
+- if @commande.status == 1 || @commande.status == 2
+  %p
+    = "Imprimer le "
+    = link_to 'bon de livraison', commande_path(@commande, mode: 'livraison'), :target => '_blank'
+    = '.'
+  %p
+    = "Imprimer le "
+    = link_to 'pro forma', commande_path(@commande, mode: 'facture'), :target => '_blank'
+    = '.'
+  %p
+    = "Une fois la commande expédiée, vous pouvez"
+    = link_to 'procéder à la facturation', commande_path(@commande, mode: 'validation')
+    = ". Attention ! Il ne sera plus possible de modifier la commande une la facture crée !"
+- if @commande.status == 3
+  %p
+    = "Cette commande a été facturée. Voir la"
+    = link_to 'facture', commande_path(@commande, mode: 'facture'), :target => '_blank'
+    = "."
+
+
+
+%h2 Détail
+= render "/quantites/show", :quantite => @commande.quantite

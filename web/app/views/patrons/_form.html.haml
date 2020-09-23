@@ -1,0 +1,32 @@
+= render "/application/errors", :record => @patron
+
+= form_for @patron, method: :put do |f|
+  = f.hidden_field :id
+
+  %h2 Contact
+  = f.fields_for :agent do |ff|
+    = ff.label :nom, 'Nom et Prénom'
+    = ff.text_field :nom
+    %br
+    = ff.label :email, 'E-mail'
+    = ff.email_field :email
+    %br
+    = ff.label :telephone, 'Téléphone'
+    = ff.text_field  :telephone
+    %br
+
+  %h2 Société
+  = f.label  :societe, 'Société'
+  = f.text_field :societe
+  %br
+  = f.label :siren, 'Numéro Siret'
+  = f.text_field :siret
+  %br
+  = f.label :siren, 'Numéro TVA'
+  = f.text_field :tva
+  %br
+  = f.label :siren, 'Capital'
+  = f.text_field :capital
+  %br
+  = f.label :adresse, 'Adresse'
+  = f.text_area :adresse, size: "30x8"

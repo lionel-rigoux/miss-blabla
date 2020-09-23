@@ -1,0 +1,65 @@
+.title
+  BlaBla 81
+
+.bon
+  %h1 Avoir
+
+  .informations
+    %p!= "#{@patron.adresse.gsub("\r\n",", ")}"
+    %p= @patron.identification
+    %p= "#{@patron.telephone}"
+    %p= "#{@patron.email}"
+
+  .client
+    %p= @retour.client.societe
+    %p= @retour.client.nom
+    %p=raw to_html(@retour.client.adresse_1)
+
+  %p.reference
+    = "Le #{@retour.created_at.strftime('%d/%m/%Y')}, bon n° #{@retour.numero_avoir} pour :"
+    %br
+    = @retour.client.intitule
+    = "(#{@retour.client.identification})"
+
+  %table.commande
+    %tr.designation
+      %th{width: "400px;"} Désignation
+      %th{width: "60px;"} Qnt
+      %th{width: "80px;"} PU HT
+      %th{width: "80px;"} Mnt HT
+    - @retour.quantite.modeles_ids(@catalogue).each do |modele_id|
+      - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
+      - if @retour.quantite.de(modele) > 0
+        %tr.facture
+          %td= "#{modele.numero} - #{modele.nom}"
+          %td= @retour.quantite.de(modele)
+          %td!= "#{prix(modele.prix)}"
+          %td!= "#{prix(@retour.montant(modele))}"
+    %tr.sep
+      %td{colspan: 4}
+    %tr.blank
+      %td
+      %td.total{colspan: 2} Total HT
+      %td.total!= "#{prix(@retour.montant)}"
+    %tr.blank
+      -if @retour.client.has_tva
+        %td.info="Base TVA: 20.0\%"
+      - else
+        %td.info= "TVA non applicable, art. 293 B du CGI"
+      %td.total{colspan: 2} TVA
+      %td.total!= "#{prix(@retour.tva)}"
+    %tr.blank
+      %td.info{rowspan: 3}
+        != "Cet avoir sera automatiquement déduit de votre prochaine facture."
+        != "Toutefois, sur votre demande explicite, vous pouvez recevoir un remboursement par chèque."
+      %td.total{colspan: 2} Total TTC
+      %td.total!= "#{prix(@retour.montant_ttc)}"
+
+    %tr.blank
+      %td.total{colspan: 2} Frais de renvoi
+      %td.total!= "#{prix(@retour.frais_de_port)}"
+    %tr.blank
+      %td.grandtotal{colspan: 2} Net à payer
+      %td.grandtotal!= "#{prix(@retour.total)}"
+    %tr.sep
+      %td{colspan: 4}

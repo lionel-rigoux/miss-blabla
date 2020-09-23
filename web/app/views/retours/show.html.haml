@@ -1,0 +1,31 @@
+%h1 Retour
+.actions2
+  = link_to 'Retour', retours_path
+  - if @retour.status < 1
+    \/
+    = link_to "Modifier", edit_retour_path(@retour)
+    \/
+    = link_to 'Supprimer', @retour, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce retour ?' }
+
+%h2 Infos
+%p!= "Retour pour #{@retour.client.societe} d'un montant total de #{prix(@retour.total)} TTC."
+
+%h2 Statut
+%p
+  = "Imprimer l'"
+  = link_to 'avoir', retour_path(@retour, mode: 'avoir'), :target => '_blank'
+  = '.'
+- if @retour.status < 1
+  %p
+    = "Ce retour sera automatiquement déduit de la prochaine facture de ce client."
+    = "Si vous préférez rembourser le client, vous devez "
+    = link_to 'solder l''avoir', retour_path(@retour, mode: 'solde')
+    = ". Le bon de retour sera toujours disponible, mais n'appraîtra pas sur la prochaine facture."
+- else
+  %p
+    = "Ce retour a été soldé."
+
+
+
+%h2 Détail
+= render "/quantites/show", :quantite => @retour.quantite

@@ -1,0 +1,15 @@
+= render "/application/errors", :record => @agent
+
+%h2 Coordonnées
+
+= form_for @agent, :method=>(@agent.id ? :put : :post) do |f|
+  = f.hidden_field :id
+
+  = f.label :nom, 'Nom'
+  = f.text_field :nom
+
+  = f.label :email, 'E-mail'
+  = f.email_field :email
+
+  = f.label :telephone, 'Telephone'
+  = f.phone_field :telephone

@@ -1,0 +1,33 @@
+= render "/application/errors", :record => @retour
+
+= form_for @retour, :method=>(@retour.id ? :put : :post) do |f|
+  = f.hidden_field :id
+
+  - if @retour.client_id.nil?
+
+    %h2 Client
+
+    = f.label :client_id, 'Retour de'
+    = f.collection_select :client_id, Client.select(:id,:societe).load, :id, :societe, prompt: "-- Selectionnez un client --"
+
+
+  - else
+
+    %h2 Client
+
+    = f.label :client_id, 'Retour de'
+    = f.collection_select :client_id, Client.where(id: @retour.client_id).select(:id,:societe).load, :id, :societe
+
+    %p= Client.find(@retour.client_id).societe
+    = f.hidden_field :client_id
+
+
+    %h2 Envoi
+
+    = f.label :frais_de_port, "Frais de port (euros)"
+    = f.number_field :frais_de_port
+
+    %h2 Quantités
+
+    = f.fields_for :quantite do |ff|
+      = render "/quantites/form", {:quantite => @retour.quantite, :f => ff}

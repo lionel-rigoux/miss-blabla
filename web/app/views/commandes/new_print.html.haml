@@ -1,0 +1,44 @@
+.title
+  BlaBla
+
+.bon
+  %h1 Bon de commande
+
+  .client
+    %p _________________________________________________
+    %p _________________________________________________
+    %p _________________________________________________
+    %p _________________________________________________
+
+  %p.reference
+    = "Le __ / ___ / ______,"
+    = "commande pour :"
+    %br
+    = "_________________________________________________"
+    %br
+
+  %table.commande
+    %tr
+      %th= 'Désignation'
+      %th{colspan: 7}= 'Tailles'
+      %th= 'Total'
+    - @catalogue.each do |modele|
+      %tr.designation
+        %td= "#{modele.numero} - #{modele.nom}"
+        - modele.liste_taille.each do |t|
+          %td= t
+        %td
+
+      - modele.versions.each do |version|
+        - couleur = @couleurs[version.couleurs_1_id]
+        %tr
+          %td= couleur
+          - modele.liste_taille.each do |t|
+            - if t
+              %td
+            - else
+              %td X
+          %td
+
+  .footer
+    = "Nombre total de pièces : _____"

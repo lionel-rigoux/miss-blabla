@@ -1,0 +1,65 @@
+source 'https://rubygems.org'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ruby '2.5.8'
+gem 'rails', '~> 5.1.0'
+gem 'pg', '0.18.4'
+gem 'rails_12factor', '0.0.3'
+
+gem 'puma'
+gem 'irb'
+
+gem 'responders', '~> 2.0'
+
+group :development, :test do
+  gem 'web-console'#, '~> 2.0'
+  gem 'better_errors'
+  gem 'annotate'
+  gem 'bullet'
+  gem 'flay'
+  gem 'foreman'
+  gem 'rack-mini-profiler'
+  gem 'rails-footnotes'
+  gem 'rails_best_practices'
+  gem 'rb-readline'
+  gem 'meta_request'
+  gem 'binding_of_caller'
+  gem 'ruby-growl'
+  gem 'railroady'
+  gem 'rspec-rails'
+  gem 'watchr'
+  gem 'debug_inspector'
+  gem 'byebug'
+end
+
+gem 'rake'
+gem 'uniform_notifier'
+gem 'sexp_processor'
+gem 'taps'
+
+gem 'formtastic'
+#gem 'default_value_for'
+gem 'email_validator'
+
+gem 'wicked_pdf'
+
+# Use SCSS for stylesheets
+gem 'sass-rails'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier'
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails'
+
+# for upgrading rails to >4.1
+gem 'pkg-config'
+gem 'tzinfo'
+gem 'tzinfo-data'
+gem 'haml'
+gem 'haml-rails', "~> 1.0.0"
+
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder'

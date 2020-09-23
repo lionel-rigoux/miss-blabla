@@ -1,0 +1,75 @@
+
+.blob{
+  margin: 0px 0px 10px 0px;
+  padding: 2px 0px 0px 10px;
+  border-left: 4px solid #9ACD32;
+  height: 60px;
+  width: 98%;
+  display: table;
+  /*-moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.3);
+      -webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.3);*/
+      box-shadow: 0 0px 2px 0px rgba(0,0,0,.3);
+
+  &:hover{
+    cursor: pointer;
+    background-color: #FCFCFC;
+    box-shadow: 0 0px 3px 0px rgba(0,0,0,1);
+
+
+  }
+
+
+  .left {
+    height: inherit;
+    width: 260px;
+    float: left;
+    display: table-column;
+    border-right: 1px dashed #DDDDDD;
+  }
+
+  .designation {
+    font-size: 1.4em;
+    color: #333333;
+  }
+  .ref {
+    font-size: 1em;
+    color: #5F9EA0;
+  }
+  .center{
+    width: 60px;
+    height: inherit;
+    float: left;
+    display: table-column;
+    border-right: 1px dashed #DDDDDD;
+    text-align: right;
+    padding-right: 10px;
+
+ .prix {
+    font-size: 1.3em;
+    color: #B0B0B0;
+
+  }
+}
+  .right {
+
+     width: 240px;
+      height: inherit;
+      float: left;
+      display: table-column;
+ padding-left: 10px;
+      .tailles {
+        font-size: .8em;
+        font-weight: bold;
+        color: #708090;
+      }
+      .att {
+        font-size: .9em;
+        font-variant: small-caps ;
+        color: #666666;
+      }
+  }
+
+
+}
+
+/*url("/imgs/css/proposal/ico-departure.png") no-repeat scroll left 3px, url("/imgs/css/proposal/trait-bas-segment-boc-train.png") no-repeat scroll right bottom transparent*/

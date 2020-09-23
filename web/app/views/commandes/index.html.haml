@@ -1,0 +1,64 @@
+%h1 Commandes
+
+.actions2
+  = link_to ' + Ajouter une comande', new_commande_path()
+  = '//'
+  = link_to ' > Imprimer un bon de commande', new_commande_path(mode: 'print'), :target => '_blank'
+
+
+.commande_aide
+  %h2 Aide
+
+  .aide_blobs
+    .aide_blob
+      .aide_head{'data-status' => 0}= 'pré-commande'
+    .aide_blob
+      .aide_head{'data-status' => 1}= 'en production'
+    .aide_blob
+      .aide_head{'data-status' => 2}= 'en préparation'
+    .aide_blob
+      .aide_head{'data-status' => 3}= 'envoyée'
+    .aide_blob
+      .aide_head{'data-status' => 4}= 'réglée'
+  %p
+    = "Créez de nouvelles commandes."
+    = "Allez dans 'production' pour générer un nouvel ordre de production qui cumulera automatiquement toutes ces pré-commandes."
+    = "A la réception de l'arrivage, enregistrez les stocks reçus pour permettre la préparation des commandes."
+    = "Une fois envoyée, une commande peut alors être facturée ; elle ne sera alors plus modifiable."
+
+= form_tag commandes_path, method: :get, id: 'commande_filter', class: 'filtre' do
+  %h2 Filtre
+  %p
+    ="Afficher les commandes "
+    =select_tag :commande_status, options_for_select(Commande::STATUS_LIST.collect {|k,v| [v,k]}, params[:commande_status]), prompt: "(toutes)",  :onchange => 'this.form.submit();'
+    = " triées par "
+    =select_tag :commande_order, options_for_select([['client','societe'],['statut','status'],['référence','id'],['montant','montant'],['nbr. de pièces','quantite_totale'],['date de livraison','livraison']],params[:commande_order]),  :onchange => 'this.form.submit();'
+
+.commande_aide
+  %h2 Résumé de la sélection
+  %p
+    = @commandes.count
+    = "commandes"
+    = "  //  "
+    = @commandes.inject(0){ |sum, c| sum+c.quantite.total}
+    = "pièces"
+    = "  //  "
+    != prix(@commandes.sum(&:montant))
+    = "HT"
+
+- @commandes.each do |commande|
+  .commande_blob{onclick: "window.location = $(this).attr('url')", url: commande_path(commande), 'data-status'=> commande.status}
+    .left
+      .client= commande.client.societe
+      .ref= commande.reference
+      .status= commande.info
+    .center
+      .prix!= prix(commande.montant)
+      -#.pieces= "#{@quantite[commande.id]} pcs."
+      .pieces= "#{commande.quantite.total} pcs."
+    .right
+      .lab= "passée le :"
+      .date= l commande.created_at.to_date, format: :long
+      %br
+      .lab= "à livrer  le :"
+      .date= l commande.livraison, format: :long
