@@ -220,7 +220,7 @@ body.printable{
 #page {
 width: 21cm;
 min-height: 29.7cm;
-padding: 0cm 2cm 0cm 2cm;
+padding: 0cm 2cm 1cm 2cm;
 margin: 0cm auto;
 border: 0px #D3D3D3 solid;
 background: white;
@@ -238,11 +238,10 @@ font-size: 28pt;
 font-weight: bold;
 }
 
-
-
 @media print {
-  thead {display: table-header-group;}
 
+
+  thead {display: table-header-group;}
 
   @page {
       size: A4;
@@ -254,7 +253,7 @@ font-weight: bold;
   }
 
     #page {
-            margin: 0 auto;
+            margin: 0cm auto;
             padding: 2cm 2cm 2cm 2cm;
             border: none;
             border-radius: none;
@@ -264,6 +263,7 @@ font-weight: bold;
             background: white;
             page-break-after: always;
    }
+
 }
 
 #page h1 {
@@ -396,9 +396,4 @@ padding-left: 5px;
   text-align: justify;
   font-size: 7pt;
   color: #666666;
-}
-
-
-#page .pagebreak{
-  page-break-after:always;
 }
