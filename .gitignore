@@ -10,3 +10,5 @@
 *.DS_Store
 
 web/.byebug_history
+
+web/public/assets/

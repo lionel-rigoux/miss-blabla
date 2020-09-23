@@ -1,3 +1,3 @@
 #!/bin/sh
-bundle exec rake assets:precompile
+echo $RAILS_ENV
 bundle exec rake db:migrate

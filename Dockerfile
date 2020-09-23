@@ -1,13 +1,13 @@
 FROM alpine:3.10
 
-ARG RAKE_ENV=development
+ARG R_ENV
 
 ENV RUBY_VERSION="2.5.8-r0"
 ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web
-ENV RAKE_ENV=$RAKE_ENV
-ENV RAILS_ENV=$RAKE_ENV
+ENV RAKE_ENV=$R_ENV
+ENV RAILS_ENV=$R_ENV
 ENV TERM=dumb
 
 # install core
@@ -58,6 +58,9 @@ RUN bundle install
 # install app
 COPY ./web ./
 RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
+
+# compile assets if necessary
+RUN bundle exec rake assets:precompile
 
 # allow to execute migration tasks
 RUN sudo chmod u+x ./release-tasks.sh
