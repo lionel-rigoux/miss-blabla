@@ -8,7 +8,6 @@ Bundler.require(:default, Rails.env)
 
 module Blabla
   class Application < Rails::Application
-    config.load_defaults 5.1
 
     config.assets.precompile =  ['*.js', '*.css', '*.css.erb']
 
