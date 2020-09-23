@@ -8,12 +8,12 @@
     %h1 Facture
 
   .informations
-  -#%p= @patron.intitule
-  %p!= "#{@patron.adresse.gsub("\r\n",", ")}"
-  %p!= "SASU au capital de 5000&#x20AC;"
-  %p= "RCS: 823359757 Albi - TVA: FR85823359757"
-  %p= "#{@patron.telephone}"
-  %p= "#{@patron.email}"
+    %p= @patron.intitule
+    %p!= "#{@patron.adresse.gsub("\r\n",", ")}"
+    %p!= "SASU au capital de 5000&#x20AC;"
+    %p= "RCS: 823359757 Albi - TVA: FR85823359757"
+    %p= "#{@patron.telephone}"
+    %p= "#{@patron.email}"
 
   .client
     %p= @commande.client.societe
@@ -45,7 +45,7 @@
       - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
       - if @commande.quantite.de(modele) > 0
         %tr.facture
-          %td= "\##{modele.numero} - #{modele.nom}"
+          %td= "#{modele.numero} - #{modele.nom}"
           %td= @commande.quantite.de(modele)
           %td!= "#{prix(modele.prix)}"
           %td!= "#{prix(@commande.montant(modele))}"

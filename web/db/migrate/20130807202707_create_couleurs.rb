@@ -1,4 +1,4 @@
-class CreateCouleurs < ActiveRecord::Migration
+class CreateCouleurs < ActiveRecord::Migration[4.2]
   def change
     create_table :couleurs do |t|
       t.string :nom

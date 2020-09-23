@@ -1,4 +1,4 @@
-class FastQuantite < ActiveRecord::Migration
+class FastQuantite < ActiveRecord::Migration[4.2]
   def up
     add_column :quantites, :total, :integer
     add_column :commandes, :montant, :float

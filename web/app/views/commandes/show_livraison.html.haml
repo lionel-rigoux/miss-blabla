@@ -12,7 +12,6 @@
   %p.reference
     = "Le #{Date.today.strftime('%d/%m/%Y')},"
     = "commande n°#{@commande.reference} pour :"
-    %br
     = "#{@commande.client.intitule} (#{@commande.client.identification})"
 
   %table.commande
@@ -24,7 +23,7 @@
       - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
       - if @commande.quantite.de(modele) > 0
         %tr.designation
-          %td= "\##{modele.numero} - #{modele.nom}"
+          %td= "#{modele.numero} - #{modele.nom}"
           - modele.liste_taille.each do |t|
             %td= t
           %td= @commande.quantite.de(modele.id)

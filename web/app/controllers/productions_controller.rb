@@ -14,8 +14,13 @@ class ProductionsController < ApplicationController
      @patron = Patron.find_or_initialize_by(id: 1)
      #@production.up_to_date
      @catalogue = Modele.catalogue
-      @couleurs = Hash[Couleur.pluck(:id,:nom)]
-     render 'show', layout: "printable"
+     @couleurs = Hash[Couleur.pluck(:id,:nom)]
+     filename = "production_" + @production.date
+     render pdf: filename,
+       disposition: 'inline',                 # default 'inline'
+       template:    'productions/show',
+       layout:      'printable',
+       show_as_html: params[:debug].present?
 
   end
 
@@ -50,6 +55,6 @@ class ProductionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def production_params
-      params[:production]
+      params.require(:production).permit!
     end
 end

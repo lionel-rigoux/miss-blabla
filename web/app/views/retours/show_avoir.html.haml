@@ -1,5 +1,5 @@
 .title
-  BlaBla
+  BlaBla 81
 
 .bon
   %h1 Avoir
@@ -31,7 +31,7 @@
       - modele=@catalogue.select {|m| m.id == modele_id.to_i}.first
       - if @retour.quantite.de(modele) > 0
         %tr.facture
-          %td= "\##{modele.numero} - #{modele.nom}"
+          %td= "#{modele.numero} - #{modele.nom}"
           %td= @retour.quantite.de(modele)
           %td!= "#{prix(modele.prix)}"
           %td!= "#{prix(@retour.montant(modele))}"

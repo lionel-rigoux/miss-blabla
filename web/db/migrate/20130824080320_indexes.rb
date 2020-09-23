@@ -1,4 +1,4 @@
-class Indexes < ActiveRecord::Migration
+class Indexes < ActiveRecord::Migration[4.2]
   def up
     add_index :clients, :agent_id
     add_index :commandes, :client_id

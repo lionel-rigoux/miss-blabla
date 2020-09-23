@@ -93,6 +93,6 @@ class StocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_params
-      params[:stock].permit!
+      params.require(:stock).permit!
     end
 end

@@ -9,8 +9,9 @@ class CommandesController < ApplicationController
     @commandes = Commande.includes(:quantite,:client)
     @commandes = @commandes.where(status: params[:commande_status].to_i) unless params[:commande_status].blank?
 
-    @commandes.to_a.sort_by! { |c| c.send(params[:commande_order] || 'societe')}
-
+    #@commandes.sort_by { |c| c.send(params[:commande_order] || 'societe')}
+    order_value = params[:commande_order] || 'societe'
+    @commandes = @commandes.sort_by(&order_value.to_sym)
     #if params[:factures] == 'pro'
    #    @patron=Patron.first
    #   @commandes = @commandes.where(status: 2)
@@ -27,9 +28,23 @@ class CommandesController < ApplicationController
     #@modeles=Modele.all(order: 'numero ASC')
     @patron=Patron.first
     if params[:mode] == "livraison"
-      render 'show_livraison', layout: "printable"
+      filename = "bon-livraison_" + @commande.numero_commande
+      render pdf: filename,
+        disposition: 'inline',                 # default 'inline'
+        template:    'commandes/show_livraison',
+        layout:      'printable',
+        show_as_html: params[:debug].present?
     elsif params[:mode] == "facture"
-      render 'show_facture', layout: "printable"
+      if @commande.status < 2
+        filename = "pro-forma_" + @commande.numero_commande
+      else
+        filename = "facture_" + @commande.numero_facture
+      end
+      render pdf: filename,
+        disposition: 'inline',                 # default 'inline'
+        template:    'commandes/show_facture',
+        layout:      'printable',
+        show_as_html: params[:debug].present? #true
     elsif params[:mode] == "validation"
       @commande.status=3
       @avoir = @commande.avoirs_en_attente.where(status: 0).to_a.sum(&:total)
@@ -44,7 +59,12 @@ class CommandesController < ApplicationController
   # GET /commandes/new
   def new
     if params[:mode] == "print"
-      render 'new_print', layout: "printable"
+      filename = "bon-commande"
+      render pdf: filename,
+        disposition: 'inline',                 # default 'inline'
+        template:    'commandes/new_print',
+        layout:      'printable',
+        show_as_html: params[:debug].present?
     else
       @commande = Commande.new.prepare
       render 'new'
@@ -133,6 +153,8 @@ class CommandesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def commande_params
-      params[:commande].permit! if params[:commande]
+      #params[:commande].permit! if params[:commande]
+      params.require(:commande).permit!
+
     end
 end

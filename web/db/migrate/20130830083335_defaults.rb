@@ -1,4 +1,4 @@
-class Defaults < ActiveRecord::Migration
+class Defaults < ActiveRecord::Migration[4.2]
   def change
     change_column :agents, :nom, :string, unique: true
     change_column :clients, :societe, :string, unique: true, null: true

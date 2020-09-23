@@ -60,6 +60,6 @@ class CouleursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def couleur_params
-      params.require(:couleur).permit(:nom)
+      params.require(:couleur).permit!
     end
 end

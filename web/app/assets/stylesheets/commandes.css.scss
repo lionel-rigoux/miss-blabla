@@ -127,7 +127,7 @@
 
   .left {
     height: inherit;
-    width: 310px;
+    width: 510px;
     float: left;
     display: table-column;
     border-right: 1px dashed #DDDDDD;
@@ -213,12 +213,14 @@ text-align: right;
 
 
 body.printable{
-      background-color: #FAFAFA;
+      background-color: #FFF;
+      width: 100%;
   }
+
 #page {
 width: 21cm;
 min-height: 29.7cm;
-padding: 0cm 2cm 0cm 2cm;
+padding: 0cm 2cm 1cm 2cm;
 margin: 0cm auto;
 border: 0px #D3D3D3 solid;
 background: white;
@@ -236,23 +238,32 @@ font-size: 28pt;
 font-weight: bold;
 }
 
-@page {
-    size: A4;
-    margin: 1.5cm 0 1.5cm 0;
-}
-
 @media print {
-    .page {
-            margin: 1.5cm 0 1.5cm 0;
-            border: initial;
-            border-radius: initial;
+
+
+  thead {display: table-header-group;}
+
+  @page {
+      size: A4;
+      margin: 0;
+  }
+
+  body {
+  zoom:125%; /*or whatever percentage you need, play around with this number*/
+  }
+
+    #page {
+            margin: 0cm auto;
+            padding: 2cm 2cm 2cm 2cm;
+            border: none;
+            border-radius: none;
             width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
+            min-height: 29.7cm;
+            box-shadow: none;
+            background: white;
             page-break-after: always;
    }
-   thead {display: table-header-group;}
+
 }
 
 #page h1 {
@@ -288,14 +299,14 @@ margin-left: 10cm;
 #page .informations{
   width: 7cm;
   text-align: left;
-  font-size: 8pt;
+  font-size: 9pt;
   margin-top: -15px;
   display: block;
 
 }
 
 #page .informations p{
-  color: #CCCCCC;
+  color: #666666;
   margin: 0px 0px 2px 0px;
 }
 
@@ -386,13 +397,3 @@ padding-left: 5px;
   font-size: 7pt;
   color: #666666;
 }
-
-
-#page .pagebreak{
-  page-break-after:always;
-}
-
-
-
-
-

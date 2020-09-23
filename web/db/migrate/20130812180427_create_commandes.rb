@@ -1,4 +1,4 @@
-class CreateCommandes < ActiveRecord::Migration
+class CreateCommandes < ActiveRecord::Migration[4.2]
   def change
     create_table :commandes do |t|
       t.belongs_to :client
@@ -7,6 +7,6 @@ class CreateCommandes < ActiveRecord::Migration
       t.integer    :status
       t.belongs_to :production
       t.timestamps
-    end   
+    end
   end
 end

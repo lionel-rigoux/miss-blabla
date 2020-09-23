@@ -1,4 +1,4 @@
-class AddAvoirToCommandes < ActiveRecord::Migration
+class AddAvoirToCommandes < ActiveRecord::Migration[4.2]
   def up
       add_column :commandes, :avoir, :float
   end

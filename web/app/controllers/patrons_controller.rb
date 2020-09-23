@@ -64,7 +64,7 @@ class PatronsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patron_params
-      params[:patron].permit!
+      params.require(:patron).permit!
     end
 
 end

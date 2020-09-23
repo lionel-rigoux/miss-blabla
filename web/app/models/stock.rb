@@ -11,7 +11,7 @@ class Stock < ApplicationRecord
 
    # RELATIONS
   has_one :quantite, as: :quantifiable, :dependent => :destroy
-  accepts_nested_attributes_for :quantite
+  accepts_nested_attributes_for :quantite, allow_destroy: true
 
   # CALLBACKS
   after_initialize :init
