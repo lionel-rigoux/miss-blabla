@@ -5,7 +5,7 @@ build:
   docker:
     web: Dockerfile
   config:
-    RAKE_ENV: production
+    R_ENV: production
 release:
   image: web
   command:
