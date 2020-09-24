@@ -67,6 +67,3 @@ RUN sudo chmod u+x ./release-tasks.sh
 
 # clean up
 RUN sudo apk del .build-deps
-
-# Start the main process.
-CMD bundle exec puma
