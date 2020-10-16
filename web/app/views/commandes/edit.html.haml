@@ -1,6 +1,6 @@
 %h1 Commande :: modifier
 .actions2
-  = link_to 'Retour', commandes_path
+  = link_to 'Retour', commande_path(@commande)
   \/
   %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
 
