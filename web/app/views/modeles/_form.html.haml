@@ -7,15 +7,14 @@
 
   = f.label :numero, 'Référence'
   = f.text_field :numero
-
+  %br
   = f.label :nom, 'Nom'
   = f.text_field :nom
-
+  %br
   = f.label :tailles, 'Tailles'
   = f.select :taille_min, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
   .to= ">>"
   = f.select :taille_max, @modele.tailles_possibles.collect{|t| [t,t]}, {}, {:class=>'taille'}
   %br
-
   = f.label :prix, 'Prix Unitaire HT'
   = f.number_field :prix
