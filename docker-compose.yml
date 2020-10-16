@@ -7,10 +7,11 @@ services:
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
   web:
+    command: bundle exec puma
     build:
       context: .
       args:
-        - "R_ENV=staging"
+        - "R_ENV=development"
     volumes:
       - ./web:/web
     ports:

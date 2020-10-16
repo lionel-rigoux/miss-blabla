@@ -74,10 +74,8 @@ class CommandesController < ApplicationController
   # GET /commandes/1/edit
   def edit
     q_new = Commande.new.prepare.quantite
-    q_new.id = @commande.quantite.id
-    @commande.quantite += q_new
-    #sorted_list = @catalogue.collect(&:id)
-    #@commande.quantite.detail.sort {|a,b| sorted_list.index(a) <=> sorted_list.index(b)}
+    q_new += @commande.quantite
+    @commande.quantite.detail = q_new.detail
   end
 
   # POST /commandes
