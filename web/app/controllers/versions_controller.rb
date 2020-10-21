@@ -27,7 +27,7 @@ class VersionsController < ApplicationController
   # POST /versions.json
   def create
     @version = Version.new(version_params)
-      if @version.save
+      if @version.valid? && @version.save
         redirect_to modele_path(@version.modele)
       else
         render 'new'

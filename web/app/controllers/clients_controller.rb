@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    @clients = Client.all()
+    @clients = Client.all().order("lower(societe)")
   end
 
   # GET /clients/new
@@ -21,7 +21,7 @@ class ClientsController < ApplicationController
   # POST /clients
   def create
     @client = Client.new(client_params)
-    if @client.save
+    if @client.valid? && @client.save
         redirect_to clients_path
     else
         render action: 'new'

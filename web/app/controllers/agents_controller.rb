@@ -24,7 +24,7 @@ class AgentsController < ApplicationController
   # POST /agents
   def create
     @agent = Agent.new(agent_params)
-    if @agent.save
+    if @agent.valid? && @agent.save
       redirect_to agents_path
     else
       render action: 'new'

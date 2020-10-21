@@ -27,7 +27,7 @@ class ModelesController < ApplicationController
   def create
     @modele = Modele.new(modele_params)
 
-      if @modele.save
+      if @modele.valid? && @modele.save
         redirect_to modele_path(@modele)
       else
         render action: 'new'

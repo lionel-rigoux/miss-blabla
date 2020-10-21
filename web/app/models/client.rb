@@ -47,9 +47,9 @@ class Client < ApplicationRecord
  before_destroy :check_for_orders
 
  def check_for_orders
-    if commandes.count > 0
+    if self.commandes.count > 0
       self.errors.add(:commandes,"Impossible de suppirmer. Ce client a des commandes en cours")
-      return false
+      throw :abort
     end
   end
 
