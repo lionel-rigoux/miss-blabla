@@ -21,7 +21,7 @@ class RetoursController < ApplicationController
       end
       render action: 'edit'
     else
-      if @retour.save
+      if @retour.valid? && @retour.save
         redirect_to retour_path(@retour)
       else
         render action: 'new'

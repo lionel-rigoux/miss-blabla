@@ -27,7 +27,7 @@ class QuantitesController < ApplicationController
     @quantite = Quantite.new(quantite_params)
 
     respond_to do |format|
-      if @quantite.save
+      if @quantite.valid? && @quantite.save
         format.html { redirect_to @quantite, notice: 'Quantite was successfully created.' }
         format.json { render action: 'show', status: :created, location: @quantite }
       else

@@ -82,12 +82,13 @@ class CommandesController < ApplicationController
   # POST /commandes.json
   def create
     @commande = Commande.new(commande_params)
-      if @commande.save
-        render 'show'
-      else
-        render 'edit'
-      end
+    if @commande.valid? && @commande.save
+      render :show
+    else
+      render :new
+    end
   end
+
 
   # PATCH/PUT /commandes/1
   # PATCH/PUT /commandes/1.json

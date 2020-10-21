@@ -25,7 +25,7 @@ class CouleursController < ApplicationController
   # POST /couleurs.json
   def create
     @couleur = Couleur.new(couleur_params)
-      if @couleur.save
+      if @couleur.valid? && @couleur.save
           redirect_to couleurs_path
         else
           render action: 'new'
