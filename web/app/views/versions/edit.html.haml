@@ -1,10 +1,11 @@
-%h1 Version :: modification
-.actions
+%h1 Catalogue :: modèle :: version :: modifier
+.actions2
   = link_to 'Annuler', modele_path(@version.modele)
-  \|
+  \/
   %a{href: "/", onclick: "document.forms[0].submit(); return false;"} Enregistrer
-  \|
+  \/
   = link_to 'Supprimer', @version, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cette version ?' }
-  
+
+= render "/application/errors", :record => @version
 
 = render 'form'

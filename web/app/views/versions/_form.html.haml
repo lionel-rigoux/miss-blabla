@@ -2,12 +2,12 @@
   = f.hidden_field :modele_id, value: @modele.id
 
   %h2 Modèle
-  = "#{@modele.numero} :: #{@modele.nom}"
+  %p= "#{@modele.numero} :: #{@modele.nom}"
 
   %h2 Couleurs
 
   = f.label :couleurs_1_id, 'Couleur principale'
   = f.collection_select :couleurs_1_id, Couleur.all, :id, :nom
-
+  %br
   = f.label :couleurs_2_id, 'Couleur secondaire'
   = f.collection_select :couleurs_2_id, Couleur.all, :id, :nom, :include_blank=>true

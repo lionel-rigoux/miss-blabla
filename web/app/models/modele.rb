@@ -36,6 +36,16 @@ class Modele < ApplicationRecord
     self[:prix] = self.read_attribute_before_type_cast('prix').to_s.gsub(',', '.').to_f
   end
 
+  # destruction
+  before_destroy :ensure_is_in_no_order, prepend: true
+
+  def ensure_is_in_no_order
+     if Commande.includes(:quantite).all.to_a.select {|c| c.quantite.de(self) > 0}.present?
+       self.errors.add(:couleurs,"Impossible de suppirmer. Ce modèle est en commande.")
+       throw :abort
+     end
+  end
+
   # SCOPES
   scope :catalogue, -> {order(:numero).includes(:versions)}
 

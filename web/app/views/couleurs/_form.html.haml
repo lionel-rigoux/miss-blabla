@@ -1,4 +1,6 @@
 = semantic_form_for @couleur, :method=>(@couleur.id ? :put : :post) do |f|
   = f.hidden_field :id
 
+  %h2 Couleur
+
   = f.input :nom

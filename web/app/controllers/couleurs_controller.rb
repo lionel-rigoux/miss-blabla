@@ -43,12 +43,11 @@ class CouleursController < ApplicationController
   end
 
   # DELETE /couleurs/1
-  # DELETE /couleurs/1.json
   def destroy
-    @couleur.destroy
-    respond_to do |format|
-      format.html { redirect_to couleurs_url }
-      format.json { head :no_content }
+    if @couleur.destroy
+    redirect_to couleurs_url
+    else
+    render action: 'edit'
     end
   end
 
