@@ -48,8 +48,11 @@ class ModelesController < ApplicationController
   # DELETE /modeles/1
   # DELETE /modeles/1.json
   def destroy
-    @modele.destroy
-    redirect_to modeles_url
+    if @modele.destroy
+      redirect_to modeles_url
+    else
+      render action: 'show'
+    end
   end
 
   private

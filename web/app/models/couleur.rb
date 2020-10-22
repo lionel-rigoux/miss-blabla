@@ -26,6 +26,6 @@ class Couleur < ApplicationRecord
        self.errors.add(:couleurs,"Impossible de suppirmer. Cette couleur est utilisée dans le catalogue.")
        throw :abort
      end
-   end
+  end
 
 end
