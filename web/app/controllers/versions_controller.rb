@@ -20,7 +20,6 @@ class VersionsController < ApplicationController
 
   # GET /versions/1/edit
   def edit
-    @modele = @version.modele
   end
 
   # POST /versions
@@ -47,14 +46,19 @@ class VersionsController < ApplicationController
   # DELETE /versions/1
   # DELETE /versions/1.json
   def destroy
-    @version.destroy
-    redirect_to modele_path(@version.modele)
+    if @version.destroy
+      redirect_to modele_path(@version.modele)
+    else
+      render 'edit'
+    end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_version
       @version = Version.find(params[:id])
+      @modele = @version.modele
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

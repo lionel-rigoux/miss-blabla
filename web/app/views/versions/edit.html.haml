@@ -6,5 +6,6 @@
   \/
   = link_to 'Supprimer', @version, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cette version ?' }
 
+= render "/application/errors", :record => @version
 
 = render 'form'
