@@ -6,4 +6,6 @@
   \/
   = link_to 'Supprimer', @couleur, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer cette couleur ?' }
 
+= render "/application/errors", :record => @couleur
+
 = render 'form'
