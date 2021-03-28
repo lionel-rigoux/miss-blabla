@@ -122,12 +122,20 @@ class Commande < ApplicationRecord
     end
   end
 
-  def tva(*args)
-    client.has_tva ? montant(*args)*0.200 : 0
+  def escompte()
+    (nombre_paiments == 1) ? montant()*0.03 : 0
   end
 
-  def montant_ttc(*args)
-    montant(*args)+tva(*args)
+  def montant_net_ht()
+    montant() - escompte()
+  end
+
+    def tva()
+      client.has_tva ? montant_net_ht()*0.20 : 0
+    end
+
+  def montant_ttc()
+    montant_net_ht() + tva()
   end
 
   def mensualite
@@ -135,7 +143,7 @@ class Commande < ApplicationRecord
   end
 
   def total
-    montant_ttc + (frais_de_port || 0) - (avoir || 0)
+    montant_ttc + (frais_de_port || 0) - (avoir || 0) - (escompte || 0)
   end
 
   def quantite_totale
