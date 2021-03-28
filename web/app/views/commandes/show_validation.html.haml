@@ -23,9 +23,9 @@
 
   = f.label :frais_de_port, "Frais de port (euros)"
   = f.number_field :frais_de_port
-
+  %br
   = f.label :frais_de_port, "Avoir (euros)"
   = f.number_field :avoir, value: @avoir, :readonly => true
-
+  %br
   = f.label "Facilité de paiment"
-  = f.select :nombre_paiments, options_for_select((1..3).collect {|i| ["en #{i} fois", i]} )
+  = f.select :nombre_paiments, options_for_select((1..3).collect {|i| ["en #{i} fois #{(i==1) ? '(- 3%)' : ''}", i]} )

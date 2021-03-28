@@ -55,15 +55,15 @@
       %td
       %td.total{colspan: 2} Total HT
       %td.total!= "#{prix(@commande.montant)}"
-    - unless true#@commande.remise.nil?
+    - if @commande.escompte > 0
       %tr.blank
-        %td
-        %td.total{colspan: 2} Remise
-        %td.total!= "#{prix(@commande.remise)}"
+        %td.info="3% du Total HT pour paiment en 1 fois."
+        %td.total{colspan: 2} Escompte
+        %td.total!= "- #{prix(@commande.escompte)}"
       %tr.blank
         %td
         %td.total{colspan: 2} Net HT
-        %td.total!= "#{prix(@commande.remise)}"
+        %td.total!= "#{prix(@commande.montant_net_ht)}"
     %tr.blank
       -if @commande.client.has_tva
         %td.info="Base TVA: 20.0\%"
