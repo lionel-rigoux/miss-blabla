@@ -143,7 +143,7 @@ class Commande < ApplicationRecord
   end
 
   def total
-    montant_ttc + (frais_de_port || 0) - (avoir || 0) - (escompte || 0)
+    montant_ttc + (frais_de_port || 0) - (avoir || 0) 
   end
 
   def quantite_totale
