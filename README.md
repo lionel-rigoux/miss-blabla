@@ -21,7 +21,7 @@ Get dump from heroku
 
 ```
 heroku pg:backups:capture --app miss-blabla
-heroku pg:backups:download --app miss-blabla"
+heroku pg:backups:download --app miss-blabla
 ```
 
 Load in the dev database

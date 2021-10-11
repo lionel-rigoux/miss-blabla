@@ -1,8 +1,8 @@
-FROM alpine:3.10
+FROM alpine:3.9
 
 ARG R_ENV
 
-ENV RUBY_VERSION="2.5.8-r1"
+ENV RUBY_VERSION="2.5.8-r0"
 ENV APP_USER=webuser
 ENV APP_GROUP=webgroup
 ENV APP_PATH=/web
