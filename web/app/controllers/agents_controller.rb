@@ -25,7 +25,7 @@ class AgentsController < ApplicationController
   def create
     @agent = Agent.new(agent_params)
     if @agent.valid? && @agent.save
-      redirect_to agents_path
+      redirect_to agent_path(@agent)
     else
       render action: 'new'
     end
@@ -34,7 +34,7 @@ class AgentsController < ApplicationController
   # PUT /agents/1
   def update
       if @agent.update(agent_params)
-        redirect_to @agent
+        redirect_to agent_path(@agent)
       else
         render action: 'edit'
       end
