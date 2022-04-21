@@ -5,15 +5,15 @@
 
   %h2 Client
   = label_tag  'Retour de'
-  %input{:type=>"hidden", :value=>params[:client_id], :name=>:client_id}
-  = select_tag :client_id, options_from_collection_for_select(@clients, "id", "societe", params[:client_id].to_i), disabled: params[:client_id].present?, prompt: "-- Selectionnez un client --"
+  %input{:type=>"hidden", :value=>@client.id, :name=>:client_id}
+  = select_tag :client_id, options_from_collection_for_select(@clients, "id", "societe", @client.id), disabled: @client.id.present?, prompt: "-- Selectionnez un client --"
 
 
-  - if (params[:client_id] || "").length > 0
+  - if @client.id.present?
 
     %h2 Commande
 
-    = f.label :commande_id, 'Sur facture:'
+    = f.label :commande_id, 'Sur facture'
     = f.hidden_field :commande_id
     = f.collection_select :commande_id, @commandes, :id, :numero_facture, {prompt: "-- Selectionnez une facture --", selected: @retour.commande_id}, { disabled: (! @retour.commande_id.nil?)}
 
