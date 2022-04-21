@@ -47,7 +47,7 @@ class CommandesController < ApplicationController
         show_as_html: params[:debug].present? #true
     elsif params[:mode] == "validation"
       @commande.status=3
-      @avoir = @commande.avoirs_en_attente.where(status: 0).to_a.sum(&:total)
+      @avoir = @commande.client.avoirs_en_attente.to_a.sum(&:total)
       render 'show_validation'
      else
       render 'show'
