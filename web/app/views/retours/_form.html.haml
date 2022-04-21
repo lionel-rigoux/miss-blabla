@@ -3,24 +3,21 @@
 = form_for @retour, :method=>(@retour.id ? :put : :post) do |f|
   = f.hidden_field :id
 
-  - if @retour.client_id.nil?
-
-    %h2 Client
-
-    = f.label :client_id, 'Retour de'
-    = f.collection_select :client_id, Client.select(:id,:societe).load, :id, :societe, prompt: "-- Selectionnez un client --"
+  %h2 Client
+  = label_tag  'Retour de'
+  %input{:type=>"hidden", :value=>@client.id, :name=>:client_id}
+  = select_tag :client_id, options_from_collection_for_select(@clients, "id", "societe", @client.id), disabled: @client.id.present?, prompt: "-- Selectionnez un client --"
 
 
-  - else
+  - if @client.id.present?
 
-    %h2 Client
+    %h2 Commande
 
-    = f.label :client_id, 'Retour de'
-    = f.collection_select :client_id, Client.where(id: @retour.client_id).select(:id,:societe).load, :id, :societe
+    = f.label :commande_id, 'Sur facture'
+    = f.hidden_field :commande_id
+    = f.collection_select :commande_id, @commandes, :id, :numero_facture, {prompt: "-- Selectionnez une facture --", selected: @retour.commande_id}, { disabled: (! @retour.commande_id.nil?)}
 
-    %p= Client.find(@retour.client_id).societe
-    = f.hidden_field :client_id
-
+  - if @retour.commande_id
 
     %h2 Envoi
 

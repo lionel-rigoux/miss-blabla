@@ -41,6 +41,16 @@
       %td
       %td.total{colspan: 2} Total HT
       %td.total!= "#{prix(@retour.montant)}"
+    - if @retour.commande.escompte > 0
+      %tr.blank
+        %td.info="3% du Total HT pour paiment en 1 fois."
+        %td.total{colspan: 2} Escompte
+        %td.total!= "- #{prix(@retour.montant * @retour.commande.escompte)}"
+      %tr.blank
+        %td
+        %td.total{colspan: 2} Net HT
+        %td.total!= "#{prix(@retour.montant_net_ht)}"
+
     %tr.blank
       -if @retour.client.has_tva
         %td.info="Base TVA: 20.0\%"

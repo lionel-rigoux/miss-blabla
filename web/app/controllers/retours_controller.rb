@@ -2,21 +2,30 @@ class RetoursController < ApplicationController
 
   before_action :set_retour, only: [:show, :edit, :update, :destroy]
   before_action :set_catalogue, only: [:show, :create, :edit, :update]
+  before_action :set_clients, only: [:new, :create, :edit]
 
   def index
-    @retours = Retour.includes(:client)
+    @retours = Retour.includes(:commande => :client)
     render 'index'
   end
 
   def new
     @retour = Retour.new
+    @client = Client.new
   end
 
   def create
     @retour = Retour.new(retour_params)
+
+    if params[:client_id].present?
+      @client = Client.find(params[:client_id])
+      @commandes = Commande.where(client_id: params[:client_id]).where(status: [3,4])
+    else
+      @client = Client.new
+    end
     if @retour.quantite.nil?
-      if @retour.client_id
-        @retour.de_client(Client.find(@retour.client_id))
+      if @retour.commande_id
+        @retour.de_commande(Commande.find(@retour.commande_id))
         set_catalogue
       end
       render action: 'edit'
@@ -47,7 +56,10 @@ class RetoursController < ApplicationController
  end
 
  def edit
-   @retour.quantite += Retour.new.de_client(Client.find(@retour.client_id)).quantite
+   q_new = Retour.new.de_commande(Commande.find(@retour.commande_id)).quantite
+   q_new += @retour.quantite
+   @retour.quantite.detail = q_new.detail
+   @commandes = Commande.where(client_id: @retour.client.id).where(status: [3,4])
  end
 
  def update
@@ -56,7 +68,6 @@ class RetoursController < ApplicationController
       else
         render action: 'edit'
       end
-
   end
 
   def destroy
@@ -67,15 +78,19 @@ class RetoursController < ApplicationController
 
   def retour_params
     params.require(:retour).permit!
-    end
+  end
 
-       def set_catalogue
+  def set_catalogue
       @catalogue = Modele.catalogue
       @couleurs = Hash[Couleur.pluck(:id,:nom)]
-    end
+  end
 
-    def set_retour
-      @retour = Retour.where(id: params[:id]).includes(:quantite).first
-    end
+  def set_retour
+      @retour = Retour.where(id: params[:id]).includes(:quantite, :commande => :client).first
+      @client = @retour.client
+  end
 
+  def set_clients
+    @clients = Client.where(id: Commande.where(status: [3,6]).pluck(:client_id))
+  end
 end

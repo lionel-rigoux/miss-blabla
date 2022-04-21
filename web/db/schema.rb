@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200819115300) do
+ActiveRecord::Schema.define(version: 20220419140253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,13 +103,13 @@ ActiveRecord::Schema.define(version: 20200819115300) do
   end
 
   create_table "retours", id: :serial, force: :cascade do |t|
-    t.integer "client_id"
     t.float "frais_de_port"
     t.float "montant"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "status"
-    t.index ["client_id"], name: "index_retours_on_client_id"
+    t.bigint "commande_id"
+    t.index ["commande_id"], name: "index_retours_on_commande_id"
   end
 
   create_table "stocks", id: :serial, force: :cascade do |t|
@@ -127,4 +127,5 @@ ActiveRecord::Schema.define(version: 20200819115300) do
     t.index ["modele_id"], name: "index_versions_on_modele_id"
   end
 
+  add_foreign_key "retours", "commandes"
 end

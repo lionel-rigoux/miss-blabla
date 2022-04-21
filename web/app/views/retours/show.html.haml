@@ -8,7 +8,7 @@
     = link_to 'Supprimer', @retour, :method => :delete, :data => { :confirm => 'Etes-vous sur de vouloir supprimer ce retour ?' }
 
 %h2 Infos
-%p!= "Retour pour #{@retour.client.societe} d'un montant total de #{prix(@retour.total)} TTC."
+%p!= "Retour pour #{@retour.client.societe} sur la facture #{@retour.commande.numero_facture} d'un montant total de #{prix(@retour.total)} TTC."
 
 %h2 Statut
 %p

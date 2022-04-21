@@ -59,7 +59,7 @@
       %tr.blank
         %td.info="3% du Total HT pour paiment en 1 fois."
         %td.total{colspan: 2} Escompte
-        %td.total!= "- #{prix(@commande.escompte)}"
+        %td.total!= "- #{prix(@commande.montant * @commande.escompte)}"
       %tr.blank
         %td
         %td.total{colspan: 2} Net HT

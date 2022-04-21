@@ -23,6 +23,7 @@ class Commande < ApplicationRecord
   belongs_to :production
   has_one :quantite, as: :quantifiable, dependent: :destroy
   accepts_nested_attributes_for :quantite, allow_destroy: true
+  has_many :retours
 
   # validation
   validates_presence_of :client_id
@@ -123,11 +124,11 @@ class Commande < ApplicationRecord
   end
 
   def escompte()
-    (nombre_paiments == 1) ? montant()*0.03 : 0
+    (nombre_paiments == 1) ? 0.03 : 0
   end
 
   def montant_net_ht()
-    montant() - escompte()
+    montant() * (1 - escompte())
   end
 
     def tva()
@@ -143,7 +144,7 @@ class Commande < ApplicationRecord
   end
 
   def total
-    montant_ttc + (frais_de_port || 0) - (avoir || 0) 
+    montant_ttc + (frais_de_port || 0) - (avoir || 0)
   end
 
   def quantite_totale
@@ -163,10 +164,6 @@ class Commande < ApplicationRecord
 
   def self.nouveau_numero
     self.where(date_facturation: Time.new.beginning_of_year..Time.now).count + 1
-  end
-
-  def avoirs_en_attente
-    self.client.retours.where(status: 0)
   end
 
   def +(arg)

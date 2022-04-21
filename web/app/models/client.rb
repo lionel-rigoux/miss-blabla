@@ -22,7 +22,6 @@ class Client < ApplicationRecord
  # relations
  belongs_to :agent
  has_many :commandes
- has_many :retours
 
  # validations
  validates_presence_of :societe, :email, :telephone, :adresse_1, :adresse_2
@@ -78,6 +77,11 @@ class Client < ApplicationRecord
    iden += ["TVA: #{self.tva}"] unless self.tva.blank?
    iden.join(',')
 
+ end
+
+ def avoirs_en_attente
+   cs = self.commandes.collect() {|c| c.id}
+   Retour.where(commande_id: cs).where(status: 0)
  end
 
 
