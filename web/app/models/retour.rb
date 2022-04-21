@@ -4,12 +4,12 @@
 class Retour < ApplicationRecord
 
   # relations
-  belongs_to :client
+  belongs_to :commande
   has_one :quantite, as: :quantifiable, dependent: :destroy
   accepts_nested_attributes_for :quantite, allow_destroy: true
 
   # validation
-  validates_presence_of :client_id
+  validates_presence_of :commande_id
   validate :validations, :on => :create
   validates_numericality_of :frais_de_port, :greater_than_or_equal_to => 0
 
@@ -49,15 +49,12 @@ class Retour < ApplicationRecord
   end
  #delegation
  delegate :modeles, :versions, :de, to: :quantite
- delegate :societe, to: :client
+ delegate :client, to: :commande
 
- def de_client(client)
-   self.client = client;
+ def de_commande(commande)
+   self.commande = commande;
    self.quantite = Quantite.new
-      # load last commands
-      client.commandes.each do | commande |
-        self.quantite += commande.quantite;
-      end
+   self.quantite += commande.quantite;
       # set to zero
       self.quantite.modeles_ids.each do |modele_id|
         self.quantite.versions_ids(modele_id).each do |version_id|
@@ -69,13 +66,18 @@ class Retour < ApplicationRecord
      self
  end
 
-  def tva(*args)
-    client.has_tva ? montant(*args)*0.200 : 0
-  end
+ def montant_net_ht()
+   montant() * (1 - self.commande.escompte())
+ end
 
-  def montant_ttc(*args)
-    montant(*args)+tva(*args)
-  end
+ def tva()
+   client.has_tva ? montant_net_ht()*0.20 : 0
+ end
+
+ def montant_ttc()
+   montant_net_ht() + tva()
+ end
+ 
 
   def total
     montant_ttc + (frais_de_port || 0)
