@@ -66,13 +66,18 @@ class Retour < ApplicationRecord
      self
  end
 
-  def tva(*args)
-    client.has_tva ? montant(*args)*0.200 : 0
-  end
+ def montant_net_ht()
+   montant() * (1 - self.commande.escompte())
+ end
 
-  def montant_ttc(*args)
-    montant(*args)+tva(*args)
-  end
+ def tva()
+   client.has_tva ? montant_net_ht()*0.20 : 0
+ end
+
+ def montant_ttc()
+   montant_net_ht() + tva()
+ end
+ 
 
   def total
     montant_ttc + (frais_de_port || 0)

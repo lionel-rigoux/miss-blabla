@@ -124,11 +124,11 @@ class Commande < ApplicationRecord
   end
 
   def escompte()
-    (nombre_paiments == 1) ? montant()*0.03 : 0
+    (nombre_paiments == 1) ? 0.03 : 0
   end
 
   def montant_net_ht()
-    montant() - escompte()
+    montant() * (1 - escompte())
   end
 
     def tva()
