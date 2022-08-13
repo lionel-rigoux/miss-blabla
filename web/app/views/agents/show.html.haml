@@ -23,16 +23,26 @@
   %dl
     %dt= "Nb. de clients suivis"
     %dd= @agent.clients.count
-    %dt= "Performance totale"
+    %dt= "Performance HT"
     %dd
-      != prix(@agent.performance)
+      != prix(@agent.performance_net_ht)
+    %dt= "Performance TVA"
+    %dd
+      != prix(@agent.performance_tva)
+    %dt= "Performance TTC"
+    %dd
+      != prix(@agent.performance_ttc)
     %table.listing
       %tr
         %th Client
         %th{width: "50px;"} # commandes
-        %th{width: "100px;"} Net à payer
+        %th{width: "100px;"} Total HT
+        %th{width: "100px;"} Total TVA
+        %th{width: "100px;"} Total à payer
       - @agent.portefeuille.each do |client|
-        %tr
+        %tr{style: client[:nbCommandes] == 0 ? 'color:#AAA;' : nil}
           %td= client[:societe]
-          %td= client[:nbCommandes]
-          %td{class: "right"}!= prix(client[:total])
+          %td{class: "center"}= client[:nbCommandes]
+          %td{class: "right"}!= client[:nbCommandes] > 0 ? prix(client[:total_net_ht]) : '-'
+          %td{class: "right"}!= client[:nbCommandes] > 0 ? prix(client[:total_tva]) : '-'
+          %td{class: "right"}!= client[:nbCommandes] > 0 ? prix(client[:total_ttc]) : '-'

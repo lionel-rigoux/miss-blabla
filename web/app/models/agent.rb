@@ -27,18 +27,28 @@ class Agent < ApplicationRecord
   end
 
   def portefeuille
-    self.clients.collect { |c|
-      commandes = c.commandes.where(status: 3)
+    self.clients.collect { |client|
+      commandes = client.commandes.where(status: 3)
       {
-        societe: c.societe,
+        societe: client.societe,
         nbCommandes: commandes.count,
-        total: commandes.inject(0){|s,c| s+c.total}
+        total_net_ht: commandes.inject(0){|s,commande| s+commande.montant_net_ht},
+        total_tva: commandes.inject(0){|s,commande| s+commande.tva},
+        total_ttc: commandes.inject(0){|s,commande| s+commande.montant_ttc}
       }
     }
   end
 
-  def performance
-    self.portefeuille.inject(0){|s,c| s+c[:total]}
+  def performance_net_ht
+    self.portefeuille.inject(0){|s,c| s+c[:total_net_ht]}
+  end
+
+  def performance_tva
+    self.portefeuille.inject(0){|s,c| s+c[:total_tva]}
+  end
+
+  def performance_ttc
+    self.portefeuille.inject(0){|s,c| s+c[:total_ttc]}
   end
 
 end
