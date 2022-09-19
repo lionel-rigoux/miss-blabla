@@ -35,17 +35,31 @@ cat latest.dump | docker-compose exec -T db pg_restore -d myapp_development -U p
 docker-compose stop db
 ```
 
+docker exec -i miss-blabla-db-1 pg_restore --verbose --clean --no-acl --no-owner -U postgres -d myapp_development < xxx.dump
+
+docker exec -i miss-blabla-db-1 pg_restore -U postgres --verbose --clean --no-acl --no-owner -h localhost -d myapp_development < db_backup_file
+
+
 ## Maintenance
 
 ### Generate archive
 
-Get database dump and load in the dev database, then run
+**Online**
+
+```
+heroku run -a miss-blabla sh
+bundle exec rake archive
+curl -F "file=@/web/tmp/media/archive.zip" https://file.io
+```
+
+This will generate a zip archive with all the invoice and returns as pdfs in `/web/tmp/media`. As the filesystem in the dyno is ephemeral, `heroku ps:copy` will not work, hence the upload trick. Use the `link` in the results to download the archive.
+
+**Locally**
 
 ```
 docker-compose run web bundle exec rake archive
 ```
 
-This will generate a zip archive with all the invoice and returns as pdfs in `/web/tmp/media`.
 
 ### Reset all
 

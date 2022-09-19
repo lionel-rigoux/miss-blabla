@@ -61,9 +61,12 @@ RUN sudo chown -R ${APP_USER}:${APP_GROUP} ./
 
 # compile assets if necessary
 RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:clean
 
 # allow to execute migration tasks
 RUN sudo chmod u+x ./release-tasks.sh
 
 # clean up
 RUN sudo apk del .build-deps
+
+CMD ["bundle", "exec", "puma"]
