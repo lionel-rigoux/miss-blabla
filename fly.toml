@@ -1,14 +1,16 @@
-# fly.toml file generated for miss-blabla on 2022-09-19T22:14:16+02:00
+# fly.toml file generated for miss-blabla on 2022-09-20T17:56:29+02:00
 
 app = "miss-blabla"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[env]
-  R_ENV = "production"
-  RAILS_ENV = "production"
-  RAKE_ENV = "production"
+[build]
+  [build.args]
+    R_ENV = "production"
+
+[deploy]
+  release_command = "./release-tasks.sh"
 
 [experimental]
   allowed_public_ports = []
@@ -16,7 +18,7 @@ processes = []
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 3000
   processes = ["app"]
   protocol = "tcp"
   script_checks = []

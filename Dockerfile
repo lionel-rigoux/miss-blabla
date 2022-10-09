@@ -10,6 +10,8 @@ ENV RAKE_ENV=$R_ENV
 ENV RAILS_ENV=$R_ENV
 ENV TERM=dumb
 
+RUN echo $R_ENV > R_ENV
+
 # install core
 RUN apk update \
  && apk add \
