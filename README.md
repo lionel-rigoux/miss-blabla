@@ -1,44 +1,71 @@
+# Miss Blabla
 
+## Production
 
+### Deploy to Fly.io
 
-## Usage
+After starting Docker desktop for local building:
 
+```sh
+flyctl deploy  --local-only
 ```
+
+### Backup production db
+
+Proxy distant db:
+
+```sh
+flyctl proxy 5432 -a miss-blabla-db &
+```
+
+Recover db secret url:
+
+```sh
+# Log in to the VM
+flyctl ssh console
+# display internal url
+echo $DATABASE_URL
+# > postgres://miss_blabla:<password>@<server>.miss-blabla-db.internal:5432/miss_blabla
+```
+
+Copy the password and exit the ssh session (ctrl-D).
+
+Download a dump of the current state
+
+```sh
+pg_dump --verbose  --no-acl --clean \
+  -d postgres://miss_blabla:<password>@localhost:5432/miss_blabla  
+  -f ./latest.dump
+```
+
+## Development
+
+### Start local VM
+
+```sh
 docker-compose up -d && docker attach $(docker-compose ps -q web)
 ```
 
-## Initialisation of the database
+### Initialisation of local database
 
 Before the first use, run:
 
-```
+```sh
 docker-compose up -d db
 docker-compose run --entrypoint "" web rake db:setup
 docker-compose stop db
 ```
 
-## Seeding the database from production
-
-Get dump from heroku
-
-```
-heroku pg:backups:capture --app miss-blabla
-heroku pg:backups:download --app miss-blabla
-```
+### Seeding the database from production
 
 Load in the dev database
 
-```
+```sh
 docker-compose up -d db
 docker-compose run web rake db:reset
-cat latest.dump | docker-compose exec -T db pg_restore -d myapp_development -U postgres
+cat latest.dump | docker-compose exec -T db psql  myapp_development -U postgres
 docker-compose stop db
 ```
-
-docker exec -i miss-blabla-db-1 pg_restore --verbose --clean --no-acl --no-owner -U postgres -d myapp_development < xxx.dump
-
-docker exec -i miss-blabla-db-1 pg_restore -U postgres --verbose --clean --no-acl --no-owner -h localhost -d myapp_development < db_backup_file
-
 
 ## Maintenance
 
@@ -46,8 +73,10 @@ docker exec -i miss-blabla-db-1 pg_restore -U postgres --verbose --clean --no-ac
 
 **Online**
 
-```
-heroku run -a miss-blabla sh
+> TODO: use fly volumes
+
+```sh
+flyctl ssh console
 bundle exec rake archive
 curl -F "file=@/web/tmp/media/archive.zip" https://file.io
 ```
@@ -56,13 +85,14 @@ This will generate a zip archive with all the invoice and returns as pdfs in `/w
 
 **Locally**
 
-```
+```sh
 docker-compose run web bundle exec rake archive
 ```
 
 
 ### Reset all
 
-```
-heroku run --app miss-blabla bundle exec rake wipe_all
+```sh
+flyctl ssh console
+bundle exec rake wipe_all
 ```
