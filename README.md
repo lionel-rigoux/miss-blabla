@@ -4,9 +4,11 @@
 
 ### Deploy to Fly.io
 
-After starting Docker desktop for local building:
+
 
 ```sh
+colima start
+export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 flyctl deploy  --local-only
 ```
 
@@ -34,7 +36,8 @@ Download a dump of the current state
 
 ```sh
 pg_dump --verbose  --no-acl --clean \
-  -d postgres://miss_blabla:<password>@localhost:5432/miss_blabla  
+  --format=custom \
+  -d postgres://miss_blabla:<password>@localhost:5432/miss_blabla \ 
   -f ./latest.dump
 ```
 
@@ -63,7 +66,7 @@ Load in the dev database
 ```sh
 docker-compose up -d db
 docker-compose run web rake db:reset
-cat latest.dump | docker-compose exec -T db psql  myapp_development -U postgres
+docker exec -i $(docker-compose ps -q db) pg_restore --verbose --clean --no-acl --no-owner -U postgres -d myapp_development < latest.dump
 docker-compose stop db
 ```
 
@@ -89,6 +92,7 @@ This will generate a zip archive with all the invoice and returns as pdfs in `/w
 docker-compose run web bundle exec rake archive
 ```
 
+This will generate the archive in `web/tmp/media`.
 
 ### Reset all
 
